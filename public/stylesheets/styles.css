@@ -1,0 +1,106 @@
+/* Gerais */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    padding: 60px 0;
+}
+
+p, li {
+    color: #444;
+    font-size: 14px;
+}
+
+/* Barra de navegação */
+header, .navbar {
+    background-color: #f2f2f2;
+}
+
+#nav-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#logo {
+    width: 160px;
+}
+
+.nav-brand {
+    padding: 0;
+    color: #FFF;
+}
+
+#navbar-links a{
+    color: #6bbcff;
+    font-weight: bold;
+}
+
+#navbar-links a:hover{
+    color: #fff;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 1rem .8rem;
+}
+
+/* main */
+
+.container-fluid .row {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.service-box h2 {
+    font-size: 250%;
+    font-weight: bold;
+}
+
+.service-box h4:hover {
+    color: #6bbcff;;
+}
+
+.service-box h2:hover {
+    color: #6bbcff;;
+}
+
+.service-box h5:hover {
+    color: #6bbcff;;
+}
+
+.area-btn h3:hover {
+    color: #6bbcff;;
+}
+
+.area-btn button {
+    background-color: #6bbcff;
+    color: #fff;
+    border: 2px solid #6bbcff;
+    border-radius: 18.8px;
+    font-weight: bold;
+}
+
+/* footer */
+.area-footer .row {
+    height: 60px;
+    background-color: #f2f2f2;
+}
+
+.area-footer .col-md-12 {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area-footer .col-md-12 .img-footer {
+    height: 45px;
+    width: 38px;
+    position: absolute;
+    margin-left: 460px;
+}
