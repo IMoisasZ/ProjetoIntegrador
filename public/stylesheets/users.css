@@ -1,0 +1,12 @@
+/* form cadastroUsuario */
+.form-cadastrarUsuario .input-group-text {
+    background-color: transparent;
+    border-right: transparent;
+    border-radius: 25% 0% 0% 25%;  
+}
+
+.form-cadastrarUsuario #autoSizingInputGroup {
+    border-left: transparent;
+    border: transparent solid solid solid;
+    border-radius: 0% 10px 10px 0%; 
+}

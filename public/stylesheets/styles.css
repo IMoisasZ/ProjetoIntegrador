@@ -104,3 +104,8 @@ header, .navbar {
     position: absolute;
     margin-left: 460px;
 }
+
+.form-cadastrarUsuario .input-group-text {
+    background-color: transparent;
+    border-right: 0px solid #fff;
+}
