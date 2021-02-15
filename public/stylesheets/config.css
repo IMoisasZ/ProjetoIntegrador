@@ -115,7 +115,7 @@
     text-align: center;
     color: #fff;
     font-weight: bold;
-    padding-top: 12px;
+    padding-top: 4px;
   }
 
   #tempo-qtde-ensinando {
@@ -128,6 +128,36 @@
     border: transparent;
     border-radius: 15px;
     text-align: center; 
+    color: #fff;
+    font-weight: bold;
+    padding-top: 4px;
+  }
+
+  #tempo-qtde-aprendendo-e {
+    width: 146px;
+    height: 46px;
+    left: 525px;
+    top: 478px;
+    margin: 0px 58px 22px 59px;
+    background: #6BBCFF;
+    border: transparent;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding-top: 12px;
+  }
+
+  #tempo-qtde-ensinando-e {
+    width: 146px;
+    height: 46px;
+    left: 525px;
+    top: 478px;
+    margin: 0px 58px 22px 59px;
+    background: #6BBCFF;
+    border: transparent;
+    border-radius: 15px;
+    text-align: center;
     color: #fff;
     font-weight: bold;
     padding-top: 12px;
