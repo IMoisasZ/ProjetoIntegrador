@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    /* colors */
+    --first-color: #6bbcff;
+    --first-color-dark: #3fa7fc;
+    --first-color-darkest: #00335E;
+    --first-color-light: #9BA2AA;
+    --first-color-lighten: #f2f2f2;
+    --first-color-lighter: #fafafa;
+
+    /* fonts */
+    --main-font: 'Luckiest Guy', cursive;
+    --body-font: 'Poppins', sans-serif;
+  
+    --h1-font-size: 1.7rem;
+    --small-font-size: 0.938rem;
+    --normal-font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --normal-font-size: 1.1rem;
+    --small-font-size: 0.875rem;
+  }
+}
+
+.home-icon {
+  font-size: 2rem;
+  color: var(--first-color);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  height: 0vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/*===== main =====*/
+
+.main-content {
+  display: grid;
+  grid-template-columns: 100%;
+  height: 100vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.main-img img {
+  width: 310px;
+  margin-top: 1.5rem;
+}
+
+.main-box {
+  position: relative;
+  height: 368px;
+}
+
+.main-todo {
+  position: absolute;
+  bottom: 50px;
+  width: 90%;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--first-color-lighten);
+  box-shadow: 0 8px 20px rgba(35, 0, 77, 0.2);
+}
+
+.main-title {
+  color: var(--first-color-darkest);
+  font-size: var(--h1-font-size);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.main-buttons {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-button {
+    padding: 1rem;
+    background-color: var(--first-color);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: 0.3s;
+    width: 170px;
+    height: 60px;
+    font-size: var(--normal-font-size);
+}
+
+.second-button {
+  background-color: var(--first-color);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 15px;
+  transition: 0.3s;
+  width: 170px;
+  height: 60px;
+  font-size: var(--normal-font-size);
+}
+
+.main-button:hover {
+  background-color: var(--first-color-dark);
+}
+
+
+
+/* ===== MEDIA QUERIES =====*/
+@media screen and (min-width: 576px) {
+  .main-box {
+    width: 348px;
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  /* .main { */
+    /* height: 100vh; */
+    /* overflow: hidden; */
+  /* } */
+
+  .main-content {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    margin-left: 10rem;
+  }
+
+  .main-img {
+    display: flex;
+    width: 600px;
+    height: 588px;
+    background-color: var(--first-color-lighter);
+    border-radius: 1rem;
+    justify-content: center;
+  }
+
+  .main-img img {
+    width: 600px;
+    margin-top: 0;
+  }
+
+  .main-todo{
+    right: -2rem;
+  }
+
+}
+
+#footer-users {
+  margin-top: -110px;
+}

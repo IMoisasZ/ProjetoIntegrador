@@ -1,0 +1,83 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header-main') %>
+  <main><br><br>
+
+    <div class="main-content-config">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-box cards d-block">
+              <h3 class="title">estatísticas & configurações</h3>
+              <div class="card-box tempo-aprendendo d-block mt-3">
+                <div class="card-box">
+                    <p class="txt-aprendendo">tempo aprendendo</p>
+                    <p id="tempo-qtde-aprendendo">8 horas</p>
+                </div>
+              </div>
+              <div class="card-box tempo-ensinando d-block">
+                <div class="card-box">
+                    <p class="txt-ensinando">tempo ensinando</p>
+                    <p id="tempo-qtde-ensinando">8 horas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-md-6">
+              <form action="" class="form-config" id="form-config">
+                <div class="area-config">
+                  <div class="config-box">
+                    <i class="bx bx-user config-icon"></i>
+                    <input type="text" placeholder="alterar nome" class="config-name-input" />
+                  </div>
+  
+                  <div class="config-box">
+                    <i class="bx bx-at login-icon"></i>
+                    <input type="text" placeholder="alterar usuario" class="config-usuario-input" />
+                  </div>
+  
+                  <div class="login-box">
+                    <i class="bx bx-lock-alt login-icon"></i>
+                    <input type="password" placeholder="alterar senha" class="config-senha-input" />
+                  </div>
+  
+                  <div class="btn d-flex">
+                    <div class="button-salvar">
+                      <a href="#"><button class="btn mt-3 config-button">salvar</button></a>
+                    </div>
+    
+                    <div class="button-cancelar">
+                      <a href="#"><button class="btn mt-3 config-button">cancelar</button></a>
+                    </div>
+                  </div>
+                  <div class="button-excluir-conta d-flex">
+                    <a href="#"><button class="btn mt-3 excluir-conta-button">excluir conta</button></a>
+                  </div>
+                </div>
+                <div class="area-imagem-excluir">
+                  <div class="card-box fundo-branco-imagem">
+                    <h3 class="title-excluir-conta">deseja mesmo excluir a conta?</h3>
+                    <div class="card-box fundo-cinza-imagem">
+                      <img src="/images/newsad.svg" alt="imagem-config" class="img-excluir-conta">
+                      <div class="btn-excluir-conta">
+                        <a href="/"><span class="btn mt-3 config-button-excluir-conta">excluir</span></a>
+                        <a href="/main/config"><span class="btn mt-3 config-button-excluir-conta">cancelar</span></a>
+                      </div>
+                  </div>
+                  </div>
+                </div>  
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <%- include('./partials/footer-config') %>
+  <script src="/scripts/script.js"></script>
+  </body>
+</html>
+
+

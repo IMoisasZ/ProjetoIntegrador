@@ -1,0 +1,65 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+
+  <main>
+
+    <div class="login">
+      <div class="login-content">
+        <div class="login-img">
+          <img src="/images/login.svg" alt="entrar" />
+        </div>
+
+        <div class="login-forms">
+
+          <form action="" class="login-create" id="login-up">
+            <h1 class="login-title">criar conta</h1>
+
+            <div class="login-box">
+              <i class="bx bx-user login-icon"></i>
+              <input type="text" placeholder="usuário" class="login-input" />
+            </div>
+
+            <div class="login-box">
+              <i class="bx bx-at login-icon"></i>
+              <input type="text" placeholder="email" class="login-input" />
+            </div>
+
+            <div class="login-box">
+              <i class="bx bx-lock-alt login-icon"></i>
+              <input type="password" placeholder="senha" class="login-input" />
+            </div>
+
+            <div class="button-signup">
+              <a href="/users/signUp"><button class="btn mt-3 login-button">cadastrar</button></a>
+            </div>
+
+            <div>
+              <span class="login-account">já tem uma conta?</span><br>
+              <a href="/users/signIn"><span class="login-signup" id="sign-in">entrar</span></a>
+            </div>
+
+            <div class="login-social">
+              <a href="" class="login-social-icon">
+                <i class="bx bxl-github" style='color:#00335e'></i>
+              </a>
+              <a href="" class="login-social-icon">
+                <i class="bx bxl-google" style='color:#00335e'></i>
+              </a>
+              <a href="" class="login-social-icon">
+                <i class='bx bxl-facebook' style='color:#00335e'></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <%- include('./partials/footer-users') %>
+
+  </body>
+</html>
+
+

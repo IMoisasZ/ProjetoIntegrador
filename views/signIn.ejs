@@ -1,0 +1,51 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+
+  <main>
+
+    <div class="login">
+      <div class="login-content">
+        <div class="login-img">
+          <img src="/images/login.svg" alt="entrar" />
+        </div>
+
+        <div class="login-forms">
+
+          <form action="" class="login-registre" id="login-in">
+            <h1 class="login-title">entrar</h1>
+
+            <div class="login-box">
+              <i class="bx bx-user login-icon"></i>
+              <input type="text" placeholder="usuário" class="login-input" />
+            </div>
+
+            <div class="login-box">
+              <i class="bx bx-lock login-icon"></i>
+              <input type="password" placeholder="senha"class="login-input"/>
+            </div>
+
+            <a href="#" class="login-forgot">esqueceu a senha?</a>
+
+            <div class="button-signup">
+              <a href="#"><button class="btn mt-3 login-button">entrar</button></a>
+            </div>
+
+            <div>
+              <span class="login-account">não tem uma conta?</span><br>
+              <a href="/users/signUp"><span class="login-signin" id="sign-up">cadastre-se</span></a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <%- include('./partials/footer-users') %>
+
+  </body>
+</html>
+
+

@@ -1,111 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    /* colors */
+    --first-color: #6bbcff;
+    --first-color-dark: #3fa7fc;
+    --first-color-darkest: #00335E;
+    --first-color-light: #9BA2AA;
+    --first-color-lighten: #f2f2f2;
+
+    /* fonts */
+    --main-font: 'Luckiest Guy', cursive;
+    --body-font: 'Poppins', sans-serif;
+}
+    
 /* Gerais */
 body {
-    font-family: 'Poppins', sans-serif;
-}
-
-.row {
-    margin: 0;
+    font-family: var(--body-font);
 }
 
 .container {
-    padding: 60px 0;
-}
-
-p, li {
-    color: #444;
-    font-size: 14px;
+    padding: 60px 0 20px 0;
+    /* width: min(80vw, 1500px); */
 }
 
 /* Barra de navegação */
-header, .navbar {
-    background-color: #f2f2f2;
-}
-
-#nav-container {
-    padding-top: 0;
-    padding-bottom: 0;
+.navItens {
+    justify-content: flex-end;
 }
 
 #logo {
-    width: 160px;
+    width: 175px;
+    height: 40px;
 }
 
-.nav-brand {
-    padding: 0;
-    color: #FFF;
+.navbar {
+    background-color:var(--first-color-lighten);
 }
 
-#navbar-links a{
-    color: #6bbcff;
+.navbar-light .navbar-nav .nav-link {
+    color: var(--first-color);
     font-weight: bold;
-}
-
-#navbar-links a:hover{
-    color: #fff;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding: 1rem .8rem;
 }
 
 /* main */
 
-.container-fluid .row {
+.container-fluid {
     display: flex;
-    align-items: center;
+}
+.main-img{
+    width: 870px;
+    height: 624px;    
+}
+
+.main-text {
+    text-align: center;
+    margin-top: 200px;
+}
+
+.btn-area {
+    width: 100%;
+    text-align: center;
+    margin-top: -3%;
+}
+
+.btn-area button {
+    background-color: var(--first-color);
+    color: white;
+    border: none;
+    border-radius: 18.8px;
+    font-weight: bold;
+    width: 9rem;
+    height: 3rem;
+    font-size: 1.3rem;
+    justify-items: center;
+}
+
+
+.btn-area h3 {
     text-align: center;
 }
 
-.service-box h2 {
-    font-size: 250%;
-    font-weight: bold;
-}
-
-.service-box h4:hover {
-    color: #6bbcff;;
-}
-
-.service-box h2:hover {
-    color: #6bbcff;;
-}
-
-.service-box h5:hover {
-    color: #6bbcff;;
-}
-
-.area-btn h3:hover {
-    color: #6bbcff;;
-}
-
-.area-btn button {
-    background-color: #6bbcff;
-    color: #fff;
-    border: 2px solid #6bbcff;
-    border-radius: 18.8px;
-    font-weight: bold;
-}
-
 /* footer */
+footer {
+    margin-top: 163px;
+}
+
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .area-footer .row {
     height: 60px;
-    background-color: #f2f2f2;
+    background-color: var(--first-color-lighten);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px; 
 }
 
 .area-footer .col-md-12 {
-    
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-left: 0px;
 }
 
 .area-footer .col-md-12 .img-footer {
     height: 45px;
-    width: 38px;
+    width: 45px;
     position: absolute;
     margin-left: 460px;
 }
 
-.form-cadastrarUsuario .input-group-text {
-    background-color: transparent;
-    border-right: 0px solid #fff;
+.texto-footer {
+    color: var(--first-color-light);
+    margin: 0;
 }
+
