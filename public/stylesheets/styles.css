@@ -19,11 +19,14 @@ body {
 }
 
 .container {
-    padding: 60px 0 20px 0;
-    /* width: min(80vw, 1500px); */
+    padding: 60px 0px 20px 0px;
 }
 
 /* Barra de navegação */
+header{
+    width: 100%;
+} 
+
 .navItens {
     justify-content: flex-end;
 }
@@ -33,8 +36,20 @@ body {
     height: 40px;
 }
 
+.navbar-brand{
+    margin-left: 14%;
+}
+
+nav{
+    border-radius: 0px 0px 25px 25px;
+}
+
 .navbar {
     background-color:var(--first-color-lighten);
+}
+
+.navbar-nav{
+    margin-right: 14%;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -48,13 +63,28 @@ body {
     display: flex;
 }
 .main-img{
-    width: 870px;
-    height: 624px;    
+    width: 700px;
+    height: 480px; 
+    margin-left: 5%; 
 }
 
 .main-text {
     text-align: center;
-    margin-top: 200px;
+    margin-top: 20vh;
+    margin-right: 5%;
+    padding-left: 3%;
+}
+
+.main-text h2,
+.main-text h4,
+.main-text h5 {
+    width: 450px;
+}
+
+.main-text h2:hover,
+.main-text h4:hover,
+.main-text h5:hover {
+    color: var(--first-color-dark)
 }
 
 .btn-area {
@@ -63,7 +93,7 @@ body {
     margin-top: -3%;
 }
 
-.btn-area button {
+.btn-area a button {
     background-color: var(--first-color);
     color: white;
     border: none;
@@ -75,44 +105,40 @@ body {
     justify-items: center;
 }
 
-
 .btn-area h3 {
+    margin-top: 1%;
     text-align: center;
+}
+
+.btn-area h3:hover{
+    color: var(--first-color-dark);
 }
 
 /* footer */
 footer {
-    margin-top: 163px;
+    margin-top: 1.6%;
 }
 
-.container-fluid {
-    padding-left: 0px;
-    padding-right: 0px;
+.footer .container-fluid{
+    padding: 0%;
 }
 
-.area-footer .row {
-    height: 60px;
-    background-color: var(--first-color-lighten);
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px; 
-}
-
-.area-footer .col-md-12 {
+.area-footer{
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-left: 0px;
+    background-color: var(--first-color-lighten);
+    width: 100%;
+    border-radius: 25px 25px 0px 0px;
 }
 
-.area-footer .col-md-12 .img-footer {
+.texto-footer{
+    margin-left: 10%;
+    color: var(--first-color-light);
+}
+
+.img-footer {
     height: 45px;
     width: 45px;
-    position: absolute;
-    margin-left: 460px;
-}
-
-.texto-footer {
-    color: var(--first-color-light);
-    margin: 0;
+    margin-left: 59%;
 }
 
