@@ -6,7 +6,22 @@
     bottom: 1rem;
     width: 61%;
     background-color: var(--first-color-lighten);
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(35, 0, 77, 0.2);
+    animation-duration: 0.4s;
+    animation-name: animate-login;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #form-config-delete{
+    /* position: absolute; */
+    bottom: 1rem;
+    width: 61%;
+    background-color: var(--first-color-lighten);
+    padding: 4.3rem 1rem;
     border-radius: 1rem;
     text-align: center;
     box-shadow: 0 8px 20px rgba(35, 0, 77, 0.2);
@@ -52,9 +67,10 @@
   }
   .cards {
     width: 399px;
-    height: 420px;
-    margin-top: 140px;
+    height: 410px;
+    margin-top: 0px;
     margin-left: 35%;
+    margin-bottom: 10px;
     background-color: #f2f2f2;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -197,6 +213,7 @@
     left: 701px;
     top: 500px;
     margin-left: 25px;
+    display: none;
   }
 
   .img-excluir-conta {
@@ -247,5 +264,7 @@
   }
 
   #footer-config {
-    margin-top: -58px;
+    margin-top: -12px;
   }
+
+  

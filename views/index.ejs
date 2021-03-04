@@ -3,18 +3,24 @@
 <%- include('./partials/header') %>
 
   <main>
-      <div class="container-fluid">
-        <img class="main-img img-fluid" src="/images/main-img.svg" alt="imagem-principal">
-        <div class="main-text">
-          <h4 class="texto-explicativo">aprenda e compartilhe seus conhecimentos em tecnologias</h4>  <br>
-          <h2 class="texto-explicativo mt-3">usando o tempo como moeda</h2>
-          <h5 class="texto-explicativo mt-5">CODE & SHARE & LEARN</h5>
-        </div>
+    <section class="main-area">
+      <div class="main-img">
+        <img src="/images/main-img.svg" alt="imagem-principal">
       </div>
-    <div class="btn-area">
-        <h3>faça parte agora e receba créditos para iniciar</h3>
-        <a href="/users/signUp"><button class="btn btn-primary mt-3 add-btn">cadastrar</button></a>
-    </div>
+      <div class="main-text">
+        <h4 class="text-learn">aprenda e compartilhe seus conhecimentos em tecnologias</h4>
+        <h2 class="text-pay">usando o tempo como moeda</h2>
+        <h5 class="text-code">CODE & SHARE & LEARN</h5>
+      </div>  
+    </section>
+    <div class="area-btn">
+      <h3>faça parte agora e receba créditos para iniciar</h3>
+      <a href="users/signUp"><button class="btn cadastrar">cadastrar</button></a>
+      <div class="card mobile">
+        <a href="#"><button class="btn">cadastrar</button></a>
+        <a href="#"><button class="btn">entrar</button></a>
+      </div>
+    </div>  
   </main>
 
   <%- include('./partials/footer') %>

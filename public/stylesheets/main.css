@@ -53,10 +53,10 @@ a {
   margin-right: 1.5rem;
 }
 
-.main-img img {
+/* .main-img img {
   width: 310px;
   margin-top: 1.5rem;
-}
+} */
 
 .main-box {
   position: relative;
@@ -65,7 +65,7 @@ a {
 
 .main-todo {
   position: absolute;
-  bottom: 50px;
+  bottom: 80px;
   width: 90%;
   padding: 2rem 1rem;
   border-radius: 1rem;
@@ -139,14 +139,14 @@ a {
     margin-left: 10rem;
   }
 
-  .main-img {
+  /* .main-img {
     display: flex;
     width: 600px;
     height: 588px;
     background-color: var(--first-color-lighter);
     border-radius: 1rem;
     justify-content: center;
-  }
+  } */
 
   .main-img img {
     width: 600px;
@@ -159,6 +159,29 @@ a {
 
 }
 
-#footer-users {
-  margin-top: -110px;
+footer {
+  margin-top: -100px;
+  position: absolute;
+  width: 100%;
 }
+
+.appoints {
+  color: #9BA2AA;
+}
+
+.advanced {
+  margin-bottom: 5.00rem;
+  bottom: -10rem;
+  margin-right: 8rem;
+  box-shadow: none;
+}
+
+p {
+margin-bottom: 0rem;
+}
+
+/* arrumando as páginas do jp
+.jp {
+
+}
+*/
