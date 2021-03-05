@@ -54,6 +54,7 @@ header {
     align-items: center;
     width: 100%;
     border-radius: 0px 0px 25px 25px;
+    position: absolute;
 }
 
 header #logo{
@@ -105,6 +106,7 @@ header nav ul li{
     max-width: 870px;
     border-radius: 0px;
     height: 70vh;
+    margin-top: 15%;
 }
 
 .main-text{
@@ -218,7 +220,92 @@ footer .img-footer {
 }
 
 /* responsividade */
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1440px){
+    /* main */
+    .main-area {
+        display: flex;
+        flex-direction: row;
+        margin: 0px 0px 0px 134px;
+    }
+
+    .main-area .main-img{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin-top: 0%;
+    }
+
+    .main-text{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 35px 160px 0px 0px;
+        height: 100%;
+    }
+
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        margin-top: 10px;
+        padding-top: 40px;
+        width: 400px;
+    }
+
+    .main-text .text-learn{
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    .main-text .text-pay{
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .main-text .text-code{
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .main-text .text-learn:hover,
+    .main-text .text-pay:hover,
+    .main-text .text-code:hover {
+        color: var(--first-color-dark);
+    }
+
+    /* area saiba mais btn */
+    .mobile{
+        display: none;
+        margin: 0%;
+        padding: 0%;
+    }
+    .area-btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: -60px;
+        height: 100%;
+    }
+
+    .area-btn h3{
+        margin: 60px 0px -5px 0px;
+    }
+
+    .area-btn h3:hover{
+        color: var(--first-color-dark);
+    }
+
+    .area-btn .btn{
+        margin-top: 30px;
+    }
+
+    .area-btn .btn:hover{
+        background-color: var(--first-color-dark);
+    }
+}
+
+@media screen and (max-width: 768px){
     /* Barra de navegação */
     header {
         height: 30vh;
@@ -257,7 +344,8 @@ footer .img-footer {
     }
 
     .main-img img{
-        height: 70vh;
+        height: 40vh;
+        margin-top: 10%;
     }
 
     .main-area .main-img{
@@ -265,14 +353,14 @@ footer .img-footer {
         height: 100%;
         max-height: 100px;
         width: 100%;
-        max-width: 767px;
+        max-width: 768px;
     }
 
     .main-text{
         display: flex;
         flex-direction: column;
         text-align: center;
-        margin: 33% 0% 0% 0%;
+        margin: 45% 0% 0% 0%;
         padding: 0%;
     }
 
@@ -284,13 +372,13 @@ footer .img-footer {
     }
 
     .main-text .text-learn{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
+        font-size: clamp(1.3em, 1.3em + 1.3vw, 1.7em);
         font-weight: 500;
         padding: 0%;
     }
 
     .main-text .text-pay{
-        font-size: clamp(2.1em, 1.5em + 1.5vw, 2em);
+        font-size: clamp(3em, 3em + 3vw, 3.2em);
         font-weight: 700;
         padding: 0%;
     }
@@ -307,8 +395,8 @@ footer .img-footer {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 70%;
-        margin: 66% 0% 0% 0%;
+        width: 40%;
+        margin: 93% 0% 0% 0%;
         background: #F2F2F2;
         border: 1,94px solid #000000;
         box-shadow: 0px 7.746835708618164px 9.683544158935547px 4.841772079467773px #000000 10%;
@@ -390,7 +478,7 @@ footer .img-footer {
     }
 
     .main-text {
-        margin-top: 35%;
+        margin-top: 50%;
     }
     .main-text .text-learn,
     .main-text .text-pay,
@@ -418,7 +506,7 @@ footer .img-footer {
         justify-content: center;
         align-items: center;
         width: 50%;
-        margin: 50% 0% 0% 0%;
+        margin: 73% 0% 0% 0%;
         background: #F2F2F2;
         border: 1,94px solid #000000;
         box-shadow: 0px 7.746835708618164px 9.683544158935547px 4.841772079467773px #000000 10%;
@@ -464,223 +552,11 @@ footer .img-footer {
 @media screen and (max-width: 414px){
     .main-img img{
         height: 45vh;
+        margin-top: 10%;
     }
 
     .main-text {
-        margin-top: 35%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 5%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 60%;
-        margin: 65% 0% 0% 0%;
-    }
-}
-
-@media screen and (max-width: 411px) and (height: 731px) {
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 35%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 5%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 60%;
-        margin: 65% 0% 0% 0%;
-    }
-}
-
-@media screen and (max-width: 411px) and (height: 823px) {
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 40%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 5%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 60%;
-        margin: 75% 0% 0% 0%;
-    }
-}
-
-@media screen and (max-width: 360px){
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 30%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 3%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1.2em, 1.2em + 1.2vw, 1.2em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(1.8em, 2em + 2vw, 1.8em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 65%;
-        height: 22vh;
-        margin: 37% 0% 0% 0%;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 28%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 2%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(2em, 1.5em + 1.5vw, 1.5em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 70%;
-        height: 20vh;
-        margin: 25% 0% 0% 0%;
-        padding: 0;
-    }
-
-    .area-btn .btn{
-        height: 80%;
-        padding: 5px;
-    }
-}
-
-@media screen and (max-width: 375px) and (height: 667px) {
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 30%;
-    }
-    .main-text .text-learn,
-    .main-text .text-pay,
-    .main-text .text-code{
-        width: 100%;
-        margin-top: 5%;
-    }
-
-    .main-text .text-learn{
-        font-size: clamp(1.4em, 1.1em + 1.4vw, 1.1em);
-    }
-
-    .main-text .text-pay{
-        font-size: clamp(2em, 2em + 2vw, 2.4em); 
-    }
-
-    .main-text .text-code{
-        font-size: clamp(1em, 1em + 1vw, 1.5em);
-    }
-
-    /* area cadastro btn */
-    .mobile {
-        width: 60%;
-        height: 20vh;
-        margin: 53% 0% 0% 0%;
-    }
-}
-
-@media screen and (max-width: 375px) and (height: 812px) {
-    .main-img img{
-        height: 45vh;
-    }
-
-    .main-text {
-        margin-top: 40%;
+        margin-top: 45%;
     }
     .main-text .text-learn,
     .main-text .text-pay,
@@ -708,12 +584,231 @@ footer .img-footer {
     }
 }
 
+@media screen and (max-width: 411px) and (height: 731px) {
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%;
+    }
+
+    .main-text {
+        margin-top: 45%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 60%;
+        margin: 88% 0% 0% 0%;
+    }
+}
+
+@media screen and (max-width: 411px) and (height: 823px) {
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%;
+    }
+
+    .main-text {
+        margin-top: 55%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 60%;
+        margin: 100% 0% 0% 0%;
+    }
+}
+
+@media screen and (max-width: 375px) and (height: 667px) {
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%;
+    }
+
+    .main-text {
+        margin-top: 45%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1.4em, 1.1em + 1.4vw, 1.1em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(2em, 2em + 2vw, 2.4em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 60%;
+        height: 20vh;
+        margin: 82% 0% 0% 0%;
+    }
+}
+
+@media screen and (max-width: 375px) and (height: 812px) {
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%
+    }
+
+    .main-text {
+        margin-top: 50%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1.5em, 1.1em + 1.5vw, 1.1em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(2.1em, 2em + 2vw, 2.5em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 60%;
+        margin: 100% 0% 0% 0%;
+    }
+}
+
+@media screen and (max-width: 360px){
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%;
+    }
+
+    .main-text {
+        margin-top: 45%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 3%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1.2em, 1.2em + 1.2vw, 1.2em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(1.8em, 2em + 2vw, 1.8em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 65%;
+        height: 22vh;
+        margin: 67% 0% 0% 0%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .main-img img{
+        height: 45vh;
+        margin-top: 10%;
+    }
+
+    .main-text {
+        margin-top: 40%;
+    }
+    .main-text .text-learn,
+    .main-text .text-pay,
+    .main-text .text-code{
+        width: 100%;
+        margin-top: 2%;
+    }
+
+    .main-text .text-learn{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    .main-text .text-pay{
+        font-size: clamp(2em, 1.5em + 1.5vw, 1.5em); 
+    }
+
+    .main-text .text-code{
+        font-size: clamp(1em, 1em + 1vw, 1.5em);
+    }
+
+    /* area cadastro btn */
+    .mobile {
+        width: 70%;
+        height: 20vh;
+        margin: 55% 0% 0% 0%;
+        padding: 0;
+    }
+
+    .area-btn .btn{
+        height: 80%;
+        padding: 5px;
+    }
+}
+
 @media screen and (max-width: 280px){
     .main-text .text-learn,
     .main-text .text-pay,
     .main-text .text-code{
         width: 100%;
-        margin: 4% 0% 0% 0%;
+        margin: 8% 0% 0% 0%;
     }
 
     .main-text .text-learn{
@@ -735,7 +830,7 @@ footer .img-footer {
         justify-content: center;
         align-items: center;
         width: 70%;
-        margin: 60% 0% 0% 0%;
+        margin: 93% 0% 0% 0%;
         background: #F2F2F2;
         border: 1,94px solid #000000;
         box-shadow: 0px 7.746835708618164px 9.683544158935547px 4.841772079467773px #000000 10%;
