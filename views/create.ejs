@@ -1,0 +1,50 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+
+  <main>
+    <div>
+    <h3 class="title" id="create-title">publicar novo curso</h3>
+    </div>
+    <div class="login-content"> 
+        <div class="create-img">
+          <img src="/images/create.svg" alt="create" />
+        </div>
+
+        <div class="form-create">
+
+<form action="">
+
+  <div class="create-box">
+    <i class="bx bx-book-add login-icon"></i>
+    <input type="text" placeholder="digite o curso" class="login-input"/>
+  </div>
+
+  <div class="create-box">
+    <i class="bx bx-time login-icon"></i>
+    <input type="number" placeholder="créditos"class="login-input"/>
+  </div>
+
+  <div class="create-box">
+    <input type="file" name="myFile"id="myFile" class="login-input sendImg" accept="image/*"/>
+    <label class="login-input" for="myFile"><i class="bx bx-image-add login-icon"></i>imagem</label>
+  </div>
+
+  <div class="create-box">
+    <i class=""></i>
+   <textarea placeholder="descrição"
+      cols="30" rows="10" class="login-input" id="descricao"></textarea>
+  </div>
+  <div class="btn">
+    <a><button type="submit" class="btn mt-3 login-button">publicar</button></a>
+  </div>
+</form>
+
+</div>
+</div>
+</div>
+
+</main>
+<%- include('./partials/footer') %>
+</body>
+</html>

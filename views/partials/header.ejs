@@ -1,0 +1,51 @@
+<body>
+    <% if(typeof(usuarios) !== "undefined"){ %>
+      <header>
+        <nav>
+          <div class="navbar navbar-expand-lg navbar-light fixed-top">
+          <div>
+            <a href="/main">
+              <img class="homeButton" src="/images/home.svg" alt="homeButton">
+            </a>
+            </div>
+          <div class="container-fluid">
+            <a href="/main" class="navbar-brand">
+              <img id="logo" src="/images/logos/logo-header.png" alt="logo-connekt">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+            <div class="collapse navbar-collapse navItensConfig me-3" id="navbarNavAltMarkup">
+              <div class="navbar-nav" id="navBars">
+                <a><button class="main-button" id="credits">0 créditos</button></a>
+                <a class="nav-link" href="/users/config" id="config">estatísticas & configurações</a>
+                <form class="logout" action="/users/signIn/logout" method="post">
+                  <a class="nav-link" href="/" id="logout">sair</a>
+                </form>
+                <a class="nav-link" href="#" id="login">Olá, <%= usuarios.nome_usuario %></a>
+              </div>
+          </div>
+        </div>
+      </header>
+    <% } else { %>
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+          <div class="container-fluid">       
+            <a href="/" class="navbar-brand">
+              <img id="logo" src="/images/logos/logo-header.png" alt="logo-connekt">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+            <div class="collapse navbar-collapse navItens me-3" id="navbarNavAltMarkup">
+              <div class="navbar-nav" id="navBars">
+                <a class="nav-link" href="/users/signIn" id="signIn">entrar</a>
+                <a class="nav-link" href="/users/signUp" id="signUp">cadastrar</a>
+              </div>
+          </div>
+        </nav>
+      </header>
+      <% } %> 
+    
