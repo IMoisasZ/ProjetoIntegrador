@@ -1,0 +1,60 @@
+<div class="right">
+  <a href="">
+    <img src="/images/right.svg" alt="Next">
+  </a>
+</div>
+<div class="left">
+  <a href="">
+    <img src="/images/left.svg" alt="Previous">
+  </a>
+</div>
+    <main>
+      <div class="learnteachtitle">
+        <h1 class="newtitle">oportunidades disponíveis</h1>
+      </div>
+      <div class="main-content">
+        <div class="main-box ">
+          <section class="requests-todo">
+          <% cursos.forEach(curso => { %>
+            <h1 class="main-title" id="requestsTitle"><%= curso.curso %></h1>
+            <div class="requests-box">
+              <i class="bx bx-user config-icon"></i>
+              <input type="text" id="user" class="request-input" name="usuario" placeholder="usuário" readonly>
+            </div>
+            <div class="requests-box">
+              <i class="bx bx-time config-icon"></i>
+              <input type="time" id="time" class="request-input" name="hora"placeholder="hora">
+            </div> 
+            <div class="requests-box">
+              <i class="bx bx-calendar config-icon"></i>
+              <input type="date" id="data" class="request-input" name="data" placeholder="data">
+            </div>
+            <div class="requests-box" id="newdescription">
+              <textarea name="mensagem" id="mensagem" class="request-input" cols="30" rows="10" placeholder="mensagem"></textarea>
+            </div>
+          <% }) %>      
+          </section>
+            
+            
+          </div>  
+          <div>
+              </div>
+            
+  
+          </section>
+  
+        </div>
+  
+        <div class="requestsimg">
+          <img src="/images/learn-code.svg" alt="entrar" />
+        </div>
+        <a href="pages/new">
+          <span class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</span>
+          </a>
+      </div>  
+      </div>
+  
+    </main>
+<%- include('./partials/footer') %>
+</body>
+</html>

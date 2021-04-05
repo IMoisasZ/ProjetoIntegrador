@@ -11,5 +11,12 @@ module.exports = (sequelize, DataType) => {
         tableName: 'usuario',
         timestamps: false
     })
+
+    Usuario.associate = (listModels) =>{
+        Usuario.hasMany(listModels.CoinUsuario,{
+            foreignKey: 'id_usuario',
+            as: 'coinUsuario'
+        })
+    }
     return Usuario;
 }

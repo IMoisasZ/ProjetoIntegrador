@@ -9,7 +9,7 @@
         <div class="login-img">
           <img src="/images/login.svg" alt="entrar" />
           <% if(typeof(errors) != "undefined"){ %>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger err" role="alert">
               <ul>
                 <% errors.forEach((erro)=> { %>
                   <li><%= erro.msg %></li>

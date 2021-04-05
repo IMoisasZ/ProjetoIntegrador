@@ -23,12 +23,15 @@ router.post('/signUp',
 [
     check("nome_usuario").isLength({min:3}).withMessage('Usuário não informado ou não atende aos requisitos!'),
     check("email").isEmail().withMessage('Email não digitado ou incorreto!'),
-    check("senha").isLength({min:6}).withMessage('Senha não informada ou não atende aos requisitos! A senha deve conter no mínimo 6 caracteres!')
-    // body("email").custom(async (email) => {
-    //     let user = await Usuario.findOne({where:{email:email}});
-
-    //     return user.email !== email;
-    // }).withMessage('Usuário já cadastrado!')
+    check("senha").isLength({min:6}).withMessage('Senha não informada ou não atende aos requisitos! A senha deve conter no mínimo 6 caracteres!'),
+    body("email").custom(async (email) => {
+        let user = await Usuario.findOne({where:{email:email}});
+        console.log(email)
+        if(user && email !== ''){
+            throw new Error("Email ja cadastrado!")
+        }
+        return true;
+    })
 ],
 usersController.createUser) 
 

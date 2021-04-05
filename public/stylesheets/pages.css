@@ -136,9 +136,9 @@ textarea {
     display: grid;
     grid-template-columns: max-content 1fr;
     column-gap: 0.5rem;
-    padding: 1.125rem 1rem;
+    padding: 0.8rem 1rem;
     background-color: #fff;
-    margin-top: -15rem;
+    margin-top: -16rem;
     border-radius: 0.5rem;
     width: 16rem;
     margin-left: 1.1rem;
@@ -153,7 +153,7 @@ textarea {
 }
 
 .requestsmaintitle {
-    color: var(--first-color-darkest);
+  color: var(--first-color-darkest);
   font-size: 2.2rem;
   font-weight: bold;
   margin-bottom: 2rem;
@@ -178,9 +178,7 @@ textarea {
 }
 
 #newdescription {
-    width: 19rem;
-    height: 7rem;
-    margin-top: -16rem;
+    height: 10rem;
 }
 
 .newtitle{

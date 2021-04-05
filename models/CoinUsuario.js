@@ -1,12 +1,13 @@
 module.exports = (sequelize, DataType) => {
     const CoinUsuario = sequelize.define('CoinUsuario', {
-        pontos:DataType.INTEGER,
+        tipo: DataType.STRING,
+        coin:DataType.INTEGER,
         caminho:DataType.STRING,
         id_usuario:{
             type: DataType.INTEGER,
         }
     },{
-        tableName: 'ponto_obtido',
+        tableName: 'pontos_usuario',
         timestamps: false
     })
 

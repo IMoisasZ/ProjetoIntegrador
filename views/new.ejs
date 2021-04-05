@@ -1,55 +1,80 @@
 <%- include('./partials/head') %>
 
 <%- include('./partials/header') %>
-
-<div class="right">
-  <a href="">
-    <img src="/images/right.svg" alt="next">
-  </a>
-  </div>
-  <main>
-    <div class="learnteachtitle">
-      <h1 class="newtitle">oportunidades disponíveis</h1>
-    </div>
-    <div class="main-content">
-
-      <div class="main-box ">
-
-        <section class="requests-todo">
-          <h1 class="main-title" id="requestsTitle">PROGRAMAÇÃO <br> AVANÇADA</h1>
-          <div class="requests-box">
-            <i class="bx bx-user config-icon"></i>
+        <main>
+          <div class="learnteachtitle">
+            <h1 class="newtitle">oportunidades disponíveis</h1>
           </div>
-          <div class="requests-box">
-            <i class="bx bx-time config-icon"></i>
-          </div> 
-            <div class="requests-box">
-            <i class="bx bx-calendar config-icon"></i>
-        </div>
-        <div class="requests-box" id="newdescription">
-            
-        </div>
-        </div>  
-        <div>
+          <%
+            let hrefPrevious = ''            
+            if(idCurso > 0){
+              hrefPrevious = '/pages/new/?idCurso='+(idCurso - 1)
+            }
+          %>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item">
+                <div class="left">
+                  <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
+                </div>
+              </li>
+              
+              <% 
+                let hrefNext = ''
+                if(idCurso < totalCursos - 1){
+                  hrefNext = '/pages/new/?idCurso='+(idCurso + 1)
+                }
+
+              %> 
+              <li class="page-item">
+                <div class="right">
+                  <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+
+
+          <div class="main-content">
+            <div class="main-box ">
+              <section class="requests-todo">
+                
+                <h1 class="main-title" id="requestsTitle"><%= listaCursos.curso %></h1>
+                
+                <div class="requests-box">
+                  <i class="bx bx-user config-icon"></i>
+                  <span type="text" id="user" class="request-input" name="usuario" placeholder="usuário" readonly><%= listaCursos.nome_usuario %> </span>
+                </div>
+                <div class="requests-box">
+                  <i class="bx bx-time config-icon"></i>
+                  <span type="time" id="time" class="request-input" name="hora"placeholder="hora" readonly><%= listaCursos.carga_horaria %></span>
+                </div>
+                <div class="requests-box">
+                  <i class="bx bx-coin-stack config-icon"></i>
+                  <span type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly><%= listaCursos.coin %> </span>
+                </div>                 
+                <div class="requests-box">
+                  <i class="bx bx-calendar config-icon"></i>
+                  <span type="date" id="data" class="request-input" name="data" placeholder="data" readonly><%= listaCursos.data_hora %></span>
+                </div>
+                <div class="requests-box" id="newdescription">
+                  <span name="mensagem" id="mensagem" class="request-input" cols="30" rows="10" placeholder="mensagem" reaonly><%= listaCursos.descricao %> </span>
+                </div>    
+              </section> 
+              </div>  
+              <div>
+                  </div>
             </div>
-          
-
-        </section>
-
-      </div>
-
-      <div class="requestsimg">
-        <img src="/images/learn-code.svg" alt="entrar" />
-      </div>
-      <a href="pages/new">
-        <span class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</span>
-        </a>
-    </div>  
-    </div>
-
-  </main>
-
-  <%- include('./partials/footer') %>
-
+            <div class="requestsimg">
+              <img src="/images/learn-code.svg" alt="entrar" />
+            </div>
+            <a href="pages/new">
+              <span class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</span>
+              </a>
+          </div>  
+          </div>
+        </main>
+    <%- include('./partials/footer') %>
   </body>
 </html>

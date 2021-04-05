@@ -1,20 +1,22 @@
 'use strict';
 
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ponto_obtido',{
+    return queryInterface.createTable('pontos_usuario',{
       id:{
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-        pontos: Sequelize.INTEGER,
+        tipo: Sequelize.STRING,
+        coin: Sequelize.INTEGER,
         caminho: Sequelize.STRING,
         id_usuario: Sequelize.INTEGER,
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-     await queryInterface.dropTable('ponto_obtido');
+     await queryInterface.dropTable('pontos_usuario');
   }
 };

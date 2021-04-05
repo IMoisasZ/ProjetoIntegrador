@@ -7,21 +7,29 @@ const usersController = {
     },
     login: async (req, res, next) =>{
         let { user, senha } = req.body;
-        let usuario = await Usuario.findOne({where:{email:user}});
+        let usuario = await Usuario.findOne({
+            where:{
+                email: user
+            },
+        });
 
         if(!usuario){
             return res.render('signIn', {notFound: true})
         }
 
+
         if(!bcrypt.compareSync(senha, usuario.senha)){
             return res.render('signIn', { notFound: true });
         }
 
-        usuario.senha = undefined
-        
-        req.session.usuario = usuario;
+        let usuarioJson = await usuario.toJSON()
 
-        res.render('main',{usuarios: req.session.usuario, pontos});
+
+        usuarioJson.senha = undefined
+        
+        req.session.usuario = usuarioJson;
+
+        res.redirect('/main')
     },
     logout:async (req, res, next) =>{
         req.session.destroy();
@@ -54,9 +62,10 @@ const usersController = {
 
             //incluidon os pontos (8coins) iniciais pelo cadastro no sistema
             await CoinUsuario.create({
-                id_usuario: idUser.id,
-                pontos: 8,
-                caminho: 'Cadastro inicial'
+                tipo: 'I', /* I = IN (se cadastrou no sistema)*/
+                coin: 8,
+                caminho: 'Cadastro inicial',
+                id_usuario: idUser.id
             })
             return res.render('signIn')
         }else{

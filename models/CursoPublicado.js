@@ -1,0 +1,31 @@
+module.exports = (sequelize, DataType) => {
+    const CursoPublicado = sequelize.define('CursoPublicado', {
+        curso: DataType.STRING,
+        carga_horaria:DataType.INTEGER,
+        coin:DataType.INTEGER,
+        caminho_imagem:DataType.STRING,
+        data_hora:DataType.DATE,
+        descricao: DataType.STRING,
+        id_usuario: DataType.INTEGER,
+        nome_usuario: DataType.STRING,
+        id_status_curso: DataType.INTEGER
+    },{
+        tableName: 'curso_publicado',
+        timestamps: false
+    })
+    return CursoPublicado;
+}
+
+    // CursoPublicado.associate = (listModels) =>{
+    //     CursoPublicado.hasMany(listModels.Usuario,{
+    //         foreignKey: 'id_usuario',
+    //         as: 'cursoPublicadoUsuario'
+    //     })
+    // }
+    
+    // CursoPublicado.associate = (listModels) =>{
+    //     CursoPublicado.hasMany(listModels.StatusCurso,{
+    //         foreignKey: 'id_status',
+    //         as: 'statusCurso'
+    //     })
+    // }

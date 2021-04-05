@@ -2,19 +2,17 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('pontoObtido',{
+    return queryInterface.createTable('status_curso',{
       id:{
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-        pontos: Sequelize.INTEGER,
-        caminho: Sequelize.STRING,
-        id_usuario: Sequelize.INTEGER,
+        sigla: Sequelize.STRING,
+        descricao_status: Sequelize.STRING,
     })
   },
-
   down: async (queryInterface, Sequelize) => {
-     await queryInterface.dropTable('pontoObtido');
+    await queryInterface.dropTable('status_curso');
   }
 };
