@@ -42,9 +42,9 @@
 }
 
       .create-box {
-        display: grid;
+        /* display: grid;
         grid-template-columns: max-content 1fr;
-        column-gap: 0.5rem;
+        column-gap: 0.5rem; */
         padding: 1.125rem 1rem;
         background-color: #fff;
         margin-top: 1rem;
@@ -95,7 +95,11 @@ textarea {
     margin-bottom: 16rem;
     font-size: 2.2rem;
     font-weight: 500;
+    text-align: center;
+    background-color: transparent;
+    border: transparent;
 }
+
 
 .requestsbtn {
     font-size: 19px;
@@ -121,7 +125,7 @@ textarea {
     position: absolute;
     bottom: -97px;
     width: 31rem;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem;
     border-radius: 1rem;
     text-align: center;
     align-items: center;
@@ -133,9 +137,9 @@ textarea {
 }
 
 .requests-box {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    column-gap: 0.5rem;
+    /* display: grid;
+    /* grid-template-columns: max-content 1fr; */
+    /* column-gap: 0.5rem; */
     padding: 0.8rem 1rem;
     background-color: #fff;
     margin-top: -16rem;
@@ -162,6 +166,9 @@ textarea {
   font-family: "Poppins"
 }
 
+.request-input{
+    text-align: center;
+}
 /*Schedules page*/
 .schedules {
     margin-left: 37rem;
@@ -190,6 +197,11 @@ textarea {
     margin-top: 4.6rem;
     font-family: "Poppins";
     width: 31rem;
+}
+
+.bxs-help-circle{
+    display: flex;
+    flex-direction: column;
 }
 
 .right {

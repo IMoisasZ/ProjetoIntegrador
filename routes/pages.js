@@ -26,6 +26,9 @@ router.get('/schedules', pagesController.schedules)
 /* GET new page. */
 router.get('/new', pagesController.new)
 
+/* Post agendar curso*/
+router.post('/new', pagesController.schedule)
+
 /* GET teach page. */
 router.get('/teach', pagesController.teach)
 

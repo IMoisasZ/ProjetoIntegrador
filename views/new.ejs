@@ -39,27 +39,30 @@
           <div class="main-content">
             <div class="main-box ">
               <section class="requests-todo">
-                
-                <h1 class="main-title" id="requestsTitle"><%= listaCursos.curso %></h1>
+                <form action="/pages/new" method="POST">
+                <input class="main-title" id="requestsTitle" name="nome_curso"  readonly value="<%= listaCursos.curso %>" />
+                <input type="text" name="id_curso" value="<%= listaCursos.id%>" hidden>
                 
                 <div class="requests-box">
                   <i class="bx bx-user config-icon"></i>
-                  <span type="text" id="user" class="request-input" name="usuario" placeholder="usuário" readonly><%= listaCursos.nome_usuario %> </span>
+                  <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador" value="<%= listaCursos.nome_usuario %>"/>
+                  <button id="button-user" style="display: none">Nome do usuário que minitrará o curso</button>
                 </div>
+                
                 <div class="requests-box">
                   <i class="bx bx-time config-icon"></i>
-                  <span type="time" id="time" class="request-input" name="hora"placeholder="hora" readonly><%= listaCursos.carga_horaria %></span>
+                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="<%= listaCursos.carga_horaria %>"/>
                 </div>
                 <div class="requests-box">
                   <i class="bx bx-coin-stack config-icon"></i>
-                  <span type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly><%= listaCursos.coin %> </span>
+                  <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly value="<%= listaCursos.coin %>"/>
                 </div>                 
                 <div class="requests-box">
                   <i class="bx bx-calendar config-icon"></i>
-                  <span type="date" id="data" class="request-input" name="data" placeholder="data" readonly><%= listaCursos.data_hora %></span>
+                  <textarea type="text" id="data" class="request-input" name="data" placeholder="data" readonly cols="25" rows="2"><%= listaCursos.data_hora %></textarea>
                 </div>
                 <div class="requests-box" id="newdescription">
-                  <span name="mensagem" id="mensagem" class="request-input" cols="30" rows="10" placeholder="mensagem" reaonly><%= listaCursos.descricao %> </span>
+                  <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem" reaonly><%= listaCursos.descricao %></textarea>
                 </div>    
               </section> 
               </div>  
@@ -69,9 +72,9 @@
             <div class="requestsimg">
               <img src="/images/learn-code.svg" alt="entrar" />
             </div>
-            <a href="pages/new">
-              <span class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</span>
-              </a>
+            <button type="submit" class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</button>
+            </form>
+            
           </div>  
           </div>
         </main>

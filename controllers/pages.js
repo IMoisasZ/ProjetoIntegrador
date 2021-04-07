@@ -1,4 +1,4 @@
-const { CursoPublicado, Usuario } = require('../models')
+const { CursoPublicado, Usuario, CursoAgendado, CoinUsuario } = require('../models')
 const {Op} = require('sequelize')
 
 const pagesController = {
@@ -14,11 +14,12 @@ const pagesController = {
         idCurso = parseInt(idCurso)
         let listaCursos = []
         let cursos = await CursoPublicado.findAll({
-            // where:{
-            //     id_usuario:{
+            where:{
+                id_status_curso: 1
+            //     id_usuario:
             //         [Op.ne]:[req.session.usuario.id]
-            //     }
-            });
+            //     
+            }});
 
         cursos.forEach(curso => {    
             listaCursos.push({
@@ -33,8 +34,6 @@ const pagesController = {
             })
         });
 
-
-
         let totalCursos = cursos.length
         if(typeof(idCurso) == 'undefined'){
             listaCursos=listaCursos[0]
@@ -43,6 +42,33 @@ const pagesController = {
         }
 
         res.render("new",{usuarios: req.session.usuario, idCurso, totalCursos, listaCursos})
+    },
+    schedule: async(req, res, next) =>{
+        let { coin, id_curso, nome_curso } = req.body
+        let coinDebito = parseInt("-"+ coin)
+
+        let agendar = await CursoAgendado.create({
+            id_curso_publicado: id_curso,
+            id_usuario_agendamento: req.session.usuario.id,
+            id_status_agendamento: 1
+        })
+
+        let inclusao = await CoinUsuario.create({
+            tipo: "A", /* A = Agendado */
+            coin: coinDebito,
+            caminho: id_curso + "-" + nome_curso,
+            id_usuario: req.session.usuario.id
+        })
+
+        let atualizacao = await CursoPublicado.update({
+            id_status_curso: 2},
+            {
+                where:{
+                    id: id_curso
+                }
+            })
+
+        res.redirect("/main")
     },
     teach:(req, res, next) => {
         res.render("teach",{usuarios: req.session.usuario})
