@@ -23,6 +23,9 @@ router.get('/learn', pagesController.learn)
 /* GET schedules page. */
 router.get('/schedules', pagesController.schedules)
 
+/* Post cancelar agendamento */
+router.post('/schedules', pagesController.cancel)
+
 /* GET new page. */
 router.get('/new', pagesController.new)
 

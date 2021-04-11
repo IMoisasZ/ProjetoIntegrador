@@ -1,7 +1,5 @@
 'use strict';
 
-const { sequelize } = require("../models");
-
 module.exports = {
     up: async (queryInterface, Sequelize) => {
       return queryInterface.createTable('curso_publicado',{
@@ -34,7 +32,7 @@ module.exports = {
               },
               key:'id'
             }
-          }
+          },
       })
     },
     down: async (queryInterface, Sequelize) => {

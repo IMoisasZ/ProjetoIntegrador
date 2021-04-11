@@ -1,55 +1,71 @@
 <%- include('./partials/head') %>
-
 <%- include('./partials/header') %>
-
-<div class="right">
-  <a href="">
-    <img src="/images/right.svg" alt="next">
-  </a>
-  </div>
-  <main>
-    <div class="learnteachtitle">
-      <h1 class="requestsmaintitle">agendamentos</h1>
-    </div>
-    <div class="main-content">
-
-      <div class="main-box ">
-
-        <section class="requests-todo">
-          <h1 class="main-title" id="requestsTitle">"<%=  %> </h1>
-          <div class="requests-box">
-            <i class="bx bx-user config-icon"></i>
-          </div>
-          <div class="requests-box">
-            <i class="bx bx-time config-icon"></i>
-          </div> 
-            <div class="requests-box">
-            <i class="bx bx-calendar config-icon"></i>
-        </div>
-            <a href="/pages/schedules">
-                <span class="btn mt-3 requestsbtn">cancelar agendamento</span>
-                </a>
-        </div>  
-        <div>
+    <main>
+      <div class="learnteachtitle">
+        <h1 class="requestsmaintitle">agendamentos</h1>
+      </div>
+      <!-- paginação dos cursos -->
+      <%
+        let hrefPrevious = ''            
+        if(idCurso > 0){
+          hrefPrevious = '/pages/schedules/?idCurso='+(idCurso - 1)
+        }
+      %>
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item">
+            <div class="left">
+              <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
             </div>
-          
-
-        </section>
-
+          </li>
+          <% 
+            let hrefNext = ''
+            if(idCurso < totalAgendamentos - 1){
+              hrefNext = '/pages/schedules/?idCurso='+(idCurso + 1)
+            }
+          %>
+          <li class="page-item">
+            <div class="right">
+              <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content">
+        <div class="main-box ">
+          <section class="requests-todo">
+            <form action="/pages/schedules" method="POST">
+              <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
+              <input type="text" id="id_curso" class="request-input" name="id_curso" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
+              <div class="requests-box">
+                <i class="bx bx-user config-icon"></i>
+                <input type="text" id="usuario_publicador" class="request-input" name="usuario_publicador" placeholder="publicador" value="Ministrante: <%= listaAgendamentos.nome_usuario_publicador %>"/>
+              </div>
+              <div class="requests-box">
+                <i class="bx bx-coin-stack config-icon"></i>
+                <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" value="Coins(Custo): <%= listaAgendamentos.coin %>"/>
+              </div>
+              <div class="requests-box">
+                <i class="bx bx-calendar config-icon"></i>
+                <textarea type="text" id="data_hora" class="request-input" name="data_hora" placeholder="data_hora"><%= listaAgendamentos.data_hora %></textarea>
+              </div> 
+              <div class="requests-box">
+                <i class="bx bx-book config-icon"></i>
+                <textarea type="text" id="descricao" class="request-input" name="descricao" placeholder="descricao" rows="4"><%= listaAgendamentos.descricao %></textarea>
+              </div>
+                <button type="submit" class="btn mt-3 requestsbtn" id="schedule">cancelar agendamento</button>
+              </div>
+            </form>                 
+          </section>
+        </div>
+            <div class="requestsimg">
+              <img src="/images/learn-code.svg" alt="entrar" />
+            </div>
+            <a href="pages/new">
+              <span class="btn mt-3 requestsbtn schedules">novo agendamento</span>
+              </a>
       </div>
-
-      <div class="requestsimg">
-        <img src="/images/learn-code.svg" alt="entrar" />
-      </div>
-      <a href="pages/new">
-        <span class="btn mt-3 requestsbtn schedules">novo agendamento</span>
-        </a>
-    </div>  
-    </div>
-
-  </main>
-
-  <%- include('./partials/footer') %>
-
+    </main>
+    <%- include('./partials/footer') %>
   </body>
 </html>

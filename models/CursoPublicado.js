@@ -8,24 +8,20 @@ module.exports = (sequelize, DataType) => {
         descricao: DataType.STRING,
         id_usuario: DataType.INTEGER,
         nome_usuario: DataType.STRING,
-        id_status_curso: DataType.INTEGER
+        id_status_curso: DataType.INTEGER,
     },{
         tableName: 'curso_publicado',
         timestamps: false
     })
+
+    CursoPublicado.associate = (listModels) =>{
+        CursoPublicado.belongsToMany(listModels.Usuario,{through: 'CursoAgendado',
+            foreignKey: 'id_usuario_agendamento',
+            as: 'usuario'
+        })
+     }
+
     return CursoPublicado;
 }
 
-    // CursoPublicado.associate = (listModels) =>{
-    //     CursoPublicado.hasMany(listModels.Usuario,{
-    //         foreignKey: 'id_usuario',
-    //         as: 'cursoPublicadoUsuario'
-    //     })
-    // }
-    
-    // CursoPublicado.associate = (listModels) =>{
-    //     CursoPublicado.hasMany(listModels.StatusCurso,{
-    //         foreignKey: 'id_status',
-    //         as: 'statusCurso'
-    //     })
-    // }
+   

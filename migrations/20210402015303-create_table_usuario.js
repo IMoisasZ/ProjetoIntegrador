@@ -14,7 +14,8 @@ module.exports = {
             unique: true
         },
         senha:Sequelize.STRING,
-        status: Sequelize.INTEGER
+        status: Sequelize.INTEGER,
+        tipo_usuario: Sequelize.INTEGER
     })
   },
 

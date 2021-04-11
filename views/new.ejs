@@ -32,9 +32,7 @@
                 </div>
               </li>
             </ul>
-          </nav>
-
-
+          </nav> 
 
           <div class="main-content">
             <div class="main-box ">
@@ -45,13 +43,13 @@
                 
                 <div class="requests-box">
                   <i class="bx bx-user config-icon"></i>
-                  <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador" value="<%= listaCursos.nome_usuario %>"/>
-                  <button id="button-user" style="display: none">Nome do usuário que minitrará o curso</button>
+                  <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador" value="Ministrante: <%= listaCursos.nome_usuario %>"/>
+                  <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden value="<%= listaCursos.id_usuario %>"/>
                 </div>
                 
                 <div class="requests-box">
                   <i class="bx bx-time config-icon"></i>
-                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="<%= listaCursos.carga_horaria %>"/>
+                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="Carga Horária: "<%= listaCursos.carga_horaria %>"/>
                 </div>
                 <div class="requests-box">
                   <i class="bx bx-coin-stack config-icon"></i>
@@ -59,20 +57,53 @@
                 </div>                 
                 <div class="requests-box">
                   <i class="bx bx-calendar config-icon"></i>
-                  <textarea type="text" id="data" class="request-input" name="data" placeholder="data" readonly cols="25" rows="2"><%= listaCursos.data_hora %></textarea>
+                  <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2" readonly><%= listaCursos.data_hora %></textarea>
+                  <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>"/>
                 </div>
                 <div class="requests-box" id="newdescription">
+                  <i class="bx bx-book config-icon"></i>
                   <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem" reaonly><%= listaCursos.descricao %></textarea>
-                </div>    
-              </section> 
+                </div>     
+               
               </div>  
               <div>
                   </div>
             </div>
+          </section>
             <div class="requestsimg">
               <img src="/images/learn-code.svg" alt="entrar" />
             </div>
-            <button type="submit" class="btn mt-3 requestsbtn schedules" id="new">solicitar agendamento</button>
+            <div class="btn-schedules">
+              <button type="submit" class="btn mt-3 requestsbtn schedules sol-agendar" id="new">agendar</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  solicitar alteração data/hora
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Solicitação de alteração de data/hora</h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                      </div>
+                      <form action="/pages/new" method="POST">
+                        <div class="modal-body">
+                          <label for="data_hora_atual" class="label">Data/Hora atual</label>
+                          <textarea type="text" name="data_hora_atual" class="request-input" id="data_hora_atual" readonly><%= listaCursos.data_hora %></textarea>
+                          <label for="data_hora_nova" class="label">Data/hora solicitada</label>
+                          <input type="datetime-local" class="request-input" name="data_hora_nova" id="data_hora_nova">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">solicitar alteração</button>
+                        </div>
+                      </form>  
+                    </div>
+                  </div>
+                </div>
+            </div>
             </form>
             
           </div>  

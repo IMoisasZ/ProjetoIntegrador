@@ -10,6 +10,8 @@ module.exports = {
         },
         id_curso_publicado: {
           type: Sequelize.INTEGER,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
           references: {
             model:{
               tableName: 'curso_publicado'
@@ -19,6 +21,8 @@ module.exports = {
         },
         id_usuario_agendamento:{
           type: Sequelize.INTEGER,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
           references:{
             model:{
               tableName:'usuario'
@@ -28,13 +32,17 @@ module.exports = {
         },
         id_status_agendamento:{
           type:Sequelize.INTEGER,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
           references:{
             model:{
               tableName: 'status_agendamento'
             },
             key: 'id'
           }
-        }
+        },
+        data_hora_agendamento: Sequelize.DATE,
+        data_hora_solicitada: Sequelize.DATE
       })
     },
     down: async (queryInterface, Sequelize) => {

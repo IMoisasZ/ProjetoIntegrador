@@ -54,7 +54,8 @@ const usersController = {
                 nome_usuario: nome_usuario,
                 email: email,
                 senha: senhaCrypt,
-                status: 1 /* 1 = usuario ativo - 0 = usuario bloqueado */
+                status: 1, /* 1 = usuario ativo - 0 = usuario bloqueado */
+                tipo_usuario: 0 /* 0 = usuario Administrador; 1 = usuario padrão */
             })
 
             //pegando o id do usuario cadastrado

@@ -6,7 +6,8 @@ module.exports = (sequelize, DataType) => {
             unique: true
         },
         senha:DataType.STRING,
-        status: DataType.INTEGER
+        status: DataType.INTEGER,
+        tipo_usuario: DataType.INTEGER
     },{
         tableName: 'usuario',
         timestamps: false
@@ -18,5 +19,13 @@ module.exports = (sequelize, DataType) => {
             as: 'coinUsuario'
         })
     }
+
+    Usuario.associate = (listModels) =>{
+        Usuario.belongsToMany(listModels.CursoPublicado,{through: 'CursoAgendado',
+            foreignKey: 'id_curso_publicado',
+            as: 'publicado'
+        })
+    }
+
     return Usuario;
 }
