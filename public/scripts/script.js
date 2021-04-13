@@ -9,3 +9,6 @@ let statusCurso = [
     {id: 2, sigla: "A", descricao_status: "AGENDADO"},
     {id: 3, sigla: "AS", descricao_status: "AGUARDANDO SOLICITAÇÃO"},
 ]
+
+
+

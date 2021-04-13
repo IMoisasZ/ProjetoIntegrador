@@ -113,9 +113,29 @@ textarea {
     transition: 0.3s;
     font-family: 'Poppins';
     position: absolute;
-    top: 392px;
+    top: 340px;
     margin-left: -11rem;
 }
+
+.cancel{
+    font-size: 19px;
+    width: 188px;
+    height: 66px;
+    padding: 4px;
+    background-color: var(--first-color);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: 0.3s;
+    font-family: 'Poppins';
+    position: absolute;
+    top: 420px;
+    margin-left: -11rem;
+}
+
+
+
+
 .requestsbtn:hover {
     background-color: var(--first-color-dark);
     color: #fff;
@@ -169,6 +189,15 @@ textarea {
 .request-input{
     text-align: center;
 }
+
+.btn-request{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /*Schedules page*/
 .schedules {
     margin-left: 37rem;

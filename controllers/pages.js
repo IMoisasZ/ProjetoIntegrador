@@ -131,7 +131,7 @@ const pagesController = {
                 data_hora_solicitada: ""
             })
 
-            /* debitar os coins - apresender */ 
+            /* debitar os coins - aprender */ 
             let incluirDebito = await CoinUsuario.create({
                 tipo: "A", /* A = Agendado */
                 coin: coinDebito,
@@ -185,6 +185,7 @@ const pagesController = {
         let { idCurso = 0 } = req.query
         idCurso = parseInt(idCurso)
         /* buscar agendamentos no banco */
+        
         let agendamentos = await CursoAgendado.findAll({
             where: {
                 id_status_agendamento: 3,
@@ -193,8 +194,6 @@ const pagesController = {
             }
         })
 
-        console.log("Agendamentos: "+agendamentos)
-
         let usuarioCurso = await Usuario.findAll({
             where: {
                 id: 
@@ -202,21 +201,18 @@ const pagesController = {
             }  
         })
 
-        console.log("Usuario: "+usuarioCurso)
-
         /* buscar os cursos agendados aguardando confirmação de alteração de data */
         let cursoAgendado = await CursoPublicado.findAll({
             where:{id_status_curso: 3}
         })
-
-        console.log("Curso: "+cursoAgendado)
+        
         
         /* listar os agendamentas em um objeto */
         let listaAgendamentos = []
         for(let i = 0; i < agendamentos.length; i++){
             for(let j = 0; j <cursoAgendado.length; j++){
                 for(let k = 0; k <usuarioCurso.length; k++)
-                if(cursoAgendado[j].id == agendamentos[i].id_curso_publicado && agendamentos[i].id_usuario_agendamento == usuarioCurso[k].id){
+                if(cursoAgendado[j].id == agendamentos[i].id_curso_publicado && usuarioCurso[k].id == agendamentos[i].id_usuario_agendamento){
                     listaAgendamentos.push({
                     id_usuario_curso: usuarioCurso[k].id,
                     nome_usuario_curso: usuarioCurso[k].nome_usuario,
@@ -225,8 +221,8 @@ const pagesController = {
                     curso: cursoAgendado[j].curso,
                     carga_horaria: cursoAgendado[j].carga_horaria,
                     coin: cursoAgendado[j].coin,
-                    data_hora: cursoAgendado[j].data_hora,
-                    data_hora_solicitada: cursoAgendado[j].data_hora_solicitada,
+                    data_hora: agendamentos[i].data_hora_agendamento,
+                    data_hora_solicitada: agendamentos[i].data_hora_solicitada,
                     descricao: cursoAgendado[j].descricao,
                     id_usuario_publicador: cursoAgendado[j].id_usuario,
                     nome_usuario_publicador: cursoAgendado[j].nome_usuario,
@@ -234,8 +230,7 @@ const pagesController = {
                 }
             }
         }
-        
-        console.log(listaAgendamentos);
+
         let totalAgendamentos = listaAgendamentos.length
         if(typeof(idCurso) == 'undefined'){
             listaAgendamentos=listaCursos[0]
@@ -243,7 +238,72 @@ const pagesController = {
             listaAgendamentos=listaAgendamentos[idCurso]
         }
 
-        res.render("requests",{usuarios: req.session.usuario, listaAgendamentos})
+        res.render("requests",{usuarios: req.session.usuario, listaAgendamentos, totalAgendamentos, idCurso })
+    },
+    aceptSolicitation: async (req, res, next) =>{
+        let { id_curso_agendamento, id_usuario_curso, coin, curso } = req.body
+        let coinDebito = coin-coin-coin
+        let agendamentos = await CursoAgendado.findOne({
+            where:{
+                id_curso_publicado: id_curso_agendamento
+            }
+        })
+
+        agendamentos.update({
+            id_status_agendamento: 1
+        })
+
+        let cursoAgendado = await CursoPublicado.findOne({
+            where:{
+                id: id_curso_agendamento
+            }
+        })
+
+        cursoAgendado.update({
+            id_status_curso: 2
+        })
+
+        /* debitar os coins - aprender */ 
+        let incluirDebito = await CoinUsuario.create({
+            tipo: "A", /* A = Agendado */
+            coin: coinDebito,
+            caminho: id_curso_agendamento + "-" + curso,
+            id_usuario: id_usuario_curso
+        })
+
+        /* creditar os coins - ensinar */
+        let incluirCredito = await CoinUsuario.create({
+            tipo: "A", /* A = Agendado */
+            coin: coin,
+            caminho: id_curso_agendamento + "-" + curso,
+            id_usuario: req.session.usuario.id
+        })
+
+        res.redirect("/main")
+    },
+    cancelSolicitation: async (req, res, next) =>{
+        let { id_curso_agendamento } = req.body
+        
+        let agendamentos = await CursoAgendado.findOne({
+            where:{
+                id_curso_publicado: id_curso_agendamento
+            }
+        })
+        agendamentos.update({
+            id_status_agendamento: 2
+        })
+
+        let curso = await CursoPublicado.findOne({
+            where:{
+                id: id_curso_agendamento
+            }
+        })
+
+        curso.update({
+            id_status_curso: 1
+        })
+
+        res.redirect("/main")
     },
     create:(req, res, next) =>{
         res.render('create',{usuarios: req.session.usuario})

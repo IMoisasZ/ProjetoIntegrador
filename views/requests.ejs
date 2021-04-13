@@ -1,47 +1,95 @@
 <%- include('./partials/head') %>
 
 <%- include('./partials/header') %>
-<div class="right">
+<!-- <div class="right">
   <a href="">
     <img src="/images/right.svg" alt="next">
   </a>
-  </div>
+  </div> -->
   <main>
     <div class="learnteachtitle">
       <h1 class="requestsmaintitle">solicitações</h1>
     </div>
+
+    <%
+            let hrefPrevious = ''            
+            if(idCurso > 0){
+              hrefPrevious = '/pages/requests/?idCurso='+(idCurso - 1)
+            }
+          %>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item">
+                <div class="left">
+                  <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
+                </div>
+              </li>
+              
+              <% 
+                let hrefNext = ''
+                if(idCurso < totalAgendamentos - 1){
+                  hrefNext = '/pages/requests/?idCurso='+(idCurso + 1)
+                }
+
+              %> 
+              <li class="page-item">
+                <div class="right">
+                  <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
     <div class="main-content">
 
       <div class="main-box ">
-
         <section class="requests-todo">
-          <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
-          <div class="requests-box">
-            <i class="bx bx-user config-icon"></i>
-            <!-- <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" placeholder="publicador" value="<%= listaAgendamentos.nome_usuario_curso %>"/> -->
-          </div>
-          <div class="requests-box">
-            <i class="bx bx-time config-icon"></i>
-          </div> 
+          <form action="/pages/requests/acept" method="POST">
+            <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
             <div class="requests-box">
-            <i class="bx bx-calendar config-icon"></i>
-        </div>
-            <a href="">
-                <span class="btn mt-3 requestsbtn">confirmar agendamento</span>
-                </a>
-        </div>  
+              <i class="bx bx-user config-icon"></i>
+              <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" value="<%= listaAgendamentos.nome_usuario_curso %>"/>
+              <input type="text" id="id_agendamento" class="request-input" name="id_agendamento" hidden value="<%= listaAgendamentos.id_agendamento %>"/>
+              <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
+              <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
+              <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
             </div>
-          
-
-        </section>
+            <div class="requests-box">
+              <i class="bx bx-time config-icon"></i>
+              <textarea type="text" id="data_hora_agendada" class="request-input" name="data_hora_agendada"><%= listaAgendamentos.data_hora %></textarea>
+            </div>
+            <div class="requests-box">
+              <i class="bx bx-time config-icon"></i>
+              <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada"><%= listaAgendamentos.data_hora_solicitada %></textarea>
+            </div>
+            <div class="requests-box">
+              <i class="bx bx-coin config-icon"></i>
+              <input type="text" id="coin" class="request-input" name="coin" value="<%= listaAgendamentos.coin %>"/>
+            </div>
+            <div class="btn-req-confirm">
+              <button type="submit" class="btn mt-3 requestsbtn confirm">aceitar solicitação</button>
+            </div>
+            <form action="/pages/requests/cancel" method="POST">
+              <div class="btn-request">
+                <div class="btn-req-cancel">
+                  <button type="submit" class="btn mt-3 requestsbtn cancel">cancelar solicitação</button>
+                </div>
+            </div>
+            </form>             
+            
+            </div>
+            
+          </div>  
+              </div>
+              
+          </section>
+            
+        </form>
+        <div class="requestsimg">
+          <img src="/images/learn-code.svg" alt="entrar" />
+        </div>
 
       </div>
-
-      <div class="requestsimg">
-        <img src="/images/learn-code.svg" alt="entrar" />
-      </div>
-
-    </div>
 
   </main>
 

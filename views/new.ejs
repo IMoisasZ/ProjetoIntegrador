@@ -49,17 +49,19 @@
                 
                 <div class="requests-box">
                   <i class="bx bx-time config-icon"></i>
-                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="Carga Horária: "<%= listaCursos.carga_horaria %>"/>
+                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="Carga Horária: <%= listaCursos.carga_horaria %>"/>
                 </div>
                 <div class="requests-box">
                   <i class="bx bx-coin-stack config-icon"></i>
                   <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly value="<%= listaCursos.coin %>"/>
-                </div>                 
+                </div>    
+
                 <div class="requests-box">
                   <i class="bx bx-calendar config-icon"></i>
                   <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2" readonly><%= listaCursos.data_hora %></textarea>
                   <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>"/>
                 </div>
+                
                 <div class="requests-box" id="newdescription">
                   <i class="bx bx-book config-icon"></i>
                   <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem" reaonly><%= listaCursos.descricao %></textarea>
@@ -104,8 +106,7 @@
                   </div>
                 </div>
             </div>
-            </form>
-            
+            </form>  
           </div>  
           </div>
         </main>

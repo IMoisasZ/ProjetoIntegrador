@@ -38,6 +38,12 @@ router.get('/teach', pagesController.teach)
 /* GET requests page. */
 router.get('/requests', pagesController.requests)
 
+/* POST aceitar a solicitação de alteração de data. */
+router.post('/requests/acept', pagesController.aceptSolicitation)
+
+/* POST cancelar a solicitação de alteração de data. */
+router.post('/requests/cancel', pagesController.cancelSolicitation)
+
 /*GET Create page. */
 router.get('/create', pagesController.create)
 
