@@ -94,9 +94,9 @@ textarea {
 /*requests page*/
 #requestsTitle{
     margin-left: -1rem;
-    margin-top: 0rem;
+    margin-top: 1.7rem;
     font-family: "Luckiest Guy";
-    margin-bottom: 16rem;
+    margin-bottom: 16.8rem;
     font-size: 2.2rem;
     font-weight: 500;
     text-align: center;
@@ -118,7 +118,7 @@ textarea {
     font-family: 'Poppins';
     position: absolute;
     top: 392px;
-    margin-left: -11rem;
+    margin-left:-11rem;
 }
 
 .confirm {
@@ -189,7 +189,7 @@ textarea {
     /* column-gap: 0.5rem; */
     padding: 0.8rem 1rem;
     background-color: #fff;
-    margin-top: -16rem;
+    margin-top: -16.3rem;
     border-radius: 0.5rem;
     width: 16rem;
     margin-left: 1.1rem;
@@ -296,6 +296,15 @@ textarea {
 #new-ok,
 #new-erro {
     width: 15rem;
+}
+
+#msg-ok,
+#msg-erro{
+    width: 36%;
+    text-align: justify;
+    margin: -540px 0px 0px -360px;
+    padding: 3px;
+    border-radius: 20px;
 }
 
 #newdescription {

@@ -1,8 +1,8 @@
 let btnAgendarOk = document.getElementById("new-ok")
 let msgOk = document.getElementById("msg-ok")
 
-btnRequest.addEventListener('click',function(){
-    msgOk.hidden = false
+btnAgendarOk.addEventListener('click',function(){
+    alert("Agendamento realizado com sucesso!")
 })
 
 let btnAgendarErro = document.getElementById("new-erro")

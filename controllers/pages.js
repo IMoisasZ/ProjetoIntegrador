@@ -135,12 +135,11 @@ const pagesController = {
         }else{
             saldo = 1 /* é possivel comprar curso - tem saldo*/
         }
-
         res.render("new",{usuarios: req.session.usuario, idCurso, totalCursos, listaCursos, cursosPublicados, saldo})
     },
     schedule: async(req, res, next) =>{
         let { coin, id_curso, nome_curso, data_hora_nova, id_usuario } = req.body
-        let coinDebito = coin-(coin*coin)
+        let coinDebito = coin-coin-coin
         /* caso não teve solicitação de alteração de data do curso executa o if */
         /* caso sim executa o else */ 
         console.log(agora)
