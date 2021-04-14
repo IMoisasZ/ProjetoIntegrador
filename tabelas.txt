@@ -11,4 +11,3 @@ let statusCurso = [
 ]
 
 
-

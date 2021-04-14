@@ -76,7 +76,18 @@
               <img src="/images/learn-code.svg" alt="entrar" />
             </div>
             <div class="btn-schedules">
-              <button type="submit" class="btn mt-3 requestsbtn schedules sol-agendar" id="new">agendar</button>
+              <% if(saldo == 1) { %>
+                <button type="submit" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok">agendar</button>
+                <div class="alert alert-sucess msg-com-saldo" id="msg-ok" hidden>
+                  <li>Agendamento realizado com sucesso!</li>
+                </div>
+              <% } else { %>
+                <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-erro" hidden>agendar</button>
+                <div class="alert alert-danger msg-sem-saldo" id="msg-erro">
+                  <li>Você não tem saldo para adquirir o curso!</li>
+                </div>
+              <% } %> 
+              
                 <!-- Button trigger modal -->
                 <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   solicitar alteração data/hora

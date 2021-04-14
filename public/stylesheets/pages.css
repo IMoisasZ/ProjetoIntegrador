@@ -1,5 +1,9 @@
 /*LEARN/TEACH*/
-#learnteach {
+#learnteach,
+#learnteach-novo,
+#learnteach-verificar,
+#learnteach-request,
+#learnteach-create {
     padding: 0rem;
     font-size: 19px;
 }
@@ -113,6 +117,22 @@ textarea {
     transition: 0.3s;
     font-family: 'Poppins';
     position: absolute;
+    top: 392px;
+    margin-left: -11rem;
+}
+
+.confirm {
+    font-size: 19px;
+    width: 188px;
+    height: 66px;
+    padding: 4px;
+    background-color: var(--first-color);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: 0.3s;
+    font-family: 'Poppins';
+    position: absolute;
     top: 340px;
     margin-left: -11rem;
 }
@@ -133,8 +153,15 @@ textarea {
     margin-left: -11rem;
 }
 
-
-
+#msg-learn-novo,
+#msg-learn-agendamento,
+#msg-request{
+    width: 60%;
+    margin: -200px 0px 0px 95px;
+    font-family: "Poppins",'Courier New', Courier, monospace;
+    font-size: 14px;
+    border-radius: 20px;
+}
 
 .requestsbtn:hover {
     background-color: var(--first-color-dark);
@@ -263,6 +290,11 @@ textarea {
 
 /*New page*/
 #new {
+    width: 15rem;
+}
+
+#new-ok,
+#new-erro {
     width: 15rem;
 }
 

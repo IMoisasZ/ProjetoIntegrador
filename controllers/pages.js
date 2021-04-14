@@ -4,8 +4,24 @@ const agora = new Date()
 
 const pagesController = {
     
-    learn:(req, res, next) => {
-        res.render("learn",{usuarios: req.session.usuario})
+    learn: async (req, res, next) => {
+        let cursos = await CursoPublicado.findAll({
+            where:{
+                id_status_curso: 1,
+                id_usuario:
+                    {[Op.ne]:[req.session.usuario.id]}
+            }});
+
+        let agendamentos = await CursoAgendado.findAll({
+            where:{
+                id_usuario_agendamento: req.session.usuario.id
+            }
+        })
+
+        let c = cursos.length
+        let a = agendamentos.length
+
+        return res.render("learn",{usuarios: req.session.usuario, c, a})
     },
     schedules: async (req, res, next) => {
         let { idCurso = 0 } = req.query
@@ -113,7 +129,14 @@ const pagesController = {
             res.render("main",{usuarios: req.session.usuario, cursosPublicados})   
         }
 
-        res.render("new",{usuarios: req.session.usuario, idCurso, totalCursos, listaCursos, cursosPublicados})
+        let saldo = 0
+        if(req.session.usuario.coin < listaCursos.coin){
+            saldo = 0 /* não é possivel comprar curso - sem saldo*/
+        }else{
+            saldo = 1 /* é possivel comprar curso - tem saldo*/
+        }
+
+        res.render("new",{usuarios: req.session.usuario, idCurso, totalCursos, listaCursos, cursosPublicados, saldo})
     },
     schedule: async(req, res, next) =>{
         let { coin, id_curso, nome_curso, data_hora_nova, id_usuario } = req.body
@@ -178,8 +201,18 @@ const pagesController = {
         }
         res.redirect("/main")
     },
-    teach:(req, res, next) => {
-        res.render("teach",{usuarios: req.session.usuario})
+    teach: async (req, res, next) => {
+        let agendamentos = await CursoAgendado.findAll({
+            where: {
+                id_status_agendamento: 3,
+                id_usuario_agendamento: 
+                {[Op.ne]:[req.session.usuario.id]} 
+            }
+        })
+
+        let b = agendamentos.length
+
+        res.render("teach",{usuarios: req.session.usuario, b })
     },
     requests: async(req, res, next) => {
         let { idCurso = 0 } = req.query
@@ -303,7 +336,7 @@ const pagesController = {
             id_status_curso: 1
         })
 
-        res.redirect("/main")
+        res.render("main")
     },
     create:(req, res, next) =>{
         res.render('create',{usuarios: req.session.usuario})

@@ -3,24 +3,34 @@
 <%- include('./partials/header') %>
 
   <main>
+    
     <div class="learnteachtitle">
       <h1 class="main-title">aprender</h1>
     </div>
     <div class="main-content">
 
       <div class="main-box ">
-
-        <section class="main-todo">
+        <section class="main-todo">            
           <h1 class="main-title">o que <br> deseja fazer?</h1>
-          <div class="main-buttons">
-              <a href="/pages/schedules">
-                <span class="btn mt-3 main-button" id="learnteach">verificar agendamentos</span>
-              </a>
-              <a href="/pages/new">
-                <span class="btn mt-3 main-button" id="learnteach">novo agendamento</span>
-              </a>
-          </div>      
-
+          <div class="main-buttons">   
+            <% if (a === 0) { %>
+              <button type="submit" class="btn mt-3 main-button" name="verificar-agendamento" id="learnteach-verificar">verificar agendamentos</button>
+              <div class="alert alert-danger" role="alert" id="msg-learn-agendamento" hidden>
+                <li>Você ainda não tem agendamentos. Bora começar a aprender!?</li>
+              </div>                  
+            <% } else { %>
+              <a href="/pages/schedules"><button type="submit" class="btn mt-3 main-button novo-agendamento" id="learnteach-verificar">verificar agendamentos</button></a>                
+            <% } %>
+            
+            <% if (c === 0) { %>
+              <button type="submit" class="btn mt-3 main-button" name="novo-agendamento" id="learnteach-novo">novo agendamento</button>                  
+              <div class="alert alert-danger" role="alert" id="msg-learn-novo" hidden>
+                <li>Não há cursos disponiveis no momento! Que tal você <a href="/pages/teach">criar</a> um?</li>
+              </div> 
+            <% } else { %>
+              <a href="/pages/new"><button type="submit" class="btn mt-3 main-button novo-agendamento" id="learnteach-novo">novo agendamento</button></a>                
+            <% } %>  
+          </div> 
         </section>
 
       </div>
