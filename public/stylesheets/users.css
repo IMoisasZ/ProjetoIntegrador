@@ -221,10 +221,13 @@ img {
   margin: 0 1.5rem;
 }
 
-.alert-danger{
+.alert-danger,
+.alert-success{
   position: absolute;
-  margin-left: 0px;
+  margin: 0px 0px 0px 0px;
   font-family: var(--body-font);
+  text-align: justify;
+  border-radius: 20px;
 }
 /*Show login*/
 /* .block {

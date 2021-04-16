@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataType) => {
     const CursoPublicado = sequelize.define('CursoPublicado', {
+        data_publicacao:DataType.DATE,
         curso: DataType.STRING,
         carga_horaria:DataType.INTEGER,
         coin:DataType.INTEGER,

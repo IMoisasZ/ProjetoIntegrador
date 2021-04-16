@@ -1,5 +1,7 @@
-const { CursoPublicado, Usuario, CursoAgendado, CoinUsuario } = require('../models')
+const { CursoPublicado, Usuario, CursoAgendado, CoinUsuario, StatusCurso } = require('../models')
 const {Op} = require('sequelize')
+const { check, validationResult, body } = require('express-validator')
+const moment = require('moment')
 const agora = new Date()
 
 const pagesController = {
@@ -208,10 +210,19 @@ const pagesController = {
                 {[Op.ne]:[req.session.usuario.id]} 
             }
         })
-
+        
+        let cursos = await CursoPublicado.findAll({
+            where:{
+                id_usuario: req.session.usuario.id
+            }
+        })
+        
         let b = agendamentos.length
+        console.log("b"+b);
+        let c = cursos.length
+        console.log("c"+c);
+        res.render("teach",{usuarios: req.session.usuario, b, c})
 
-        res.render("teach",{usuarios: req.session.usuario, b })
     },
     requests: async(req, res, next) => {
         let { idCurso = 0 } = req.query
@@ -342,23 +353,99 @@ const pagesController = {
     },
     public: async (req, res, next) =>{
         let { curso, carga_horaria, coin, data_hora, descricao } = req.body
-        let { files } = req
-        let nomeUsuario = req.session.usuario.nome_usuario
+        //let { files } = req
 
-        CursoPublicado.create({
-            curso: curso,
-            carga_horaria: carga_horaria,
-            coin: coin,
-            caminho_imagem: files[0].originalname,
-            data_hora: data_hora,
-            descricao: descricao,
-            id_usuario: req.session.usuario.id,
-            nome_usuario: nomeUsuario,
-            id_status_curso: 1
+            let nomeUsuario = req.session.usuario.nome_usuario
+            await CursoPublicado.create({
+                data_publicacao: agora,
+                curso: curso,
+                carga_horaria: carga_horaria,
+                coin: coin,
+                caminho_imagem:"", //files[0].originalname,
+                data_hora: data_hora,
+                descricao: descricao,
+                id_usuario: req.session.usuario.id,
+                nome_usuario: nomeUsuario,
+                id_status_curso: 1
+            })
+            res.render('create', {usuarios: req.session.usuario, sucesso:true})
+            
+        },
+    
+    publicated: async (req, res, next) => {
+        let { idCurso = 0 } = req.query
+        idCurso = parseInt(idCurso)
+        let listaCursos = []
+        let cursos = await CursoPublicado.findAll({
+            where:{
+                id_usuario:req.session.usuario.id
+        }});
+
+        let status = await StatusCurso.findAll()
+
+        let statusCurso = []
+
+        status.forEach(sts =>{
+            statusCurso.push({
+                id: sts.id,
+                descricao: sts.descricao_status
+            })
         })
 
+        // let listC = []
+        // cursos.forEach(curso => {  
+        //     listC.push({
+        //         id:curso.id,
+        //         curso:curso.curso,
+        //         carga_horaria:curso.carga_horaria,
+        //         coin:curso.coin,
+        //         data_hora:curso.data_hora,
+        //         descricao:curso.descricao,
+        //         id_usuario:curso.id_usuario,
+        //         nome_usuario: curso.nome_usuario,
+        //     })
+        // });
+        
+        for(let i = 0; i < statusCurso.length; i++){
+            for(let j = 0; j < cursos.length; j++){
+                if(statusCurso[i].id == cursos[j].id_status_curso){
+                    listaCursos.push({
+                        id:cursos[j].id,
+                        curso:cursos[j].curso,
+                        carga_horaria:cursos[j].carga_horaria,
+                        coin:cursos[j].coin,
+                        data_hora:cursos[j].data_hora,
+                        descricao:cursos[j].descricao,
+                        id_usuario:cursos[j].id_usuario,
+                        nome_usuario: cursos[j].nome_usuario,
+                        descricao_status: statusCurso[i].descricao
+                    })
+                }
+            }
+        }        
 
-        res.render('create', {usuarios: req.session.usuario})
+        let totalCursos = cursos.length
+        if(typeof(idCurso) == 'undefined'){
+            listaCursos=listaCursos[0]
+        }else{
+            listaCursos=listaCursos[idCurso]
+        }
+
+        res.render("publicated",{usuarios: req.session.usuario, idCurso, totalCursos, listaCursos})
+    },
+    update: async(req, res, next) =>{
+        let { nome_curso_edicao, carga_horaria_edicao, coin_edicao, data_hora_edicao, descricao_edicao } = req.body
+
+        let cursoAlterado = await CursoPublicado.update({
+            curso: nome_curso_edicao,
+            carga_horaria: carga_horaria_edicao,
+            coin: coin_edicao,
+            data_hora: data_hora_edicao,
+            descricao: descricao_edicao,
+            updateAt: agora
+        })
+
+        res.render("publicated",{usuarios: req.session.usuario})
     }
 }
 

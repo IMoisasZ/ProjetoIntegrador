@@ -2,19 +2,20 @@ var express = require('express');
 var router = express.Router();
 const pagesController = require('../controllers/pages');
 const multer = require('multer')
-const path = require('path')
+const path = require('path');
+const { check, validationResult, body } = require('express-validator')
 
-//criando o processo para inclusão da imagem do curso
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join('uploads'))
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-  })
+// criando o processo para inclusão da imagem do curso
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, path.join('uploads'))
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname)
+//     }
+//   })
    
-  var upload = multer({ storage: storage })
+//   var upload = multer({ storage: storage })
 
 
 /* GET learn page. */
@@ -47,7 +48,14 @@ router.post('/requests/cancel', pagesController.cancelSolicitation)
 /*GET Create page. */
 router.get('/create', pagesController.create)
 
-/*GET incluir curso. */
-router.post('/create', upload.any(), pagesController.public)
+/*POST incluir curso. */
+router.post('/create', pagesController.public)
+
+/*GET verificar cursos publicados. */
+router.get('/create/publicated', pagesController.publicated)
+
+/*PUT alterar dados do curso. */
+router.post('/create/publicated', pagesController.update)
+
 
 module.exports = router;

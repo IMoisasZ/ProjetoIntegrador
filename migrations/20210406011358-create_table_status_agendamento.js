@@ -9,7 +9,10 @@ module.exports = {
           autoIncrement: true,
         },
         sigla_agendamento: Sequelize.STRING,
-        status_agendamento: Sequelize.STRING
+        status_agendamento: Sequelize.STRING,
+        // Timestamps
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     })
   },
     down: async (queryInterface, Sequelize) => {

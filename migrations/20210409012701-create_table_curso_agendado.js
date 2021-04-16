@@ -41,8 +41,12 @@ module.exports = {
             key: 'id'
           }
         },
-        data_hora_agendamento: Sequelize.DATE,
-        data_hora_solicitada: Sequelize.DATE
+        data_hora_agendamento: Sequelize.DATE, /* data e hora marcada pelo publicador*/
+        data_hora_solicitada: Sequelize.DATE, /* data e hora solicitada pelo usuario*/
+        data_publicacao: Sequelize.DATE, /* data de publicacao do curso no site*/
+        // Timestamps
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
       })
     },
     down: async (queryInterface, Sequelize) => {

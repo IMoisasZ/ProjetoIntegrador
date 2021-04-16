@@ -8,6 +8,7 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true,
         },
+          data_publicacao: Sequelize.DATE,
           curso: Sequelize.STRING,
           carga_horaria: Sequelize.INTEGER,
           coin: Sequelize.INTEGER,
@@ -33,6 +34,9 @@ module.exports = {
               key:'id'
             }
           },
+          // Timestamps
+          createdAt: Sequelize.DATE,
+          updatedAt: Sequelize.DATE,
       })
     },
     down: async (queryInterface, Sequelize) => {

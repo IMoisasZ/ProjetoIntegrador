@@ -4,7 +4,8 @@ module.exports = (sequelize, DataType) => {
         id_usuario_agendamento: DataType.INTEGER,
         id_status_agendamento: DataType.INTEGER,
         data_hora_agendamento: DataType.DATE,
-        data_hora_solicitada: DataType.DATE
+        data_hora_solicitada: DataType.DATE,
+        data_publicacao: DataType.DATE
     },{
         tableName: 'curso_agendado',
         timestamps: false

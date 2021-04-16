@@ -9,44 +9,49 @@
     <div class="login-content"> 
         <div class="create-img">
           <img src="/images/create.svg" alt="create" />
+          <% if(typeof(sucesso) !== "undefined") { %>
+            <div class="alert alert-success" id="msg-public-curso" role="alert">
+                  <li>Curso publicado com sucesso!<a href="/main">Ir para o menu?</a></li>
+            </div>
+          <% } %>
         </div>
 
         <div class="form-create">
-
-<form action="/pages/create" method="POST" enctype="multipart/form-data">
+          
+<form action="/pages/create" method="POST">
 
   <div class="create-box">
     <i class="bx bx-book-add login-icon"></i>
-    <input type="text" placeholder="digite o curso" class="login-input" name="curso"/>
+    <input type="text" placeholder="digite o curso" class="login-input" name="curso" required/>
   </div>
 
   <div class="create-box">
     <i class="bx bx-timer login-icon"></i>
-    <input type="number" placeholder="digite a carga horária" class="login-input" min="1" max="30" name="carga_horaria"/>
+    <input type="number" placeholder="digite a carga horária" class="login-input" min="1" max="30" name="carga_horaria" required/>
   </div>
 
   <div class="create-box">
     <i class="bx bx-coin-stack login-icon"></i>
-    <input type="number" placeholder="créditos"class="login-input" min="0" max="100" name="coin"/>
-  </div>
+    <input type="number" placeholder="créditos"class="login-input" min="0" max="100" name="coin" required/>
+  </div> 
 
-  <div class="create-box">
+  <!-- <div class="create-box">
     <label class="login-input" for="imagem"><i class="bx bx-image-add login-icon"></i>imagem</label>
-    <input type="file" name="imagem"id="imagem" class="login-input sendImg" accept="image/*"/>
-  </div>
+    <input type="file" name="imagem"id="imagem" class="login-input sendImg" accept="image/*" required/>
+  </div> -->
 
   <div class="create-box">
-    <input type="datetime-local" placeholder="data e hora" class="login-input" name="data_hora"/>
+    <input type="datetime-local" placeholder="data e hora" class="login-input" name="data_hora" required/>
   </div>
 
   <div class="create-box">
     <i class=""></i>
    <textarea placeholder="descrição"
-      cols="30" rows="5" class="login-input" id="descricao" name="descricao"></textarea>
+      cols="30" rows="5" class="login-input" id="descricao" name="descricao" required></textarea>
   </div>
 
   <div class="btn">
-    <a><button type="submit" class="btn mt-3 login-button">publicar</button></a>
+    <button type="submit" class="btn mt-3 login-button">publicar</button>
   </div>
 </form>
 

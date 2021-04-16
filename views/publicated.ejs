@@ -1,0 +1,121 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+        <main>
+          <div class="learnteachtitle">
+            <h1 class="newtitle">cursos publicados</h1>
+          </div>
+          <%
+            let hrefPrevious = ''            
+            if(idCurso > 0){
+              hrefPrevious = '/pages/create/publicated/?idCurso='+(idCurso - 1)
+            }
+          %>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item">
+                <div class="left">
+                  <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
+                </div>
+              </li>
+              
+              <% 
+                let hrefNext = ''
+                if(idCurso < totalCursos - 1){
+                  hrefNext = '/pages/new/?idCurso='+(idCurso + 1)
+                }
+
+              %> 
+              <li class="page-item">
+                <div class="right">
+                  <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
+                </div>
+              </li>
+            </ul>
+          </nav> 
+
+          <div class="main-content">
+            <div class="main-box ">
+              <section class="requests-todo">
+                <form action="/pages/new" method="POST">
+                <input class="main-title" id="requestsTitle" name="nome_curso"  readonly value="<%= listaCursos.curso %>" />
+                <input type="text" name="id_curso" value="<%= listaCursos.id%>" hidden>
+                
+                <div class="requests-box">
+                  <i class="bx bx-user config-icon"></i>
+                  <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador" value="Ministrante: <%= listaCursos.nome_usuario %>"/>
+                  <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden value="<%= listaCursos.id_usuario %>"/>
+                </div>
+                
+                <div class="requests-box">
+                  <i class="bx bx-time config-icon"></i>
+                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="<%= listaCursos.carga_horaria %>"/>
+                </div>
+                <div class="requests-box">
+                  <i class="bx bx-coin-stack config-icon"></i>
+                  <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly value="<%= listaCursos.coin %>"/>
+                </div>    
+
+                <div class="requests-box">
+                  <i class="bx bx-calendar config-icon"></i>
+                  <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2" readonly><%= listaCursos.data_hora %></textarea>
+                  <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>"/>
+                </div>
+                
+                <div class="requests-box" id="newdescription">
+                  <i class="bx bx-book config-icon"></i>
+                  <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem" reaonly><%= listaCursos.descricao %></textarea>
+                </div>     
+               
+              </div>  
+              <div>
+                  </div>
+            </div>
+          </section>
+            <div class="requestsimg">
+              <img src="/images/learn-code.svg" alt="entrar" />
+            </div>
+            <div class="btn-schedules">
+                <button type="submit" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok">cancelar curso</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  editar curso
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edição do curso</h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                      </div>
+                      <form action="/pages/publicated" method="POST">
+                        <div class="modal-body">
+                          <label for="nome_curso_edicao" class="label">Nome do curso:</label>
+                          <textarea name="nome_curso_edicao" class="request-input" id="nome_curso_edicao"><%= listaCursos.curso %></textarea>
+                          <label for="carga_horaria_edicao" class="label">Carga horária:</label>
+                          <input type="number" class="request-input" name="carga_horaria_edicao" id="carga_horaria_edicao" value="<%= listaCursos.carga_horaria %>">
+                          <label for="coin_edicao" class="label">Coin:</label>
+                          <input type="number" class="request-input" name="coin_edicao" id="coin_edicao" value="<%= listaCursos.coin %>">
+                          <label for="data_hora_edicao" class="label">Data/Hora:</label>
+                          <input type="datetime" class="request-input" name="data_hora_edicao" id="data_hora_edicao" value="<%= listaCursos.data_hora %>">
+                          <label for="descrição_edicao" class="label">Descrição:</label>
+                          <textarea class="request-input" name="descrição_edicao" id="descrição_edicao"><%= listaCursos.descricao %></textarea>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">solicitar alteração</button>
+                        </div>
+                      </form>  
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </form>  
+          </div>  
+          </div>
+        </main>
+    <%- include('./partials/footer') %>
+  </body>
+</html>

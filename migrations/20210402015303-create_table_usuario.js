@@ -15,7 +15,10 @@ module.exports = {
         },
         senha:Sequelize.STRING,
         status: Sequelize.INTEGER,
-        tipo_usuario: Sequelize.INTEGER
+        tipo_usuario: Sequelize.INTEGER,
+        // Timestamps
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     })
   },
 

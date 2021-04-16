@@ -68,7 +68,7 @@ const usersController = {
                 caminho: 'Cadastro inicial',
                 id_usuario: idUser.id
             })
-            return res.render('signIn')
+            return res.render('signUp', {sucesso: true})
         }else{
             return res.render('signUp', {errors: listaErros.errors})
         }

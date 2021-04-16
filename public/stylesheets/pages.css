@@ -3,7 +3,8 @@
 #learnteach-novo,
 #learnteach-verificar,
 #learnteach-request,
-#learnteach-create {
+#learnteach-create,
+#learnteach-publicated {
     padding: 0rem;
     font-size: 19px;
 }
@@ -25,6 +26,16 @@
 }
 
 /*CREATE*/
+#msg-public-curso{
+    width: 37%;
+    text-align: justify;
+    margin: -7% 0% 0% -1%;
+}
+
+.focus{
+    border-color: red;
+}
+
 #create-title {
     margin: 3rem 0 -4rem;
 }
@@ -155,7 +166,8 @@ textarea {
 
 #msg-learn-novo,
 #msg-learn-agendamento,
-#msg-request{
+#msg-request,
+#msg-publicated{
     width: 60%;
     margin: -200px 0px 0px 95px;
     font-family: "Poppins",'Courier New', Courier, monospace;

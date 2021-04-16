@@ -13,6 +13,9 @@ module.exports = {
         coin: Sequelize.INTEGER,
         caminho: Sequelize.STRING,
         id_usuario: Sequelize.INTEGER,
+        // Timestamps
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     })
   },
 

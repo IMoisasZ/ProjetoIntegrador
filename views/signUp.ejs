@@ -5,9 +5,15 @@
   <main>
     <div class="login">
       <div class="login-content">
-        
         <div class="login-img">
           <img src="/images/login.svg" alt="entrar" />
+          <% if(typeof(sucesso) != "undefined") { %>            
+            <div class="alert alert-success err" role="alert" >
+              <ul>
+                <li>Usuário cadastrado com sucesso!<a href="/users/signIn"> Ir para login!</a></li>
+              </ul>
+            </div>
+          <% } %> 
           <% if(typeof(errors) != "undefined"){ %>
             <div class="alert alert-danger err" role="alert">
               <ul>

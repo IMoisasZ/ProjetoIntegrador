@@ -10,6 +10,9 @@ module.exports = {
       },
         sigla: Sequelize.STRING,
         descricao_status: Sequelize.STRING,
+        // Timestamps
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     })
   },
   down: async (queryInterface, Sequelize) => {

@@ -23,16 +23,35 @@
           <h1 class="main-title">o que <br> deseja fazer?</h1>
           
           <div class="main-buttons">
-            <% if(b > 0) { %>
+            <% if(b > 0 && c > 0) { %>
               <a href="/pages/requests"><button type="submit" class="btn mt-3 main-button" id="learnteach-request">verificar solicitações</button></a>
-              <a href="/pages/create"><button class="btn mt-3 main-button" id="learnteach-create">publicar novo curso</button></a> 
-            <% } else { %>
+              <a href="/pages/create/publicated"><button class="btn mt-3 main-button" id="learnteach-publicated">cursos publicados</button></a>  
+              <a href="/pages/create"><button class="btn mt-3 main-button" id="learnteach-create">publicar novo curso</button></a>
+            <% } else if(b > 0 && c == 0) { %>
+              <a href="/pages/requests"><button type="submit" class="btn mt-3 main-button" id="learnteach-request">verificar solicitações</button></a>
+              <button type="submit" class="btn mt-3 main-button" id="learnteach-publicated">cursos publicados</button>  
+              <a href="/pages/create"><button class="btn mt-3 main-button" id="learnteach-create">publicar novo curso</button></a>
+              <div class="alert alert-danger" role="alert" id="msg-publicated" hidden>
+                <li>Você não tem cursos publicados! Bora <a href="/pages/create"> publicar </a>um?</li>
+              </div> 
+            <%}else if (b == 0 && c > 0) { %>
               <button type="submit" class="btn mt-3 main-button" id="learnteach-request">verificar solicitações</button>
+              <a href="/pages/create/publicated"><button class="btn mt-3 main-button" id="learnteach-publicated">cursos publicados</button></a>
               <a href="/pages/create"><button class="btn mt-3 main-button" id="learnteach-create">publicar novo curso</button></a>
               <div class="alert alert-danger" role="alert" id="msg-request" hidden>
                 <li>Você não tem solicitações pendentes!</li>
               </div> 
-            <%}%>
+            <% }else { %>
+              <button type="submit" class="btn mt-3 main-button" id="learnteach-request">verificar solicitações</button>
+              <button type="submit" class="btn mt-3 main-button" id="learnteach-publicated">cursos publicados</button> 
+              <a href="/pages/create"><button class="btn mt-3 main-button" id="learnteach-create">publicar novo curso</button></a>
+              <div class="alert alert-danger" role="alert" id="msg-publicated" hidden>
+                <li>Você não tem cursos publicados! Bora <a href="/pages/create"> publicar </a>um?</li>
+              </div>
+              <div class="alert alert-danger" role="alert" id="msg-request" hidden>
+                <li>Você não tem solicitações pendentes!</li>
+              </div>  
+            <% } %>
           </div>
         </section>
       </div>
