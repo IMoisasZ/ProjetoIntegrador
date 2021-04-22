@@ -13,13 +13,13 @@
               <div class="card-box time-learning d-block mt-3">
                 <div class="card-box">
                     <p class="txt-learning">tempo aprendendo</p>
-                    <input type="text" id="time-qty-learning" value="1000">
+                    <input type="text" id="time-qty-learning" data-bs-toggle="tooltip" data-bs-placement="top" title="Total de horas aprendendo!" readonly  value="<%= aprendendo %>">
                 </div>
               </div>
               <div class="card-box time-teaching d-block">
                 <div class="card-box">
                     <p class="txt-teaching">tempo ensinando</p>
-                    <input type="text" id="time-qty-teaching" value="1000">
+                    <input type="text" id="time-qty-teaching" data-bs-toggle="tooltip" data-bs-placement="top" title="Total de horas ensinando!" readonly value="<%= ensinando %>">
                 </div>
               </div>
             </div>
@@ -48,11 +48,11 @@
                     </div>
     
                     <div class="button-cancelar">
-                      <a href="#"><button class="btn mt-3 config-button">cancelar</button></a>
+                      <a href="/users/config"><button class="btn mt-3 config-button">cancelar</button></a>
                     </div>
                   </div>
                   <div class="button-exclude-account d-flex">
-                    <a href="/users/delete/"><button type="button" class="btn mt-3 exclude-account-button">excluir conta</button></a>
+                    <a href="/users/delete"><button type="button" class="btn mt-3 exclude-account-button">excluir conta</button></a>
                   </div>
                 </div>
                 <div class="image-config">

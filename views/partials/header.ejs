@@ -18,7 +18,7 @@
             </div>
             <div class="collapse navbar-collapse navItensConfig me-3" id="navbarNavAltMarkup">
               <div class="navbar-nav" id="navBars">
-                <a><button class="main-button" id="credits"><%= usuarios.coin %> coin(s)</button></a>
+                <a><button class="main-button" id="credits" data-bs-toggle="tooltip" data-bs-placement="top" title="Saldo total de coin(s) disponivel"><%= usuarios.coin %> coin(s)</button></a>
                 <a class="nav-link" href="/users/config" id="config">estatísticas & configurações</a>
                 <form class="logout" action="/users/signIn/logout" method="post">
                   <a class="nav-link" href="/" id="logout">sair</a>

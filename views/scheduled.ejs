@@ -3,7 +3,7 @@
 <%- include('./partials/header') %>
   <main>
     <div class="learnteachtitle" id="main-title-publicated">
-      <h1 class="main-title">cursos publicados</h1>
+      <h1 class="main-title">cursos agendados</h1>
     </div>
 
     <div class="main-content">
@@ -11,11 +11,11 @@
         <section class="main-todo" id="fundo-cinza">          
           <div class="main-buttons" id="main-buttons">
             <div class="filtro">       
-              <div class="publicado-page">
-                <button class="btn-status btn-tipos"><a href="/pages/create/publicated"></a>publicados</button>
+              <div class="publicado">
+                <a href="/pages/create/publicated"><button class="btn-status btn-tipos">publicados</button></a>
               </div>
-              <div class="agendado">
-                <a href="/pages/create/publicated/scheduled"><button class="btn-status btn-tipos">agendados</button></a>
+              <div class="agendado-page">
+                <button class="btn-status btn-tipos"><a href="/pages/create/schedule"></a>agendados</button>
               </div>
               <div class="andamento">
                 <a href="/pages/create/publicated/started"><button class="btn-status btn-tipos">andamento</button></a>
@@ -48,6 +48,7 @@
                     <td><%= element.coin %></td>
                     <td><%= element.data_hora%></td>
                     <td><a href="/pages/create/publicated/edit/<%= element.id %>"><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar curso"><i class='bx bxs-edit config-icon'id="editar"></i></button></a></td>
+                    <td><a href="/pages/create/publicated/start/<%= element.id %>"><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Iniciar curso"><i class='bx bx-play-circle config-icon' id="iniciar"></i></button></a></td>
                     <form action="/pages/create/publicated/cancel/<%= element.id %>" method="post">
                     <td><button type="button" class="btn-action" data-bs-toggle="modal" data-bs-target="#cancel-course" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar curso"><i class='bx bxs-error config-icon'id="cancelar"></i></button></td>
                     </tr>
@@ -86,8 +87,9 @@
                     </nav>
                   </div>             
               </div>
-
-              <!-- Modal -->
+            </section>
+              
+              <!-- Modal cancel course-->
               <div class="modal fade" id="cancel-course" tabindex="-1" aria-labelledby="cancel-course" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -106,7 +108,7 @@
                   </div>
                 </div>
               </div>
-            </section>
+            
           </div>
           <div class="modal fade" id="confirm-cancel" tabindex="-1" aria-labelledby="confirm-cancel" aria-hidden="true">
             <div class="modal-dialog">
@@ -125,6 +127,8 @@
             </div>
           </div>
         </form>
+
+        
         <div class="main-img">
           <img src="/images/teach.svg" alt="entrar" id="img-publicated" />
         </div>

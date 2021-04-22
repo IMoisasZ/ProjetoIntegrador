@@ -1,115 +1,180 @@
 <%- include('./partials/head') %>
 
 <%- include('./partials/header') %>
-        <main>
-          <div class="learnteachtitle">
-            <h1 class="newtitle">oportunidades disponíveis</h1>
-          </div>
-          <%
+<main>
+  <div class="learnteachtitle">
+    <h1 class="newtitle">oportunidades disponíveis</h1>
+  </div>
+  <%
             let hrefPrevious = ''            
             if(idCurso > 0){
               hrefPrevious = '/pages/new/?idCurso='+(idCurso - 1)
             }
           %>
-          <nav aria-label="...">
-            <ul class="pagination">
-              <li class="page-item">
-                <div class="left">
-                  <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
-                </div>
-              </li>
-              
-              <% 
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item">
+        <div class="left">
+          <a class="page-link" href="<%= hrefPrevious %> "><img src="/images/left.svg" alt="left" id="l"></a>
+        </div>
+      </li>
+
+      <% 
                 let hrefNext = ''
                 if(idCurso < totalCursos - 1){
                   hrefNext = '/pages/new/?idCurso='+(idCurso + 1)
                 }
 
-              %> 
-              <li class="page-item">
-                <div class="right">
-                  <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
-                </div>
-              </li>
-            </ul>
-          </nav> 
-
-          <div class="main-content">
-            <div class="main-box ">
-              <section class="requests-todo">
-                <form action="/pages/new" method="POST">
-                <input class="main-title" id="requestsTitle" name="nome_curso"  readonly value="<%= listaCursos.curso %>" />
-                <input type="text" name="id_curso" value="<%= listaCursos.id%>" hidden>
-                
-                <div class="requests-box">
-                  <i class="bx bx-user config-icon"></i>
-                  <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador" value="Ministrante: <%= listaCursos.nome_usuario %>"/>
-                  <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden value="<%= listaCursos.id_usuario %>"/>
-                </div>
-                
-                <div class="requests-box">
-                  <i class="bx bx-time config-icon"></i>
-                  <input type="text" id="time" class="request-input" name="hora" placeholder="hora" value="Carga Horária: <%= listaCursos.carga_horaria %>"/>
-                </div>
-                <div class="requests-box">
-                  <i class="bx bx-coin-stack config-icon"></i>
-                  <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly value="<%= listaCursos.coin %>"/>
-                </div>    
-
-                <div class="requests-box">
-                  <i class="bx bx-calendar config-icon"></i>
-                  <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2" readonly><%= listaCursos.data_hora %></textarea>
-                  <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>"/>
-                </div>
-                
-                <div class="requests-box" id="newdescription">
-                  <i class="bx bx-book config-icon"></i>
-                  <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem" reaonly><%= listaCursos.descricao %></textarea>
-                </div>     
-               
-              </div>  
-              <div>
-                  </div>
-            </div>
-          </section>
-            <div class="requestsimg">
-              <img src="/images/learn-code.svg" alt="entrar" />
-            </div>
-            <div class="btn-schedules">
-                <button type="submit" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok">agendar</button>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  solicitar alteração data/hora
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Solicitação de alteração de data/hora</h5>
-                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-                      </div>
-                      <form action="/pages/new" method="POST">
-                        <div class="modal-body">
-                          <label for="data_hora_atual" class="label">Data/Hora atual</label>
-                          <textarea type="text" name="data_hora_atual" class="request-input" id="data_hora_atual" readonly><%= listaCursos.data_hora %></textarea>
-                          <label for="data_hora_nova" class="label">Data/hora solicitada</label>
-                          <input type="datetime-local" class="request-input" name="data_hora_nova" id="data_hora_nova">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">solicitar alteração</button>
-                        </div>
-                      </form>  
-                    </div>
-                  </div>
-                </div>
-            </div>
-            </form>  
-          </div>  
+              %>
+      <li class="page-item">
+        <div class="right">
+          <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="main-content">
+    <div class="main-box ">
+      <section class="requests-todo">
+        <form action="/pages/new" method="POST">
+          <input class="main-title" id="requestsTitle" name="nome_curso" readonly value="<%= listaCursos.curso %>" />
+          <input type="text" name="id_curso" value="<%= listaCursos.id%>" hidden>
+          
+          <div class="requests-box">
+            <i class="bx bx-user config-icon"></i>
+            <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador"
+            value="Ministrante: <%= listaCursos.nome_usuario %>" />
+            <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden
+            value="<%= listaCursos.id_usuario %>" />
           </div>
-        </main>
-    <%- include('./partials/footer') %>
-  </body>
+          
+          <div class="requests-box">
+            <i class="bx bx-time config-icon"></i>
+            <input type="text" id="time" class="request-input" name="hora" placeholder="hora"
+              value="Carga Horária: <%= listaCursos.carga_horaria %>" />
+            </div>
+            <div class="requests-box">
+              <i class="bx bx-coin-stack config-icon"></i>
+              <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly
+              value="<%= listaCursos.coin %>" />
+            </div>
+            
+            <div class="requests-box">
+              <i class="bx bx-calendar config-icon"></i>
+              <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2"
+              readonly><%= listaCursos.data_hora %></textarea>
+              <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>" />
+            </div>
+            
+            <div class="requests-box" id="newdescription">
+              <i class="bx bx-book config-icon"></i>
+            <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem"
+            reaonly><%= listaCursos.descricao %></textarea>
+          </div>
+        </div>
+      <div>
+      </div>
+    </div>
+  </section>
+  <div class="requestsimg">
+    <img src="/images/learn-code.svg" alt="entrar" />
+  </div>
+  <div class="btn-schedules">
+    <% if(saldo === "OK") { %>
+      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok" data-bs-toggle="modal"
+      data-bs-target="#confirm-schedule">agendar</button>
+      
+    <div class="modal fade" id="confirm-schedule" tabindex="-1" aria-labelledby="confirm-schedule" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirm-schedule">Agendamento confirmado</h5>
+          </div>
+          <div class="modal-body">
+            <p>Agendamento realizado com sucesso!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">sair</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else { %> 
+      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok" data-bs-toggle="modal"
+      data-bs-target="#confirm-schedule-nok">agendar</button>
+      
+      <div class="modal fade" id="confirm-schedule-nok" tabindex="-1" aria-labelledby="confirm-schedule-nok" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirm-schedule-nok">Saldo inculficiente</h5>
+            </div>
+            <div class="modal-body">
+              <p>Você não tem saldo disponivel para adquirir esse curso!</p>
+              <p>Publique e um curso para ganhar mais coin(s)! <a href="/pages/create">Publicar curso?</a></p>
+            </div>
+            <div class="modal-footer">
+              <a href="/pages/new"><button type="button" class="btn btn-primary">sair</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %> 
+      
+      <form action="/pages/new" method="POST">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">solicitar alteração data/hora</button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Solicitação de alteração de data/hora</h5>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+              <label for="data_hora_atual" class="label">Data/Hora atual</label>
+              <textarea type="text" name="data_hora_atual" class="request-input" id="data_hora_atual"
+              readonly><%= listaCursos.data_hora %></textarea>
+              <label for="data_hora_nova" class="label">Data/hora solicitada</label>
+              <input type="datetime-local" class="request-input" name="data_hora_nova" id="data_hora_nova">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-change">solicitar alteração</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="confirm-change" tabindex="-1" aria-labelledby="confirm-change" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirm-change">Solicitação de alteração de data/hora</h5>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+              <div class="modal-body">
+                <p>Solicitação para alteração de data/hora enviada com sucesso!<p>
+                <p>Assim que o professor aceitar ou negar sua solicitação, você receberá uma mensagem no chat.<p>
+                <p>Você pode tambem verificar o status do curso em <strong>"aprender => verificar agendamentos."</p>
+                  <p>Caso você tenha alguma duvida, entre em contato via chat com o professo!</p>  
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">sair</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  </form>
+  </div>
+  </div>
+</main>
+<%- include('./partials/footer') %>
+</body>
+
 </html>

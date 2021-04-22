@@ -1,0 +1,96 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+  <main>
+    <div class="learnteachtitle" id="main-title-publicated">
+      <h1 class="main-title">cursos cancelados</h1>
+    </div>
+
+    <div class="main-content">
+      <div class="main-box ">
+        <section class="main-todo" id="fundo-cinza">          
+          <div class="main-buttons" id="main-buttons">
+            <div class="filtro">       
+              <div class="publicado">
+                <a href="/pages/create/publicated"><button class="btn-status btn-tipos">publicados</button></a>
+              </div>
+              <div class="agendado">
+                <a href="/pages/create/publicated/scheduled"><button class="btn-status btn-tipos">agendados</button></a>
+              </div>
+              <div class="andamento">
+                <a href="/pages/create/publicated/started"><button class="btn-status btn-tipos">andamento</button></a>
+              </div>
+              <div class="cancelado-page">
+                <a href="/pages/create/publicated/cancel"><button class="btn-status">cancelados</button></a>
+              </div>
+              <div class="concluido">
+                <a href="/pages/create/publicated/finished"><button class="btn-status btn-tipos">concluídos</button></a>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Coin</th>
+                  <th scope="col">Data/Hora</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% cursos.forEach(element => { %>
+                  <tr>
+                    <th scope="row"><%= element.id %></th>
+                    <td><%= element.curso %></td>
+                    <td><%= element.coin %></td>
+                    <td><%= element.data_hora%></td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-center mt-3" id="pagination">
+              <nav aria-label="Page navigation example" class="move">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <% 
+                      let hrefPrevious = ''
+                      if(page > 1){
+                          hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
+                        }
+                    %> 
+                    <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <% 
+                      let hrefNext = ''
+                      if(totalPages > page){
+                          hrefNext = '/pages/create/publicated?page=' + (page + 1)
+                        }
+                    %> 
+                    <a class="page-link" href="<%= hrefNext %>" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            </div>
+          </div>
+        </section>
+        <div class="main-img">
+          <img src="/images/teach.svg" alt="entrar" id="img-publicated" />
+        </div>
+      </div>
+    </div>
+    </main>
+
+  <%- include('./partials/footer') %>
+
+  </body>
+</html>
+
+

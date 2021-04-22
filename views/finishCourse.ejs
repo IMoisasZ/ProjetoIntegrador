@@ -1,0 +1,82 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+      <main>
+        <div class="learnteachtitle">
+          <h1 class="newtitle">concluir curso</h1>
+        </div>
+
+        <div class="main-content">
+          <div class="main-box ">
+            <section class="requests-todo">
+              <form action="/pages/create/publicated/finish/<%= list.id_curso %>" method="POST">
+                <input name="id_curso"hidden value="<%= list.id_curso %>"/>
+                <input class="main-title name-course" id="requestsTitle" name="nome_curso" readonly value="<%= list.curso %>"/>
+                
+                <div class="requests-box">
+                  <i class="bx bx-time config-icon"></i>
+                  <input type="text" id="time" class="request-input" data-bs-placement="right" title="Carga horária do curso" name="carga_horaria" placeholder="hora" readonly value="<%= list.carga %>"/>
+                </div>
+
+                <div class="requests-box">
+                  <i class="bx bx-calendar config-icon"></i>
+                  <textarea id="data" class="request-input" ata-bs-placement="right" title="Data e hora do curso agendado" name="data_hora_agendado" placeholder="data" readonly><%= list.data_hora %></textarea>
+                </div>
+
+                <div class="requests-box">
+                  <i class="bx bx-calendar config-icon"></i>
+                  <input type="text" id="aluno" class="request-input" ata-bs-placement="right" title="Aluno agendado" ment="right" placeholder="Aluno" value="<%= list.aluno %>"/>
+                </div>
+              </section>
+              </div>
+            
+                <div class="btn-request-edit">
+                  <div class="btn-req-edit">
+                    <button type="button" class="btn mt-3 requestsbtn alterar" data-bs-toggle="modal" data-bs-target="#finish-course">Concluir curso</button>
+                  </div>
+                </div>
+
+                <!-- Modal -->
+              <div class="modal fade" id="finish-course" tabindex="-1" aria-labelledby="finish-course" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="finish-course">Concluir curso</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Confirma a conclusão do curso?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-finish">sim</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="confirm-finish" tabindex="-1" aria-labelledby="confirm-finish" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirm-finish">Concluir curso</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Curso concluído com sucesso!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Sair</button>
+                    </div>
+                  </form>  
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          <div class="requestsimg">
+            <img src="/images/learn-code.svg" alt="entrar" />
+          </div>
+  
+      </main>
+    <%- include('./partials/footer') %>
+  </body>
+</html>

@@ -23,7 +23,7 @@
             if(idCurso < totalAgendamentos - 1){
               hrefNext = '/pages/schedules/?idCurso='+(idCurso + 1)
             }
-          %>
+            %>
           <li class="page-item">
             <div class="right">
               <a class="page-link" href="<%= hrefNext %>"><img src="/images/right.svg" alt="Next" id="r"></a>
@@ -35,37 +35,74 @@
         <div class="main-box ">
           <section class="requests-todo">
             <form action="/pages/schedules" method="POST">
-              <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
+              <h1 class="main-title" id="requestsTitle" aria-readonly="true" ><%= listaAgendamentos.curso %></h1>
+              <div class="requests-box">
+                <i class='bx bx-info-circle config-icon'></i>
+                <input type="text" id="nome-status" class="request-input" name="nome-status" placeholder="status" readonly value="<%= status %>"/>
+              </div>
               <input type="text" id="id_curso" class="request-input" name="id_curso" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
               <div class="requests-box">
                 <i class="bx bx-user config-icon"></i>
-                <input type="text" id="usuario_publicador" class="request-input" name="usuario_publicador" placeholder="publicador" value="Ministrante: <%= listaAgendamentos.nome_usuario_publicador %>"/>
+                <input type="text" id="usuario_publicador" class="request-input" name="usuario_publicador" placeholder="publicador" readonly value="<%= listaAgendamentos.nome_usuario_publicador %>"/>
               </div>
               <div class="requests-box">
                 <i class="bx bx-coin-stack config-icon"></i>
-                <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" value="Coins(Custo): <%= listaAgendamentos.coin %>"/>
+                <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly value="<%= listaAgendamentos.coin %>"/>
               </div>
               <div class="requests-box">
                 <i class="bx bx-calendar config-icon"></i>
-                <textarea type="text" id="data_hora" class="request-input" name="data_hora" placeholder="data_hora"><%= listaAgendamentos.data_hora %></textarea>
+                <textarea type="text" id="data_hora" class="request-input" name="data_hora" placeholder="data_hora" readonly ><%= listaAgendamentos.data_hora %></textarea>
               </div> 
-              <div class="requests-box">
+              <div class="requests-box descricao">
                 <i class="bx bx-book config-icon"></i>
-                <textarea type="text" id="descricao" class="request-input" name="descricao" placeholder="descricao" rows="4"><%= listaAgendamentos.descricao %></textarea>
+                <textarea type="text" id="descricao" class="request-input" name="descricao" placeholder="descricao" rows="4" readonly ><%= listaAgendamentos.descricao %></textarea>
               </div>
-                <button type="submit" class="btn mt-3 requestsbtn" id="schedule">cancelar agendamento</button>
+              <button type="button" class="btn mt-3 requestsbtn-schedule" id="schedule" data-bs-toggle="modal"data-bs-target="#cancel-schedule">cancelar agendamento</button>
+              <div class="modal fade" id="cancel-schedule" tabindex="-1" aria-labelledby="cancel-schedule" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="cancel-schedule">Cancelar agendamento</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Este procedimento é irreversível!</p>
+                      <p>Os coin(s) pagos pelo curso não serão devolvidos.</p>
+                      <p>Deseja realmente cancelar o agendamento?</p>
+                    </div>
+                      <div class="modal-footer">
+                        <a href="/pages/schedules"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button></a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-cancel-schedule">sim</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
-            </form>                 
+              <div class="modal fade" id="confirm-cancel-schedule" tabindex="-1" aria-labelledby="confirm-cancel-schedule" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirm-cancel-schedule">Cancelar agendamento</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Agendamento cancelado com sucesso!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">sair</button>
+                    </div>
+                  </form>                 
+                </div>
+              </div>
+            </div>
+            
           </section>
         </div>
-            <div class="requestsimg">
-              <img src="/images/learn-code.svg" alt="entrar" />
-            </div>
-            <a href="/pages/learn">
-              <span class="btn mt-3 requestsbtn schedules">novo agendamento</span>
-              </a>
+        <div class="requestsimg">
+          <img src="/images/learn-code.svg" alt="entrar" />
+        </div>
+        <a href="/pages/learn"><span class="btn mt-3 requestsbtn schedules">novo agendamento</span></a>
       </div>
-    </main>
+    </main> 
     <%- include('./partials/footer') %>
   </body>
-</html>
+  </html>

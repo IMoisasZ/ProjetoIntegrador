@@ -54,8 +54,39 @@ router.post('/create', pagesController.public)
 /*GET verificar cursos publicados. */
 router.get('/create/publicated', pagesController.publicated)
 
-/*PUT alterar dados do curso. */
-router.post('/create/publicated', pagesController.update)
+/*GET verificar cursos cancelados. */
+router.get('/create/publicated/cancel', pagesController.cancelCourse)
+
+/*GET verificar cursos agendados. */
+router.get('/create/publicated/scheduled', pagesController.scheduled)
+
+/*GET verificar cursos iniciados. */
+router.get('/create/publicated/started', pagesController.started)
+
+/*GET verificar cursos concluidos. */
+router.get('/create/publicated/finished', pagesController.finished)
+
+/*GET concluir curso. */
+router.get('/create/publicated/finish/:id_curso', pagesController.finish)
+
+/*PUT alterar dados do curso. Necessário arrumar */
+router.post('/create/publicated/finish/:id_curso', pagesController.finish_course)
+
+/*PUT alterar dados do curso. Necessário arrumar */
+router.post('/create/publicated/cancel/:id_curso', pagesController.courseCancel)
+
+/*PUT alterar dados do curso. Necessário arrumar */
+router.get('/create/publicated/edit/:id_curso', pagesController.edit)
+
+/*PUT alterar dados do curso. Necessário arrumar */
+router.post('/create/publicated/update/:id_curso', pagesController.update)
+
+/*GET mostrar os dados curso para poder iniciar o mesmo */
+router.get('/create/publicated/start/:id_curso', pagesController.start)
+
+/*PUT iniciar o curso. Necessário arrumar */
+router.post('/create/publicated/start/:id_curso', pagesController.start_course)
+
 
 
 module.exports = router;

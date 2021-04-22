@@ -1,4 +1,4 @@
-const { Usuario, CoinUsuario } = require('../models')
+const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado } = require('../models')
 const { check, validationResult, body } = require('express-validator')
 const bcrypt = require('bcrypt');
 const usersController = {
@@ -73,11 +73,73 @@ const usersController = {
             return res.render('signUp', {errors: listaErros.errors})
         }
     },
-    config:(req, res, nex) =>{
-        res.render('config',{usuarios: req.session.usuario})
+    config: async (req, res, nex) =>{
+        let ensinando = await CursoPublicado.findAll({
+            where:{
+                id_usuario: req.session.usuario.id,
+                id_status_curso: 6
+            }
+        })
+
+        let configEnsinando = 0
+        if(typeof(ensinando) !== "undefined"){
+            ensinando.forEach(element =>{
+                configEnsinando += element.carga_horaria
+            })
+        }     
+
+        let aprendendo = await CursoAgendado.findAll({
+            where:{
+                id_usuario_agendamento: req.session.usuario.id,
+            }
+        })
+
+        let configAprendendo = 0
+        if(typeof(aprendendo) !== "undefined"){
+            for(let i = 0; i < ensinando.length; i++){
+                for(let j = 0; j < aprendendo.length; j++){
+                    if(ensinando.id === aprendendo.id_usuario_agendamento){
+                        configAprendendo += ensinando.carga_horaria 
+                    }
+                }
+            }
+        }
+
+        res.render('config',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
     },
-    excluirConta:(req,res,next) =>{
-        res.render('excluirConta',{usuarios: req.session.usuario})
+    excluirConta: async (req,res,next) =>{
+        let ensinando = await CursoPublicado.findAll({
+            where:{
+                id_usuario: req.session.usuario.id,
+                id_status_curso: 6
+            }
+        })
+
+        let configEnsinando = 0
+        if(typeof(ensinando) !== "undefined"){
+            ensinando.forEach(element =>{
+                configEnsinando += element.carga_horaria
+            })
+        }     
+
+        let aprendendo = await CursoAgendado.findAll({
+            where:{
+                id_usuario_agendamento: req.session.usuario.id,
+            }
+        })
+
+        let configAprendendo = 0
+        if(typeof(aprendendo) !== "undefined"){
+            for(let i = 0; i < ensinando.length; i++){
+                for(let j = 0; j < aprendendo.length; j++){
+                    if(ensinando.id === aprendendo.id_usuario_agendamento){
+                        configAprendendo += ensinando.carga_horaria 
+                    }
+                }
+            }
+        }
+
+        res.render('excluirConta',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
     }
     
 }

@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session')
+var session = require('express-session');
+var methodOverride = require('method-override');
 
 var mainRouter = require('./routes/main');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(methodOverride('_method'))
 
 app.use(logger('dev'));
 app.use(express.json());
