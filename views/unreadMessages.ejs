@@ -1,0 +1,151 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+  <main>
+    <div class="learnteachtitle" id="main-title-publicated">
+      <h1 class="main-title">mensagens não lidas</h1>
+    </div>
+
+    <div class="main-content">
+      <div class="main-box ">
+        <section class="main-todo" id="fundo-cinza">          
+          <div class="main-buttons" id="main-buttons">
+            <div class="filtro">       
+              <div class="todas">
+                <a href="/pages/create/message"><button class="btn-status btn-tipos">todas</button></a>
+              </div>
+              <div class="nao-lidas-page">
+                <a href="/pages/create/message/unreadMessages"><button class="btn-status btn-tipos">não lidas</button></a>
+              </div>
+              <div class="lidas">
+                <a href="/pages/create/message/readMessages"><button class="btn-status btn-tipos">lidas</button></a>
+              </div>
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Lida</th>
+                  <th scope="col">Mensagem</th>
+                  <th colspan="1">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% mensagens.forEach(element => { %>
+                  <tr>
+                    <th scope="row"><%= element.id_mensagem %></th>
+                    <% if(element.lida == true) { %>
+                      <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>" checked></td>  
+                    <% } else { %>
+                      <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>"></td>
+                    <% }%>
+                    <td data-bs-toggle="tooltip" data-bs-placement="top" title="Curso: <%= element.curso %> - Carga Horária: <%= element.carga_horaria %> Coin: <%= element.coin %> Data/Hora: <%= element.data_hora %>"><%= element.mensagem %></td>
+                      <form action="/pages/create/message/<%= element.id_mensagem %>" method="POST">
+                        <td><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como lida" data-bs-toggle="modal" data-bs-target="#readMsg"><i class='bx bxs-checkbox-checked config-icon'></i></button></td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+              </table>
+
+              <!-- Modal -->
+              <div class="modal fade" id="readMsg" tabindex="-1" aria-labelledby="readMsg" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="readMsg">Mensagem lida</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Mensagem alterada para lida!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">sim</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+                 <!-- paginacao  -->
+                  <div class="d-flex justify-content-center mt-3" id="pagination">
+                    <nav aria-label="Page navigation example" class="move">
+                      <ul class="pagination">
+                        <li class="page-item">
+                          <% 
+                            let hrefPrevious = ''
+                            if(page > 1){
+                                hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
+                              }
+                          %> 
+                          <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        </li>
+                        <li class="page-item">
+                          <% 
+                            let hrefNext = ''
+                            if(totalPages > page){
+                                hrefNext = '/pages/create/publicated?page=' + (page + 1)
+                              }
+                          %> 
+                          <a class="page-link" href="<%= hrefNext %>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>             
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="cancel-course" tabindex="-1" aria-labelledby="cancel-course" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Cancelar curso</h5>
+                      <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div class="modal-body">
+                      <p>Este procedimento é irreversivel!</p>
+                      <p>Deseja realente cancelar o curso?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-cancel">sim</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="modal fade" id="confirm-cancel" tabindex="-1" aria-labelledby="confirm-cancel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="confirm-cancel">Cancelar curso</h5>
+                  <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body">
+                  <p>Curso cancelado com sucesso!</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">sair</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="main-img">
+          <img src="/images/teach.svg" alt="entrar" id="img-publicated" />
+        </div>
+      </div>    
+    </main>
+
+  <%- include('./partials/footer') %>
+
+  </body>
+</html>
+
+

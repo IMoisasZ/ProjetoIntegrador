@@ -1,5 +1,6 @@
-const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado } = require('../models')
+const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado, Message } = require('../models')
 const { check, validationResult, body } = require('express-validator')
+const {Op} = require('sequelize')
 const bcrypt = require('bcrypt');
 const usersController = {
     signIn:async(req, res, next) => {
@@ -23,7 +24,6 @@ const usersController = {
         }
 
         let usuarioJson = await usuario.toJSON()
-
 
         usuarioJson.senha = undefined
         
@@ -68,42 +68,49 @@ const usersController = {
                 caminho: 'Cadastro inicial',
                 id_usuario: idUser.id
             })
+
+            /*mensages*/
+            await Message.create({
+                id_curso: "",
+                mensagem: "Seja bem vindo ao CONNEKT. Você ganhou 8 Coins para iniciar na nossa plataforma! Bora aprender e ensinar!",
+                de: "",
+                para: idUser.id,
+                lida: false,
+                tipo: "SISTEMA"
+            })
+
             return res.render('signUp', {sucesso: true})
         }else{
             return res.render('signUp', {errors: listaErros.errors})
         }
     },
     config: async (req, res, nex) =>{
-        let ensinando = await CursoPublicado.findAll({
+        let coinTotal = await CoinUsuario.findAll({
             where:{
                 id_usuario: req.session.usuario.id,
-                id_status_curso: 6
+                tipo:
+                {[Op.ne]:['I']}
             }
         })
 
+        console.log(coinTotal);
+        
         let configEnsinando = 0
-        if(typeof(ensinando) !== "undefined"){
-            ensinando.forEach(element =>{
-                configEnsinando += element.carga_horaria
-            })
-        }     
-
-        let aprendendo = await CursoAgendado.findAll({
-            where:{
-                id_usuario_agendamento: req.session.usuario.id,
+        let configAprendendo = 0
+        
+        coinTotal.forEach(element =>{
+            if(element.coin < 0){
+                configAprendendo += element.coin
+                configEnsinando += 0
+            }
+            if(element.coin > 0){
+                configAprendendo += 0
+                configEnsinando += element.coin 
             }
         })
 
-        let configAprendendo = 0
-        if(typeof(aprendendo) !== "undefined"){
-            for(let i = 0; i < ensinando.length; i++){
-                for(let j = 0; j < aprendendo.length; j++){
-                    if(ensinando.id === aprendendo.id_usuario_agendamento){
-                        configAprendendo += ensinando.carga_horaria 
-                    }
-                }
-            }
-        }
+        configEnsinando = Math.abs(configEnsinando)
+        configAprendendo =  Math.abs(configAprendendo)
 
         res.render('config',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
     },

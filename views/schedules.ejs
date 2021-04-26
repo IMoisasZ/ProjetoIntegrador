@@ -2,7 +2,7 @@
 <%- include('./partials/header') %>
     <main>
       <div class="learnteachtitle">
-        <h1 class="requestsmaintitle">agendamentos</h1>
+        <h1 class="title-schedules">solicitação de alteração de data/hora</h1>
       </div>
       <!-- paginação dos cursos -->
       <%
@@ -57,12 +57,12 @@
                 <i class="bx bx-book config-icon"></i>
                 <textarea type="text" id="descricao" class="request-input" name="descricao" placeholder="descricao" rows="4" readonly ><%= listaAgendamentos.descricao %></textarea>
               </div>
-              <button type="button" class="btn mt-3 requestsbtn-schedule" id="schedule" data-bs-toggle="modal"data-bs-target="#cancel-schedule">cancelar agendamento</button>
+              <!-- <button type="button" class="btn mt-3 requestsbtn-schedule" id="schedule" data-bs-toggle="modal"data-bs-target="#cancel-schedule">cancelar agendamento</button> -->
               <div class="modal fade" id="cancel-schedule" tabindex="-1" aria-labelledby="cancel-schedule" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="cancel-schedule">Cancelar agendamento</h5>
+                      <h5 class="modal-title" id="cancel-schedule">cancelar solicitação</h5>
                     </div>
                     <div class="modal-body">
                       <p>Este procedimento é irreversível!</p>

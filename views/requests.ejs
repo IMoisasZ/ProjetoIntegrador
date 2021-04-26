@@ -40,42 +40,122 @@
             </ul>
           </nav>
 
-    <div class="main-content">
-
-      <div class="main-box ">
-        <section class="requests-todo">
-          <form action="/pages/requests/acept" method="POST">
-            <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
-            <div class="requests-box">
-              <i class="bx bx-user config-icon"></i>
-              <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" value="<%= listaAgendamentos.nome_usuario_curso %>"/>
-              <input type="text" id="id_agendamento" class="request-input" name="id_agendamento" hidden value="<%= listaAgendamentos.id_agendamento %>"/>
-              <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
-              <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
-              <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
-            </div>
-            <div class="requests-box">
-              <i class="bx bx-time config-icon"></i>
-              <textarea type="text" id="data_hora_agendada" class="request-input" name="data_hora_agendada"><%= listaAgendamentos.data_hora %></textarea>
-            </div>
-            <div class="requests-box">
-              <i class="bx bx-time config-icon"></i>
-              <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada"><%= listaAgendamentos.data_hora_solicitada %></textarea>
-            </div>
-            <div class="requests-box">
-              <i class="bx bx-coin config-icon"></i>
-              <input type="text" id="coin" class="request-input" name="coin" value="<%= listaAgendamentos.coin %>"/>
-            </div>
+          <div class="main-content">
+            <div class="main-box ">
+              <section class="requests-todo">
+                <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
+                <form action="/pages/requests/acept" method="POST">
+                <div class="requests-box">
+            <i class="bx bx-user config-icon"></i>
+            <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" value="<%= listaAgendamentos.nome_usuario_curso %>"/>
+            <input type="text" id="id_agendamento" class="request-input" name="id_agendamento" hidden value="<%= listaAgendamentos.id_agendamento %>"/>
+            <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
+            <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
+            <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
+          </div>
+          <div class="requests-box">
+            <i class="bx bx-time config-icon"></i>
+            <textarea type="text" id="data_hora_agendada" class="request-input" name="data_hora_agendada"><%= listaAgendamentos.data_hora %></textarea>
+          </div>
+          <div class="requests-box">
+            <i class="bx bx-time config-icon"></i>
+            <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada"><%= listaAgendamentos.data_hora_solicitada %></textarea>
+          </div>
+          <div class="requests-box">
+            <i class="bx bx-coin config-icon"></i>
+            <input type="text" id="coin" class="request-input" name="coin" value="<%= listaAgendamentos.coin %>"/>
+          </div>
             <div class="btn-req-confirm">
-              <button type="submit" class="btn mt-3 requestsbtn confirm">aceitar solicitação</button>
+              <button type="button" class="btn btn-primary requestsbtn confirm" data-bs-toggle="modal" data-bs-target="#solicitation">aceitar solicitação</button>
             </div>
-            <form action="/pages/requests/cancel" method="POST">
-              <div class="btn-request">
-                <div class="btn-req-cancel">
-                  <button type="submit" class="btn mt-3 requestsbtn cancel">cancelar solicitação</button>
+            
+            <div class="modal fade" id="solicitation" tabindex="-1" aria-labelledby="solicitation" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="solicitation">Solicitação de alteração de data/hora</h5>
+                    </div>
+                      <div class="modal-body">
+                        <h6>Solicitação de alteração:</h6>
+                          <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora %></p>
+                          <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada %></p>
+                          <p>Confirma a alteração da data/hora de agendamento para a data solicitada?</p>  
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-solicitation">sim</button>
+                      </div>
+                  </div>
                 </div>
-            </div>
-            </form>             
+              </div>
+
+              <div class="modal fade" id="confirm-solicitation" tabindex="-1" aria-labelledby="confirm-solicitation" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirm-solicitation">Solicitação de alteração de data/hora</h5>
+                    </div>
+                      <div class="modal-body">
+                        <p>Alteração da data/hora de agendamento foi realizada com sucesso!</p>  
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">sair</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+                
+              <form action="/pages/requests/cancel" method="POST">
+                <div class="btn-request">
+                  <div class="btn-req-cancel">
+                    <button type="button" class="btn btn-primary requestsbtn cancel" data-bs-toggle="modal" data-bs-target="#cancel-solicitation">cancelar solicitação</button>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="cancel-solicitation" tabindex="-1" aria-labelledby="cancel-solicitation" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="cancel-solicitation">Não aceitar alteração de data/hora</h5>
+                        </div>
+                          <div class="modal-body">
+                            <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
+                            <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
+                            <input type="text" id="coin" class="request-input" name="coin" hidden value="<%= listaAgendamentos.coin %>"/>
+                            <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
+                            <h4>Solicitação de alteração:</h4>
+                            <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora %></p>
+                            <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada %></p>
+                            <hr>
+                            <p>O cancelamento da solicitação fará com que o(s) coin(s) pagos pelo curso sejam estornados para o aluno.</p>
+                            <p>Confirma o cancelamento da solicitação?</p>  
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-cancel">sim</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="modal fade" id="confirm-cancel" tabindex="-1" aria-labelledby="confirm-cancel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="confirm-cancel">Solicitação de alteração de data/hora</h5>
+                        </div>
+                          <div class="modal-body">
+                            <p>A solicitação do aluno foi cancelado com sucesso!</p>
+                            <p>O aluno receberá uma mensagem via chat comunicando que a sua solicitação não foi aceita!</p>  
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">sair</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>            
             
             </div>
             
@@ -83,8 +163,6 @@
               </div>
               
           </section>
-            
-        </form>
         <div class="requestsimg">
           <img src="/images/learn-code.svg" alt="entrar" />
         </div>

@@ -1,0 +1,72 @@
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+
+  <main>
+    <div>
+    <h3 class="title" id="create-title">enviar mensagem</h3>
+    </div>
+    <div class="login-content">
+        <div class="create-img">
+          <img src="/images/create.svg" alt="create" />
+        </div>
+
+  <div class="form-create">
+          
+<form action="/pages/create/message/sendMessage" method="POST">
+
+  <div class="create-box">
+    <i class="bx bx-book-add login-icon"></i>
+    <input type="text" placeholder="" class="login-input" name="id_curso" value="<%= curso.id %> " readonly/>
+    <input type="text" placeholder="" class="login-input" name="usuario_id" value="<%= curso.usuario_id %> " hidden/>
+  </div>
+
+  <div class="create-box">
+    <i class="bx bx-timer login-icon"></i>
+    <input type="text" placeholder="" class="login-input" name="curso" value="<%= curso.curso %>" readonly/>
+  </div>
+
+  <div class="create-box">
+    <i class="bx bx-coin-stack login-icon"></i>
+    <textarea class="login-input" name="coin" name="data_hora" readonly><%= curso.data_hora %> </textarea>
+  </div>
+  
+  <div class="create-box">
+    <i class="bx bx-coin-stack login-icon"></i>
+    <textarea class="login-input" name="coin" name="descricao" readonly><%= curso.descricao %></textarea>
+  </div>
+
+  <div class="create-box">
+    <i class="bx bx-coin-stack login-icon"></i>
+    <textarea class="login-input" name="coin" name="mensagem" cols="30" rows="5" placeholder="Digite sua mensagem aqui!"></textarea>
+  </div>
+
+  <div class="btn">
+    <button type="button" class="btn mt-3 login-button" data-bs-toggle="modal" data-bs-target="#sendMsg">enviar</button>
+  </div>
+  
+  <div class="modal fade" id="sendMsg" tabindex="-1" aria-labelledby="sendMsg" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sendMsg">Enviar mensagem</h5>
+          </div>
+            <div class="modal-body">
+              <p>Mensagem enviada com sucesso!</p>  
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">sair</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+</main>
+<%- include('./partials/footer') %>
+</body>
+</html>

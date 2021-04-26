@@ -87,6 +87,40 @@ router.get('/create/publicated/start/:id_curso', pagesController.start)
 /*PUT iniciar o curso. Necessário arrumar */
 router.post('/create/publicated/start/:id_curso', pagesController.start_course)
 
+/*GET verificar cursos agendados. */
+router.get('/create/learnCourses', pagesController.myCourses)
 
+/*PUT cancelar agendamentos. */
+router.post('/create/learnCourses/:id_curso', pagesController.cancelSchedule)
+
+/*GET verificar cursos iniciados. */
+router.get('/create/learnCourses/startedCourses', pagesController.startedCourses)
+
+/*GET verificar agendamentos cancelados. */
+router.get('/create/learnCourses/canceledSchedule', pagesController.canceledSchedule)
+
+/*GET verificar cursos concluidos. */
+router.get('/create/learnCourses/finishedSchedule', pagesController.finishedSchedule)
+
+/*GET enviar mensagens */
+router.get('/create/message', pagesController.message)
+
+/*POST enviar mensagens */
+router.post('/create/message/:id_message', pagesController.messageChecked)
+
+/*POST enviar mensagens */
+router.post('/create/message/check/:id_message', pagesController.messageCheck)
+
+/*GET enviar mensagens */
+router.get('/create/message/sendMessage/:id_curso', pagesController.sendMessageDados)
+
+/*POST enviar mensagens */
+router.post('/create/message/sendMessage', pagesController.sendMessage)
+
+/*GET enviar mensagens */
+router.get('/create/message/readMessages', pagesController.readMessages)
+
+/*GET enviar mensagens */
+router.get('/create/message/unreadMessages', pagesController.unreadMessages)
 
 module.exports = router;

@@ -100,29 +100,9 @@
         </div>
       </div>
     </div>
-    <% } else { %> 
-      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok" data-bs-toggle="modal"
-      data-bs-target="#confirm-schedule-nok">agendar</button>
-      
-      <div class="modal fade" id="confirm-schedule-nok" tabindex="-1" aria-labelledby="confirm-schedule-nok" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirm-schedule-nok">Saldo inculficiente</h5>
-            </div>
-            <div class="modal-body">
-              <p>Você não tem saldo disponivel para adquirir esse curso!</p>
-              <p>Publique e um curso para ganhar mais coin(s)! <a href="/pages/create">Publicar curso?</a></p>
-            </div>
-            <div class="modal-footer">
-              <a href="/pages/new"><button type="button" class="btn btn-primary">sair</button></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <% } %> 
-      
-      <form action="/pages/new" method="POST">
+
+
+    <form action="/pages/new" method="POST">
       <!-- Button trigger modal -->
       <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" data-bs-toggle="modal" data-bs-target="#exampleModal">solicitar alteração data/hora</button>
       <!-- Modal -->
@@ -169,8 +149,32 @@
         </div>
       </div>
 
-  </div>
-  </form>
+    <% } else { %> 
+      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok" data-bs-toggle="modal"
+      data-bs-target="#confirm-schedule-nok">agendar</button>
+
+      <button type="button" class="btn mt-3 requestsbtn schedules sol-agendar" id="new-ok" data-bs-toggle="modal"
+      data-bs-target="#confirm-schedule-nok">solicitar alteração data/hora</button>
+      
+      <div class="modal fade" id="confirm-schedule-nok" tabindex="-1" aria-labelledby="confirm-schedule-nok" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirm-schedule-nok">Saldo insulficiente</h5>
+            </div>
+            <div class="modal-body">
+              <p>Você não tem saldo disponivel para adquirir esse curso!</p>
+              <p>Publique e um curso para ganhar mais coin(s)! <a href="/pages/create">Publicar curso?</a></p>
+            </div>
+            <div class="modal-footer">
+              <a href="/pages/new"><button type="button" class="btn btn-primary">sair</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %> 
+    </div>
+    </form>
   </div>
   </div>
 </main>

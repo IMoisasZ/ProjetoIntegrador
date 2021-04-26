@@ -171,3 +171,28 @@ footer {
 #errorbtn {
     margin-left: 7rem;
 }
+
+.notifications{
+    position: absolute;
+    left: 45%;
+    top: 12%;
+    font-size: 40px;
+}
+
+.number-notify{
+    font-size: 15px;
+    position: absolute;
+    top: 10%;
+    background-color: var(--first-color);
+}
+
+.config-icon-notify {
+    font-size: 2.5rem;
+    color: var(--first-color);
+  }
+
+  #table-msg{
+      width: 100%;
+      margin-left: 0px;
+      font-size: 14px;
+  }

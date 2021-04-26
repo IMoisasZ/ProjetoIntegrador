@@ -25,6 +25,18 @@
     margin-top: -1rem;
 }
 
+.title-schedules{
+    color: var(--first-color-darkest);
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-left: -20rem;
+    margin-top: 4.6rem;
+    font-family: "Poppins";
+    width: 800px;
+}
+
+
 /*CREATE*/
 #msg-public-curso{
     width: 37%;
@@ -459,7 +471,10 @@ textarea {
 .cancelado-page button,
 .agendado-page button,
 .andamento-page button,
-.concluido-page button{
+.concluido-page button,
+.todas-page button,
+.lidas-page button,
+.nao-lidas-page button{
     background-color: yellowgreen;
 }
 
@@ -482,7 +497,20 @@ textarea {
 }
 
 .page-item{
-    width: 100px
+    width: 100px;
+}
+
+.modal-body{
+    display: flex;
+    text-align: left;
+}
+
+.confirm{
+    margin-top: 3%;
+}
+
+.cancel{
+    margin-top: 3%;
 }
 
 /* page edit */
@@ -494,4 +522,20 @@ textarea {
 
 .main-title-edit{
     margin-top: 5%;
+}
+.negrito{
+    font-weight: 500;
+    font-style: italic;
+}
+
+.requests-box-msg {
+    padding: 0.8rem 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: transparent;
+    width: 29rem;
+}
+
+#modal-body-msg{
+    font-weight: 500;
 }

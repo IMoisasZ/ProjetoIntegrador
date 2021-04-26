@@ -14,18 +14,20 @@
           <h1 class="main-title">o que <br> deseja fazer?</h1>
           <div class="main-buttons">   
             <% if (a !== "ok") { %>
-              <button type="submit" class="btn mt-3 main-button" name="verificar-agendamento" id="learnteach-verificar">verificar agendamentos</button>
+              <button type="submit" class="btn mt-3 main-button" name="verificar-agendamento" id="learnteach-verificar">minhas solicitações</button>
               <div class="alert alert-danger" role="alert" id="msg-learn-agendamento" hidden>
-                <li>Você ainda não tem agendamentos. Bora começar a aprender!?</li>
-              </div>                  
+                <li>Você não tem solicitações de alteração de data/hora em aberto!</li>
+              </div>
+              <a href="/pages/create/learnCourses"><button type="button" class="btn mt-3 main-button" name="meus-cursos" id="learnteach-verificar">meus cursos</button></a>                  
             <% } else { %>
-              <a href="/pages/schedules"><button type="button" class="btn mt-3 main-button novo-agendamento" id="learnteach-verificar">verificar agendamentos</button></a>                
+              <a href="/pages/schedules"><button type="button" class="btn mt-3 main-button novo-agendamento" id="learnteach-verificar">minhas solicitações</button></a>
+              <a href="/pages/create/learnCourses"><button type="button" class="btn mt-3 main-button" name="meus-cursos" id="learnteach-verificar">meus cursos</button></a>                                  
             <% } %>
             
             <% if (c !== "ok") { %>
               <button type="submit" class="btn mt-3 main-button" name="novo-agendamento" id="learnteach-novo">novo agendamento</button>                  
               <div class="alert alert-danger" role="alert" id="msg-learn-novo" hidden>
-                <li>Não há cursos disponiveis no momento! Que tal você <a href="/pages/teach">criar um?</a></li>
+                <li>Não há cursos disponiveis no momento! <a href="/pages/teach">Que tal você criar um?</a></li>
               </div> 
             <% } else { %>
               <a href="/pages/new"><button type="submit" class="btn mt-3 main-button novo-agendamento" id="learnteach-novo">novo agendamento</button></a>                
