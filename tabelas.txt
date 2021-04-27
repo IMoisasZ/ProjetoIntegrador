@@ -1,13 +1,19 @@
 let statusAgendamento = [
     {id: 1, sigla_agendamento: "A", status_agendamento: "AGENDADO"},
     {id: 2, sigla_agendamento: "C", status_agendamento: "CANCELADO"},
-    {id: 3, sigla_agendamento: "AS", status_agendamento: "AGUARDANDO SOLICITAÇÃO"}
+    {id: 3, sigla_agendamento: "AS", status_agendamento: "AGUARDANDO SOLICITAÇÃO"},
+    {id: 4, sigla_agendamento: "I", status_agendamento: "EM ANDAMENTO"},
+    {id: 5, sigla_agendamento: "F", status_agendamento: "CONCLUÍDO"}
 ]
+			
 
 let statusCurso = [
     {id: 1, sigla: "P", descricao_status: "PUBLICADO"},
     {id: 2, sigla: "A", descricao_status: "AGENDADO"},
     {id: 3, sigla: "AS", descricao_status: "AGUARDANDO SOLICITAÇÃO"},
+    {id: 4, sigla: "C", descricao_status: "CANCELADO"}
+    {id: 5, sigla: "I", descricao_status: "EM ANDAMENTO"}
+    {id: 6, sigla: "F", descricao_status: "CONCLUÍDO"}
 ]
 
 

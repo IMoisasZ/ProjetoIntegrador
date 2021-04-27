@@ -8,12 +8,6 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      id_aluno:{
-        type: Sequelize.INTEGER
-      },
-      id_professor:{
-        type: Sequelize.INTEGER
-      },
       id_curso:{
         type: Sequelize.INTEGER
       },
@@ -21,7 +15,17 @@ module.exports = {
         type: Sequelize.STRING,
       },
       lida:{
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        default: false
+      },
+      tipo:{
+        type: Sequelize.STRING
+      },
+      de:{
+        type: Sequelize.INTEGER
+      },
+      para:{
+        type: Sequelize.INTEGER
       },
       // Timestamps
       createdAt: Sequelize.DATE,
