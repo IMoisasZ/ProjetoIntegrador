@@ -4,7 +4,7 @@ module.exports = (sequelize, DataType) => {
         descricao_status:DataType.STRING,
     },{
         tableName: 'status_curso',
-        timestamps: false
+        timestamps: true
     })
     return StatusCurso;
 }

@@ -108,9 +108,6 @@ router.get('/create/message', pagesController.message)
 /*POST enviar mensagens */
 router.post('/create/message/:id_message', pagesController.messageChecked)
 
-/*POST enviar mensagens */
-router.post('/create/message/check/:id_message', pagesController.messageCheck)
-
 /*GET enviar mensagens */
 router.get('/create/message/sendMessage/:id_curso', pagesController.sendMessageDados)
 

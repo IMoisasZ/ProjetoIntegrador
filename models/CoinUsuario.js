@@ -8,7 +8,7 @@ module.exports = (sequelize, DataType) => {
         }
     },{
         tableName: 'pontos_usuario',
-        timestamps: false
+        timestamps: true
     })
 
     CoinUsuario.associate = (listModels) =>{

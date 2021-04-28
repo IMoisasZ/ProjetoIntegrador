@@ -9,7 +9,7 @@ module.exports = (sequelize, DataType) => {
         status_agendamento: DataType.BOOLEAN
     },{
         tableName: 'curso_agendado',
-        timestamps: false
+        timestamps: true
     })
     return CursoAgendado;
 }

@@ -44,6 +44,7 @@ module.exports = {
         data_hora_agendamento: Sequelize.DATE, /* data e hora marcada pelo publicador*/
         data_hora_solicitada: Sequelize.DATE, /* data e hora solicitada pelo usuario*/
         data_publicacao: Sequelize.DATE, /* data de publicacao do curso no site*/
+        status_agendamento: Sequelize.BOOLEAN,
         // Timestamps
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,

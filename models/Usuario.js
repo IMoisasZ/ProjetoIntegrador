@@ -10,7 +10,7 @@ module.exports = (sequelize, DataType) => {
         tipo_usuario: DataType.INTEGER
     },{
         tableName: 'usuario',
-        timestamps: false
+        timestamps: true
     })
 
     Usuario.associate = (listModels) =>{

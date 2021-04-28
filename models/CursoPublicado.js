@@ -12,7 +12,7 @@ module.exports = (sequelize, DataType) => {
         id_status_curso: DataType.INTEGER,
     },{
         tableName: 'curso_publicado',
-        timestamps: false
+        timestamps: true
     })
 
     CursoPublicado.associate = (listModels) =>{

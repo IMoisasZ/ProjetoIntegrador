@@ -36,40 +36,37 @@
                   <form action="/pages/create/message/<%= element.id_mensagem %>" method="POST">
                   <tr>
                     <th scope="row"><%= element.id_mensagem %></th>
-                    <% if(element.lida == true) { %>
+                    
+                    <% if(element.lida === true) { %>
                       <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>" checked></td>  
-                    <% } else { %>
-                      <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>"></td>
-                    <% }%>
-                    <td data-bs-toggle="tooltip" data-bs-placement="top" title="Curso: <%= element.curso %> - Carga Horária: <%= element.carga_horaria %> Coin: <%= element.coin %> Data/Hora: <%= element.data_hora %>"><%= element.mensagem %></td>
-                    <% if(element.lida == true) { %>
-                      <td><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como não lida"><i class='bx bx-checkbox config-icon'></i></button></td>
                       <% } else { %>
-                        <td><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como lida" data-bs-toggle="modal" data-bs-target="#readMsg"><i class='bx bxs-checkbox-checked config-icon'></i></button></td>
-                    <% } %>
-                      <td><a href="/pages/create/message/sendMessage/<%= element.id_curso %>"><button type="submit" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Enviar mensagem"><i class='bx bx-message-rounded-add config-icon'></i></a></td>    
-                    </tr>
-                    <% }) %>
-                  </tbody>
-                </table>
+                        <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>"></td>
+                        <% }%>
                         
-              <!-- Modal -->
-              <div class="modal fade" id="readMsg" tabindex="-1" aria-labelledby="readMsg" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="readMsg">Mensagem Lida</h5>
-                    </div>
-                    <div class="modal-body">
-                      <p>Mensagem alterada para lida!</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">sim</button>
-                    </div>
-                  </form>
-                  </div>
-                </div>
-              </div>
+                        <% if(element.id_curso_mensagem === 0) { %>
+                          <td data-bs-toggle="tooltip" data-bs-placement="top" title="Mensagem do sistema!"><%= element.mensagem %></td>   
+                          <% } else { %>  
+                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="Curso: <%= element.curso %> - Coin: <%= element.coin %> - Data/Hora: <%= element.data_hora %>"> <%= element.mensagem %> - Curso: <%= element.id_curso_mensagem %></td>   
+                            <% } %>
+                            
+                        <% if(element.lida == true) { %>
+                          <td><button type="submit" class="btn-action" data-bs-toggle="modal" data-bs-target="#unReadMsg" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como não lida" id="btn-check"><i class='bx bx-checkbox config-icon'></i></button></td>
+                        <% } else { %>
+                          <td><button type="submit" class="btn-action" data-bs-toggle="modal" data-bs-target="#readMsg" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como lida" id=" btn-check"> <i class='bx bxs-checkbox-checked config-icon'></i></button></td>
+                        <% } %>
+
+                        </form>
+                                
+                            <% if(element.id_curso_mensagem === 0) { %>
+                              <td></td>    
+                              <% } else { %>
+                                <td><a href="/pages/create/message/sendMessage/<%= element.id_curso %>"><button type="submit" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Enviar mensagem"><i class='bx bx-message-rounded-add config-icon'></i></a></td>    
+                                  <% } %>
+                                </tr>
+                          <% }) %>
+                        </tbody>
+                      </table>
+                      
                  <!-- paginacao  -->
                   <div class="d-flex justify-content-center mt-3" id="pagination">
                     <nav aria-label="Page navigation example" class="move">
