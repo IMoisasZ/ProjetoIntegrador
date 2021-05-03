@@ -547,6 +547,10 @@ textarea {
     width: 29rem;
 }
 
+#requests-box-descricao{
+    height: 90px;
+}
+
 #modal-body-msg{
     font-weight: 500;
 }

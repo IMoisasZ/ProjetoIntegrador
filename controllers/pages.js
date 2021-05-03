@@ -85,7 +85,8 @@ const pagesController = {
         for(let i = 0; i < agendamentos.length; i++){
             for(let j = 0; j <cursoAgendado.length; j++){
                 if(cursoAgendado[j].id == agendamentos[i].id_curso_publicado){
-                    let data_brasil = moment(cursoAgendado[j].data_hora).format('llll') 
+                    let data_brasil = moment(cursoAgendado[j].data_hora).format('llll')
+                    let data_brasil_solicitada = moment(agendamentos[i].data_hora_solicitada).format('llll') 
                     listaAgendamentos.push({
                     id_agendamento: agendamentos[i].id,
                     id_usuario: req.session.usuario.id,
@@ -96,6 +97,7 @@ const pagesController = {
                     coin: cursoAgendado[j].coin,
                     data_hora: cursoAgendado[j].data_hora,
                     data_hora_brasil: data_brasil,
+                    data_hora_brasil_solicitada: data_brasil_solicitada,
                     descricao: cursoAgendado[j].descricao,
                     id_usuario_publicador: cursoAgendado[j].id_usuario,
                     nome_usuario_publicador: cursoAgendado[j].nome_usuario,

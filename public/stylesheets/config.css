@@ -247,3 +247,13 @@
     padding-top: 15px;
   }
 
+  .main-title-config {
+    color: var(--first-color-darkest);
+    font-size: var(--h1-font-size);
+    font-weight: bold;
+    margin-bottom: 0rem;
+    margin-left: -0rem;
+    margin-top: 0rem;
+    font-family: "Poppins"
+  }
+

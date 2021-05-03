@@ -52,8 +52,13 @@
               <div class="requests-box">
                 <i class="bx bx-calendar config-icon"></i>
                 <textarea type="text" id="data_hora" class="request-input" name="data_hora" placeholder="data_hora" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora agendamento"><%= listaAgendamentos.data_hora_brasil %></textarea>
-              </div> 
-              <div class="requests-box descricao">
+              </div>
+              <!-- data hora solicitada -->
+              <div class="requests-box">
+                <i class="bx bx-calendar config-icon"></i>
+                <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada" placeholder="data_hora_solicitada" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora solicitada"><%= listaAgendamentos.data_hora_brasil_solicitada %></textarea>
+              </div>
+              <div class="requests-box descricao" id="requests-box-descricao">
                 <i class="bx bx-book config-icon"></i>
                 <textarea type="text" id="descricao" class="request-input" name="descricao" placeholder="descricao" rows="4" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Descrição do curso"><%= listaAgendamentos.descricao %></textarea>
               </div>
