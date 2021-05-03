@@ -42,7 +42,7 @@
                     <th scope="row"><%= element.id %></th>
                     <td><%= element.curso %></td>
                     <td><%= element.coin %></td>
-                    <td><%= element.data_hora%></td>
+                    <td><%= element.data_brasil%></td>
                   </tr>
                     <% }) %>
                 </tbody>
@@ -55,7 +55,7 @@
                           <% 
                             let hrefPrevious = ''
                             if(page > 1){
-                                hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
+                                hrefPrevious = '/pages/create/learnCourses/canceledSchedule?page=' + (page - 1)
                               }
                           %> 
                           <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
@@ -67,7 +67,7 @@
                           <% 
                             let hrefNext = ''
                             if(totalPages > page){
-                                hrefNext = '/pages/create/publicated?page=' + (page + 1)
+                                hrefNext = '/pages/create/learnCourses/canceledSchedule?page=' + (page + 1)
                               }
                           %> 
                           <a class="page-link" href="<%= hrefNext %>" aria-label="Next">

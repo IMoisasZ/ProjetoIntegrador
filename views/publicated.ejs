@@ -36,101 +36,104 @@
                   <th scope="col">#</th>
                   <th scope="col">Curso</th>
                   <th scope="col">Coin</th>
+                  <th scope="col">Carga horária</th>
                   <th scope="col">Data/Hora</th>
                   <th colspan="4">Ações</th>
                 </tr>
               </thead>
               <tbody>
-                <% cursos.forEach(element => { %>
+                <% listaCursos.forEach(element => { %>
+                  <form action="/pages/create/publicated/cancel/<%= element.id %>" method="post">
                   <tr>
                     <th scope="row"><%= element.id %></th>
                     <td><%= element.curso %></td>
                     <td><%= element.coin %></td>
-                    <td><%= element.data_hora%></td>
-                    <td><a href="/pages/create/publicated/edit/<%= element.id %>"><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar curso"><i class='bx bxs-edit config-icon'id="editar"></i></button></a></td>
-                    <form action="/pages/create/publicated/cancel/<%= element.id %>" method="post">
-                    <td><button type="button" class="btn-action" data-bs-toggle="modal" data-bs-target="#cancel-course" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar curso"><i class='bx bxs-error config-icon'id="cancelar"></i></button></td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-              </table>
-                 <!-- paginacao  -->
-                  <div class="d-flex justify-content-center mt-3" id="pagination">
-                    <nav aria-label="Page navigation example" class="move">
-                      <ul class="pagination">
-                        <li class="page-item">
-                          <% 
-                            let hrefPrevious = ''
-                            if(page > 1){
+                    <td><%= element.carga_horaria %></td>
+                    <td><%= element.data_brasil%></td>
+                    <td><a href="/pages/create/publicated/edit/<%= element.id %>"><button type="button" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar curso <%= element.curso %>"><i class='bx bxs-edit config-icon'id="editar"></i></button></a></td>
+                    <td><button type="button" class="btn-action" data-bs-toggle="modal" data-bs-target="#cancel-course" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar curso <%= element.curso %>"><i class='bx bxs-error config-icon'id="cancelar"></i></button></td>
+                    <!-- Modal -->
+                    <div class="modal fade" id="cancel-course" tabindex="-1" aria-labelledby="cancel-course" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cancelar curso</h5>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                          </div>
+                          <div class="modal-body">
+                            <p>Este procedimento é irreversivel!</p>
+                            <p>Deseja realmente cancelar o curso <%= element.curso %>?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-cancel">sim</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal fade" id="confirm-cancel" tabindex="-1" aria-labelledby="confirm-cancel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="confirm-cancel">Cancelar curso</h5>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                          </div>
+                          <div class="modal-body">
+                            <p>Curso <%= element.curso %> foi cancelado com sucesso!</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">sair</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </form>
+                </tr>
+                <% }) %>
+                    </tbody>
+                  </table>
+                </section>
+                  <!-- paginacao  -->
+                    <div class="d-flex justify-content-center mt-3" id="pagination-ensinar">
+                      <nav aria-label="Page navigation example" class="move-publicated">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <% 
+                              let hrefPrevious = ''
+                              if(page > 1){
                                 hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
                               }
-                          %> 
-                          <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                        </li>
-                        <li class="page-item">
-                          <% 
-                            let hrefNext = ''
-                            if(totalPages > page){
+                              %> 
+                            <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <% 
+                              let hrefNext = ''
+                              if(totalPages > page){
                                 hrefNext = '/pages/create/publicated?page=' + (page + 1)
                               }
-                          %> 
-                          <a class="page-link" href="<%= hrefNext %>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>             
-              </div>
-
-              <!-- Modal -->
-              <div class="modal fade" id="cancel-course" tabindex="-1" aria-labelledby="cancel-course" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Cancelar curso</h5>
-                      <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-                    </div>
-                    <div class="modal-body">
-                      <p>Este procedimento é irreversivel!</p>
-                      <p>Deseja realente cancelar o curso?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-cancel">sim</button>
-                    </div>
-                  </div>
+                              %> 
+                            <a class="page-link" href="<%= hrefNext %>" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>                  
                 </div>
-              </div>
-            </section>
-          </div>
-          <div class="modal fade" id="confirm-cancel" tabindex="-1" aria-labelledby="confirm-cancel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="confirm-cancel">Cancelar curso</h5>
-                  <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                
+                
+                <div class="main-img">
+                  <img src="/images/teach.svg" alt="entrar" id="img-publicated" />
                 </div>
-                <div class="modal-body">
-                  <p>Curso cancelado com sucesso!</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">sair</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="main-img">
-          <img src="/images/teach.svg" alt="entrar" id="img-publicated" />
-        </div>
-      </div>    
-    </main>
-
+              </div>    
+            </main>
+            
   <%- include('./partials/footer') %>
 
   </body>

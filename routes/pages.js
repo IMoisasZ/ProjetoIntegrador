@@ -24,8 +24,8 @@ router.get('/learn', pagesController.learn)
 /* GET schedules page. */
 router.get('/schedules', pagesController.schedules)
 
-/* Post cancelar agendamento */
-router.post('/schedules', pagesController.cancel)
+// /* Post cancelar agendamento */
+// router.post('/schedules', pagesController.cancel)
 
 /* GET new page. */
 router.get('/new', pagesController.new)
@@ -60,6 +60,9 @@ router.get('/create/publicated/cancel', pagesController.cancelCourse)
 /*GET verificar cursos agendados. */
 router.get('/create/publicated/scheduled', pagesController.scheduled)
 
+/*GET verificar cursos agendados. */
+router.post('/create/publicated/scheduled/:id_curso', pagesController.cancelScheduled)
+
 /*GET verificar cursos iniciados. */
 router.get('/create/publicated/started', pagesController.started)
 
@@ -73,7 +76,7 @@ router.get('/create/publicated/finish/:id_curso', pagesController.finish)
 router.post('/create/publicated/finish/:id_curso', pagesController.finish_course)
 
 /*PUT alterar dados do curso. Necessário arrumar */
-router.post('/create/publicated/cancel/:id_curso', pagesController.courseCancel)
+router.post('/create/publicated/cancel/:id', pagesController.courseCancel)
 
 /*PUT alterar dados do curso. Necessário arrumar */
 router.get('/create/publicated/edit/:id_curso', pagesController.edit)
@@ -112,7 +115,7 @@ router.post('/create/message/:id_message', pagesController.messageChecked)
 router.get('/create/message/sendMessage/:id_curso', pagesController.sendMessageDados)
 
 /*POST enviar mensagens */
-router.post('/create/message/sendMessage', pagesController.sendMessage)
+router.post('/create/message/sendMessage/:id_curso', pagesController.sendMessage)
 
 /*GET enviar mensagens */
 router.get('/create/message/readMessages', pagesController.readMessages)

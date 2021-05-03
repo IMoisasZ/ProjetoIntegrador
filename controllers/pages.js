@@ -1,17 +1,33 @@
-const { CursoPublicado, Usuario, CursoAgendado, CoinUsuario, StatusCurso, Message, TempoEnsinandoAprendendo } = require('../models')
+const { CursoPublicado, Usuario, CursoAgendado, CoinUsuario, StatusCurso, StatusAgendamento, Message, TempoEnsinandoAprendendo } = require('../models')
 const {Op} = require('sequelize')
 const { check, validationResult, body } = require('express-validator')
 const moment = require('moment')
-const agora = new Date()
-const limit  = 4
-const limitMsg = 3
+
+moment.locale('pt-BR')
+const agora = new Date
+
+const limit  = 6
+const limitMsg = 4
 const mensagens = {
-    novoAgendamentoAluno:"Obrigado por se cadastrar no curso! Fique atento a data e hora do curso!",
+    novoAgendamentoAluno:"Obrigado por se cadastrar no curso! Qualquer duvida fale com o professor!",
     novoAgendamentoProfessor:"O curso que você publicou foi agendado!",
-    solcitarAlteracaoAluno:"Sua solicitação de alteração foi enviada com sucesso!Assim que o professor que o professor analisar sua proposta, você receberá uam notificação!",
+    solcitarAlteracaoAluno:"Sua solicitação de alteração foi enviada com sucesso!Assim que o professor analisar sua proposta, você receberá uma notificação!",
     solcitarAlteracaoProfessor:"Você recebeu uma solicitação de alteração de data/hora! verifique se é possivel aceitar!",
-    conclusaoCursoAluno: "Parabéns! Você terminou o curso. Bora fazer mais um? Ou, porque não publicar um curso e ensiar outras pessoas! CONNEKT -se!!",
-    conclusaoCursoProfessor: "Parabéns! Você acaba de ensinar uma pessoa! Vamos lá, publique mais um curso e bora ensinar mais pessoas!"
+    conclusaoCursoAluno: "Parabéns! Você terminou o curso. Bora fazer mais um? Ou, porque não publicar um curso e ensiar outras pessoas! CONNEKT!!",
+    conclusaoCursoProfessor: "Parabéns! Você acaba de ensinar uma pessoa! Vamos lá, publique mais um curso e bora ensinar!",
+    iniciarCursoAluno: "Seu curso foi iniciado! Bons estudos!",
+    iniciarCursoProfessor: "Você iniciou o curso!",
+    cancelarCurso: "Você cancelou o curso! Não desanima...bora publicar outro?",
+    aceitarSolicitacaoAlteracaoDataHoraAluno: "Sua solicitação de alteração do curso foi aceita pelo professor. Verifique seus agendamentos!",
+    aceitarSolicitacaoAlteracaoDataHoraProfessor: "Você aceitou a solicitação de alteração de data e hora feita pelo aluno! Bora ensinar!",
+    recusarSolicitaçãoAlteracaoDataHoraAluno: "Infelizmente sua solicitação de alteração de data e hora foi recusada! Não desita, tente outro curso!!",
+    recusarSolicitaçãoAlteracaoDataHoraProfessor: "Você recusou a solicitação de alteração de data e hora feita pelo aluno!",
+    debitoCoinsProfessor: "Os coins referente ao curso, foram debitados da sua conta e devolvidos ao aluno!",
+    creditoCoinsAluno: "Os coins pagos pelo curso, foram devolvidos a sua conta!",
+    agendamentoCanceladoPeloAlunoProfessor: "O aluno cancelou o agendamento do curso",
+    agendamentoCanceladoPeloAlunoAluno: "Você cancelou o agendamento. Vamos lá, não desanima!",
+    cancelamentoAgendamentoCursoProfessor: "Você cancelou o curso. Os coin(s) pagos pelo curso serão devolvidos ao aluno!",
+    cancelamentoAgendamentoCursoAluno: "O professor cancelou o curso! Os coin(s) pagos pelo curso foram devolvidos a sua conta!"
 }
 
 
@@ -28,7 +44,7 @@ const pagesController = {
         let agendamentos = await CursoAgendado.findAll({
             where:{
                 id_usuario_agendamento: req.session.usuario.id,
-                id_status_agendamento: 3,
+                id_status_agendamento: 5,
                 status_agendamento: true
             }
         })
@@ -53,7 +69,7 @@ const pagesController = {
         let agendamentos = await CursoAgendado.findAll({
             where: {
                 id_usuario_agendamento: req.session.usuario.id,
-                id_status_agendamento: 3
+                id_status_agendamento: 5
             }
         })
 
@@ -69,6 +85,7 @@ const pagesController = {
         for(let i = 0; i < agendamentos.length; i++){
             for(let j = 0; j <cursoAgendado.length; j++){
                 if(cursoAgendado[j].id == agendamentos[i].id_curso_publicado){
+                    let data_brasil = moment(cursoAgendado[j].data_hora).format('llll') 
                     listaAgendamentos.push({
                     id_agendamento: agendamentos[i].id,
                     id_usuario: req.session.usuario.id,
@@ -78,6 +95,7 @@ const pagesController = {
                     carga_horaria: cursoAgendado[j].carga_horaria,
                     coin: cursoAgendado[j].coin,
                     data_hora: cursoAgendado[j].data_hora,
+                    data_hora_brasil: data_brasil,
                     descricao: cursoAgendado[j].descricao,
                     id_usuario_publicador: cursoAgendado[j].id_usuario,
                     nome_usuario_publicador: cursoAgendado[j].nome_usuario,
@@ -119,7 +137,8 @@ const pagesController = {
             {
                 where: {
                     id_usuario_agendamento: req.session.usuario.id,
-                    id_curso_publicado: id_curso
+                    id_curso_publicado: id_curso,
+                    status_agendamento: true
             }
         })
 
@@ -148,13 +167,15 @@ const pagesController = {
                     {[Op.ne]:[req.session.usuario.id]}
             }});
         
-        cursos.forEach(curso => {    
+        cursos.forEach(curso => {
+            let data_brasil = moment(curso.data_hora).format('llll')
             listaCursos.push({
                 id:curso.id,
                 curso:curso.curso,
                 carga_horaria:curso.carga_horaria,
                 coin:curso.coin,
                 data_hora:curso.data_hora,
+                data_hora_brasil: data_brasil,
                 descricao:curso.descricao,
                 id_usuario:curso.id_usuario,
                 nome_usuario: curso.nome_usuario
@@ -187,13 +208,19 @@ const pagesController = {
         let coinDebito = coin-coin-coin
         /* caso não teve solicitação de alteração de data do curso executa o if */
         /* caso sim executa o else */ 
+        let curso = await CursoPublicado.findOne({
+            where:{
+                id: id_curso
+            }
+        })
+
         if(data_hora_nova.length == 0 || typeof(data_hora_nova) == "undefined"){
             /* criar agendamento */ 
             let agendar = await CursoAgendado.create({
                 id_curso_publicado: id_curso,
                 id_usuario_agendamento: req.session.usuario.id,
                 id_status_agendamento: 1,
-                data_hora_agendamento: agora,
+                data_hora_agendamento: curso.data_hora,
                 data_hora_solicitada: "",
                 data_publicacao: agora,
                 createdAt: agora,
@@ -229,11 +256,6 @@ const pagesController = {
             })
 
             /*mensages*/
-            let curso = await CursoPublicado.findOne({
-                where:{
-                    id: id_curso
-                }
-            })
 
             await Message.create({
                 id_curso: id_curso,
@@ -266,8 +288,8 @@ const pagesController = {
             let agendar = await CursoAgendado.create({
                 id_curso_publicado: id_curso,
                 id_usuario_agendamento: req.session.usuario.id,
-                id_status_agendamento: 3,
-                data_hora_agendamento: agora,
+                id_status_agendamento: 5,
+                data_hora_agendamento: curso.data_hora,
                 data_hora_solicitada: data_hora_nova,
                 data_publicacao: agora,
                 createAt: agora,
@@ -302,30 +324,28 @@ const pagesController = {
                 id_usuario: id_usuario
             })
             /*mensages*/
-            let curso = await CursoPublicado.findOne({
-                where:{
-                    id: id_curso
-                }
-            })
-
-            console.log(">>>>>>>>>>>"+curso);
-
-            await Message.create({
-                id_curso: id_curso,
-                mensagem: mensagens.solcitarAlteracaoAluno,
-                de: req.session.usuario.id,
-                para: curso.id_usuario,
-                lida: false,
-                tipo: "PROFESSOR"
-            })
+            // let curso = await CursoPublicado.findOne({
+            //     where:{
+            //         id: id_curso
+            //     }
+            // })
 
             await Message.create({
                 id_curso: id_curso,
                 mensagem: mensagens.solcitarAlteracaoProfessor,
+                de: req.session.usuario.id,
+                para: curso.id_usuario,
+                lida: false,
+                tipo: "ALUNO"
+            })
+
+            await Message.create({
+                id_curso: id_curso,
+                mensagem: mensagens.solcitarAlteracaoAluno,
                 de: curso.id_usuario,
                 para: req.session.usuario.id,
                 lida: false,
-                tipo: "ALUNO"
+                tipo: "PROFESSOR"
             })
         }
         res.redirect("/main")
@@ -333,7 +353,8 @@ const pagesController = {
     teach: async (req, res, next) => {
         let agendamentos = await CursoAgendado.findAll({
             where: {
-                id_status_agendamento: 3,
+                id_status_agendamento: 5,
+                status_agendamento: true,
                 id_usuario_agendamento: 
                 {[Op.ne]:[req.session.usuario.id]} 
             }
@@ -359,7 +380,7 @@ const pagesController = {
         
         let agendamentos = await CursoAgendado.findAll({
             where: {
-                id_status_agendamento: 3,
+                id_status_agendamento: 5,
                 id_usuario_agendamento: 
                 {[Op.ne]:[req.session.usuario.id]} 
             }
@@ -384,6 +405,8 @@ const pagesController = {
             for(let j = 0; j <cursoAgendado.length; j++){
                 for(let k = 0; k <usuarioCurso.length; k++)
                 if(cursoAgendado[j].id == agendamentos[i].id_curso_publicado && usuarioCurso[k].id == agendamentos[i].id_usuario_agendamento){
+                    let data_brasil_agendado = moment(agendamentos[i].data_hora_agendamento).format('llll')
+                    let data_brasil_solicitado = moment(agendamentos[i].data_hora_solicitada).format('llll') 
                     listaAgendamentos.push({
                     id_usuario_curso: usuarioCurso[k].id,
                     nome_usuario_curso: usuarioCurso[k].nome_usuario,
@@ -392,8 +415,13 @@ const pagesController = {
                     curso: cursoAgendado[j].curso,
                     carga_horaria: cursoAgendado[j].carga_horaria,
                     coin: cursoAgendado[j].coin,
+                    id_curso_publicado: cursoAgendado[j].id_curso_publicado,
                     data_hora: agendamentos[i].data_hora_agendamento,
+                    data_hora_agendado_brasil: data_brasil_agendado,
+                    
                     data_hora_solicitada: agendamentos[i].data_hora_solicitada,
+                    data_hora_solicitada_brasil: data_brasil_solicitado,
+                    
                     descricao: cursoAgendado[j].descricao,
                     id_usuario_publicador: cursoAgendado[j].id_usuario,
                     nome_usuario_publicador: cursoAgendado[j].nome_usuario,
@@ -408,29 +436,34 @@ const pagesController = {
         }else{
             listaAgendamentos=listaAgendamentos[idCurso]
         }
-
         res.render("requests",{usuarios: req.session.usuario, listaAgendamentos, totalAgendamentos, idCurso })
     },
     aceptSolicitation: async (req, res, next) =>{
         let { id_curso_agendamento, id_usuario_curso, coin, curso } = req.body
+        
+        console.log("ID CURSO: "+id_curso_agendamento)
 
-        let agendamentos = await CursoAgendado.findOne({
-            where:{
-                id_curso_publicado: id_curso_agendamento
+        let agendamentos = await CursoAgendado.update(
+            {status_agendamento: false},
+            {
+                where:{
+                    id_curso_publicado: id_curso_agendamento
             }
         })
 
-        await agendamentos.update({
-            status_agendamento: false
+        let agendado = await CursoAgendado.findOne({
+            where:{
+                id_curso_publicado: id_curso_agendamento
+        }
         })
 
         await CursoAgendado.create({
-            id_curso_publicado: agendamentos.id_curso_publicado,
-            id_usuario_agendamento: agendamentos.id_usuario_agendamento,
+            id_curso_publicado: agendado.id_curso_publicado,
+            id_usuario_agendamento: agendado.id_usuario_agendamento,
             id_status_agendamento: 1,
-            data_hora_agendamento: agora,
-            data_hora_solicitada: agendamentos.data_hora_solicitada,
-            data_publicacao: agora,
+            data_hora_agendamento: agendado.data_hora_solicitada,
+            data_hora_solicitada: agendado.data_hora_solicitada,
+            data_publicacao: agendado.data_hora_agendamento,
             createdAt: agora,
             updateAt: agora,
             status_agendamento: true
@@ -463,27 +496,49 @@ const pagesController = {
         //     id_usuario: req.session.usuario.id
         // })
 
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.aceitarSolicitacaoAlteracaoDataHoraProfessor,
+            de: "",
+            para: req.session.usuario.id,
+            lida: false,
+            tipo: "SISTEMA"
+        })
+
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.aceitarSolicitacaoAlteracaoDataHoraAluno,
+            de: req.session.usuario.id,
+            para: agendamentos.id_usuario_agendamento,
+            lida: false,
+            tipo: "PROFESSOR"
+        })
+
         res.redirect("/main")
     },
     cancelSolicitation: async (req, res, next) =>{
         let { id_curso_agendamento, id_usuario_curso, coin, curso } = req.body
         let coinDebito = coin-coin-coin
-        let agendamentos = await CursoAgendado.findOne({
-            where:{
+        let agendamentos = await CursoAgendado.update(
+            {status_agendamento: false},
+            {
+                where:{
                 id_curso_publicado: id_curso_agendamento
             }
         })
-        
-        await agendamentos.update({
-            status_agendamento: false
+
+        let agendado = await CursoAgendado.findOne({
+                where:{
+                id_curso_publicado: id_curso_agendamento
+            }
         })
 
         await CursoAgendado.create({
-            id_curso_publicado: agendamentos.id_curso_publicado,
-            id_usuario_agendamento: agendamentos.id_usuario_agendamento,
-            id_status_agendamento: 2,
-            data_hora_agendamento: agora,
-            data_hora_solicitada: agendamentos.data_hora_solicitada,
+            id_curso_publicado: agendado.id_curso_publicado,
+            id_usuario_agendamento: agendado.id_usuario_agendamento,
+            id_status_agendamento: 3,
+            data_hora_agendamento: agendado.data_hora_agendamento,
+            data_hora_solicitada: agendado.data_hora_solicitada,
             data_publicacao: agora,
             createdAt: agora,
             updateAt: agora,
@@ -515,6 +570,47 @@ const pagesController = {
             coin: coinDebito,
             caminho: id_curso_agendamento + "-" + curso + " - CANCELADO",
             id_usuario: req.session.usuario.id
+        })
+
+        // mensagem de recusa de solicitação para o professor
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.recusarSolicitaçãoAlteracaoDataHoraProfessor,
+            de: "",
+            para: req.session.usuario.id,
+            lida: false,
+            tipo: "SISTEMA"
+        })
+
+        // mensagem de debito dos coins para do professor
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.debitoCoinsProfessor,
+            de: "",
+            para: req.session.usuario.id,
+            lida: false,
+            tipo: "SISTEMA"
+        })
+
+        // mensagem de recusa de solicitação para o aluno
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.recusarSolicitaçãoAlteracaoDataHoraAluno,
+            de: "",
+            para: agendamentos.id_usuario_agendamento,
+            lida: false,
+            tipo: "SISTEMA"
+        })
+
+
+        // mensagem de devolução dos coins para o aluno
+        await Message.create({
+            id_curso: id_curso_agendamento,
+            mensagem: mensagens.creditoCoinsAluno,
+            de: "",
+            para: agendamentos.id_usuario_agendamento,
+            lida: false,
+            tipo: "SISTEMA"
         })
 
         res.redirect("/main")
@@ -569,26 +665,28 @@ const pagesController = {
                 id: sts.id,
                 descricao: sts.descricao_status
             })
-            })
+        })
             
-            for(let i = 0; i < statusCurso.length; i++){
-                for(let j = 0; j < cursos.length; j++){
-                    if(statusCurso[i].id == cursos[j].id_status_curso){
-                        listaCursos.push({
-                            id:cursos[j].id,
-                            curso:cursos[j].curso,
-                            carga_horaria:cursos[j].carga_horaria,
-                            coin:cursos[j].coin,
-                            data_hora:cursos[j].data_hora,
-                            descricao:cursos[j].descricao,
-                            id_usuario:cursos[j].id_usuario,
-                            nome_usuario: cursos[j].nome_usuario,
-                            id_status: statusCurso[i].id,
-                            descricao_status: statusCurso[i].descricao
-                        })
-                    }
+        for(let i = 0; i < statusCurso.length; i++){
+            for(let j = 0; j < cursos.length; j++){
+                if(statusCurso[i].id == cursos[j].id_status_curso){
+                    let data_brasil = moment(cursos[j].data_hora).format('llll') 
+                    listaCursos.push({
+                        id:cursos[j].id,
+                        curso:cursos[j].curso,
+                        carga_horaria:cursos[j].carga_horaria,
+                        coin:cursos[j].coin,
+                        data_hora: cursos[j].data_hora,
+                        data_brasil: data_brasil,
+                        descricao:cursos[j].descricao,
+                        id_usuario:cursos[j].id_usuario,
+                        nome_usuario: cursos[j].nome_usuario,
+                        id_status: statusCurso[i].id,
+                        descricao_status: statusCurso[i].descricao
+                    })
                 }
             }
+        }
             
             if(typeof(cursos) == "undefined"){
                 listaCursos = {
@@ -599,8 +697,12 @@ const pagesController = {
                 }
                 res.render("publicated",{usuarios: req.session.usuario, erro: 1, listaCursos})
             }
-
-        res.render("publicated",{usuarios: req.session.usuario, page, totalPages, cursos})
+        
+        let totalCursos = "undefined"
+        if(listaCursos.length !== 0){
+            totalCursos = "ok"
+        }
+        res.render("publicated",{usuarios: req.session.usuario, page, totalPages, cursos, totalCursos, listaCursos})
     },
     scheduled: async (req, res, next) =>{
         let { page = 1 } = req.query;
@@ -628,11 +730,39 @@ const pagesController = {
                 id: sts.id,
                 descricao: sts.descricao_status
             })
+        })
+
+        let agendamentos = await CursoAgendado.findAll({
+            where:{
+                id_status_agendamento: 1,
+                status_agendamento: 1
+            }
+        })
+
+        let agendamento = []
+        agendamentos.forEach(element =>{
+            agendamento.push({
+                id_curso_publicado: element.id_curso_publicado,
+                data_hora: element.data_hora_agendamento,
+                data_hora_solicitada: element.data_hora_solicitada,
+                id_usuario_agendamento: element.id_usuario_agendamento
             })
-            
-            for(let i = 0; i < statusCurso.length; i++){
-                for(let j = 0; j < cursos.length; j++){
-                    if(statusCurso[i].id == cursos[j].id_status_curso){
+        })
+
+        let us = await Usuario.findAll()
+        let usuario = []
+        us.forEach(nome=>{
+            usuario.push({
+                id: nome.id,
+                nomeUsuario: nome.nome_usuario
+            })
+        })
+
+        for(let j = 0; j < cursos.length; j++){
+            for(let k = 0; k < agendamento.length; k++){
+                for(let m = 0; m < usuario.length; m++){
+                    if(cursos[j].id == agendamento[k].id_curso_publicado && usuario[m].id == agendamento[k].id_usuario_agendamento){
+                        let data_brasil = moment(agendamento[k].data_hora).format('llll') 
                         listaCursos.push({
                             id:cursos[j].id,
                             curso:cursos[j].curso,
@@ -642,24 +772,30 @@ const pagesController = {
                             descricao:cursos[j].descricao,
                             id_usuario:cursos[j].id_usuario,
                             nome_usuario: cursos[j].nome_usuario,
-                            id_status: statusCurso[i].id,
-                            descricao_status: statusCurso[i].descricao
+                            // id_status: statusCurso[i].id,
+                            // descricao_status: statusCurso[i].descricao,
+                            data_hora_agendamento: agendamento[k].data_hora_agendamento,
+                            data_brasil: data_brasil,
+                            nome_usuario_agendado: usuario[m].nomeUsuario
                         })
-                    }
+                    }    
                 }
             }
-            
-            if(typeof(cursos) == "undefined"){
-                listaCursos = {
-                    id:"",
-                    curso: "",
-                    carga_horaria:"",
-                    coin:""
-                }
-                res.render("scheduled",{usuarios: req.session.usuario, erro: 1, listaCursos})
-            }
+    }
 
-        res.render("scheduled",{usuarios: req.session.usuario, page, totalPages, cursos}) 
+        console.log(listaCursos);
+            
+        if(typeof(cursos) == "undefined"){
+            listaCursos = {
+                id:"",
+                curso: "",
+                carga_horaria:"",
+                coin:""
+            }
+            res.render("scheduled",{usuarios: req.session.usuario, erro: 1, listaCursos})
+        }
+
+        res.render("scheduled",{usuarios: req.session.usuario, page, totalPages, cursos, listaCursos}) 
     },
     started: async (req,res,next)=>{
         let { page = 1 } = req.query;
@@ -687,11 +823,40 @@ const pagesController = {
                 id: sts.id,
                 descricao: sts.descricao_status
             })
-            })
+        })
             
-            for(let i = 0; i < statusCurso.length; i++){
-                for(let j = 0; j < cursos.length; j++){
-                    if(statusCurso[i].id == cursos[j].id_status_curso){
+        let agendamentos = await CursoAgendado.findAll({
+            where:{
+                id_status_agendamento: 4,
+                status_agendamento: 1
+            }
+        })
+
+        let agendamento = []
+        agendamentos.forEach(element =>{
+            agendamento.push({
+                id_curso_publicado: element.id_curso_publicado,
+                data_hora: element.data_hora_agendamento,
+                data_hora_solicitada: element.data_hora_solicitada,
+                id_usuario_agendamento: element.id_usuario_agendamento
+            })
+        })
+
+        let us = await Usuario.findAll()
+        let usuario = []
+        us.forEach(nome=>{
+            usuario.push({
+                id: nome.id,
+                nomeUsuario: nome.nome_usuario
+            })
+        })
+
+            
+        for(let j = 0; j < cursos.length; j++){
+            for(let k = 0; k < agendamento.length; k++){
+                for(let m = 0; m < usuario.length; m++){
+                    if(cursos[j].id == agendamento[k].id_curso_publicado && usuario[m].id == agendamento[k].id_usuario_agendamento){
+                        let data_brasil = moment(agendamento[k].data_hora).format('llll') 
                         listaCursos.push({
                             id:cursos[j].id,
                             curso:cursos[j].curso,
@@ -701,24 +866,28 @@ const pagesController = {
                             descricao:cursos[j].descricao,
                             id_usuario:cursos[j].id_usuario,
                             nome_usuario: cursos[j].nome_usuario,
-                            id_status: statusCurso[i].id,
-                            descricao_status: statusCurso[i].descricao
+                            // id_status: statusCurso[i].id,
+                            // descricao_status: statusCurso[i].descricao,
+                            data_hora_agendamento: agendamento[k].data_hora_agendamento,
+                            data_brasil: data_brasil,
+                            nome_usuario_agendado: usuario[m].nomeUsuario
                         })
-                    }
+                    }    
                 }
             }
-            
-            if(typeof(cursos) == "undefined"){
-                listaCursos = {
-                    id:"",
-                    curso: "",
-                    carga_horaria:"",
-                    coin:""
-                }
-                res.render("started",{usuarios: req.session.usuario, erro: 1, listaCursos})
-            }
+        }
 
-        res.render("started",{usuarios: req.session.usuario, page, totalPages, cursos})
+        if(typeof(cursos) == "undefined"){
+            listaCursos = {
+                id:"",
+                curso: "",
+                carga_horaria:"",
+                coin:""
+            }
+            res.render("started",{usuarios: req.session.usuario, erro: 1, listaCursos})
+        }
+
+        res.render("started",{usuarios: req.session.usuario, page, totalPages, cursos, listaCursos})
     },
     finished: async (req, res, next) =>{
         let { page = 1 } = req.query;
@@ -726,7 +895,7 @@ const pagesController = {
         
         let {count: size, rows: agendamentos} = await CursoAgendado.findAndCountAll({
             where: {
-                id_status_agendamento: 5,
+                id_status_agendamento: 2,
                 status_agendamento: true
             },
             order: ['id'],
@@ -752,11 +921,23 @@ const pagesController = {
                 id: sts.id,
                 descricao: sts.descricao_status
             })
+        })
+
+        let us = await Usuario.findAll()
+        let usuario = []
+        us.forEach(nome =>{
+            usuario.push({
+                id: nome.id,
+                nomeUsuario: nome.nome_usuario
             })
+        })
+
             
-            for(let i = 0; i < agendamentos.length; i++){
-                for(let j = 0; j < cursos.length; j++){
-                    if(agendamentos[i].id_curso_publicado == cursos[j].id){
+        for(let i = 0; i < agendamentos.length; i++){
+            for(let j = 0; j < cursos.length; j++){
+                for(let k = 0; k < usuario.length; k++){
+                    if(agendamentos[i].id_curso_publicado == cursos[j].id && agendamentos[i].id_usuario_agendamento == usuario[k].id){
+                        let data_brasil = moment(agendamentos[i].data_hora_agendamento).format('llll')
                         listaCursos.push({
                             id:cursos[j].id,
                             curso:cursos[j].curso,
@@ -766,10 +947,13 @@ const pagesController = {
                             descricao:cursos[j].descricao,
                             id_usuario:cursos[j].id_usuario,
                             nome_usuario: cursos[j].nome_usuario,
+                            data_brasil: data_brasil,
+                            nome_usuario_agendado: usuario[k].nomeUsuario
                         })
                     }
                 }
             }
+        }
             
             if(typeof(cursos) == "undefined"){
                 listaCursos = {
@@ -792,13 +976,9 @@ const pagesController = {
             where: {id: id_curso}
         })
 
-        console.log(data_hora_edicao);
-
-        let data = ""
-        if(data_hora_edicao.length == 0){
-            data = data_hora_agendado
-        }else{
-            data = data_hora_edicao
+        let data = data_hora_edicao
+        if(data.length === 0){
+            data = cursoAlterado.data_hora
         }
 
         await cursoAlterado.update({
@@ -812,6 +992,7 @@ const pagesController = {
 
         res.redirect("/pages/create/publicated")
     },
+    // mostrar a view com os cursos cancelados
     cancelCourse: async(req,res,next) =>{
         let { page = 1 } = req.query;
         page = parseInt(page)
@@ -844,12 +1025,14 @@ const pagesController = {
         for(let i = 0; i < statusCurso.length; i++){
             for(let j = 0; j < cursos.length; j++){
                 if(statusCurso[i].id == cursos[j].id_status_curso){
+                    let data_brasil = moment(cursos[j].data_hora).format('llll') 
                     listaCursos.push({
                         id:cursos[j].id,
                         curso:cursos[j].curso,
                         carga_horaria:cursos[j].carga_horaria,
                         coin:cursos[j].coin,
                         data_hora:cursos[j].data_hora,
+                        data_brasil: data_brasil,
                         descricao:cursos[j].descricao,
                         id_usuario:cursos[j].id_usuario,
                         nome_usuario: cursos[j].nome_usuario,
@@ -872,18 +1055,25 @@ const pagesController = {
         res.render("cancel",{usuarios: req.session.usuario, page, totalPages, cursos, listaCursos})  
     },
     courseCancel: async (req, res, next) =>{
-        let { id_curso } = req.params
-        console.log("id cancelamento: "+id_curso)
-        let cancelar = await CursoPublicado.findOne({
-            where: {id: id_curso}
-        })
-        console.log("Cancelar: "+id_curso)
-        await cancelar.update({
-            id_status_curso: 4,
-            updateAt: agora
-        })
+        let { id } = req.params
 
-        res.redirect("/pages/create/publicated")
+        let cancelar = await CursoPublicado.update(
+            { id_status_curso: 4 },
+            {
+                where: {id}
+            })
+
+
+            await Message.create({
+                id_curso: id,
+                mensagem: mensagens.cancelarCurso,
+                de: "",
+                para: req.session.usuario.id,
+                lida: false,
+                tipo: "SISTEMA"
+            })
+
+        res.redirect("/pages/create/publicated/cancel")
     },
     edit: async(req, res, next) =>{
         let { id_curso } = req.params
@@ -892,24 +1082,17 @@ const pagesController = {
             where: {id: id_curso}
         })
 
-        res.render("editCourse", { usuarios: req.session.usuario, alterar })
+        let data_brasil = moment(alterar.data_hora).format('llll') 
+
+        res.render("editCourse", { usuarios: req.session.usuario, alterar, data_brasil })
     },
     start: async(req, res, next) =>{
         let { id_curso } = req.params
-        console.log("Id Curso: "+id_curso);
+        
         /* buscar os cursos agendados */
         let cursoAgendado = await CursoPublicado.findOne({
             where: {
                 id: id_curso
-            }
-        })
-        console.log("Curso agendado: "+cursoAgendado);
-
-        await CursoAgendado.update(
-            {status_agendamento: false},
-            {
-                where: {
-                id_curso_publicado: id_curso
             }
         })
 
@@ -917,19 +1100,6 @@ const pagesController = {
             where:{
                 id_curso_publicado: id_curso,
             }
-        })
-        console.log("Agendamentos: "+agendamentos);
-
-        await CursoAgendado.create({
-            id_curso_publicado: agendamentos.id_curso_publicado,
-            id_usuario_agendamento: agendamentos.id_usuario_agendamento,
-            id_status_agendamento: 4,
-            data_hora_agendamento: agendamentos.data_hora_agendamento,
-            data_hora_solicitada: "",
-            data_publicacao: agora,
-            createAt: agora,
-            updateAt: agora,
-            status_agendamento: true
         })
 
         // listando usuarios
@@ -945,7 +1115,8 @@ const pagesController = {
             curso: cursoAgendado.curso,
             carga: cursoAgendado.carga_horaria,
             data_hora: cursoAgendado.data_hora,
-            aluno: usuario.nome_usuario
+            aluno: usuario.nome_usuario,
+            data_brasil: moment(agendamentos.data_hora_agendamento).format('llll')
         })
  
         res.render("startCourse", { usuarios: req.session.usuario, list:lista[0]})
@@ -962,6 +1133,50 @@ const pagesController = {
         await curso_p.update({
             id_status_curso: 5
         })
+
+        await CursoAgendado.update(
+            {status_agendamento: false},
+            {
+                where: {
+                id_curso_publicado: id_curso
+            }
+        })
+
+        let agendamentos = await CursoAgendado.findOne({
+            where:{
+                id_curso_publicado: id_curso,
+            }
+        })
+
+        await CursoAgendado.create({
+            id_curso_publicado: agendamentos.id_curso_publicado,
+            id_usuario_agendamento: agendamentos.id_usuario_agendamento,
+            id_status_agendamento: 4,
+            data_hora_agendamento: agendamentos.data_hora_agendamento,
+            data_hora_solicitada: "",
+            data_publicacao: agora,
+            status_agendamento: true
+        })
+
+        /* enviar mensagens */
+        await Message.create({
+            id_curso: id_curso,
+            mensagem: mensagens.iniciarCursoAluno,
+            de: req.session.usuario.id,
+            para: agendamentos.id_usuario_agendamento,
+            lida: false,
+            tipo: "PROFESSOR"
+        })
+
+        await Message.create({
+            id_curso: id_curso,
+            mensagem: mensagens.iniciarCursoProfessor,
+            de: "",
+            para: req.session.usuario.id,
+            lida: false,
+            tipo: "SISTEMA"
+        })
+
         res.redirect("/pages/create/publicated/started")
     },
     finish: async(req, res, next) =>{
@@ -993,7 +1208,8 @@ const pagesController = {
             curso: cursoAgendado.curso,
             carga: cursoAgendado.carga_horaria,
             data_hora: cursoAgendado.data_hora,
-            aluno: usuario.nome_usuario
+            aluno: usuario.nome_usuario,
+            data_brasil: moment(agendamentos.data_hora_agendado_brasil).format('llll')
         })
  
         res.render("finishCourse", { usuarios: req.session.usuario, list:lista[0]})
@@ -1008,7 +1224,7 @@ const pagesController = {
         })
 
         curso_p.update({
-            id_status_curso: 1
+            id_status_curso: 6
         })
 
         let agendamentos = await CursoAgendado.update({
@@ -1028,7 +1244,7 @@ const pagesController = {
         await CursoAgendado.create({
             id_curso_publicado: agendado.id_curso_publicado,
             id_usuario_agendamento: agendado.id_usuario_agendamento,
-            id_status_agendamento: 5,
+            id_status_agendamento: 2,
             data_hora_agendamento: agendado.data_hora_agendamento,
             data_hora_solicitada: "",
             data_publicacao: agora,
@@ -1061,7 +1277,8 @@ const pagesController = {
             id_curso: id_curso,
             id_usuario: curso_p.id_usuario,
             tipo: "ENSINANDO - "+curso_p.curso,
-            coin: curso_p.coin
+            carga_horaria: curso_p.carga_horaria,
+            e_a: "E"
         })
 
         /* inserir coin para o aluno*/
@@ -1069,11 +1286,9 @@ const pagesController = {
             id_curso: id_curso,
             id_usuario: agendado.id_usuario_agendamento,
             tipo: "APRENDENDO - "+curso_p.curso,
-            coin: curso_p.coin
+            carga_horaria: curso_p.carga_horaria,
+            e_a: "A"
         })
-
-
-
         res.redirect("/pages/create/publicated/finished")
     },
     myCourses: async(req, res, next)=>{
@@ -1114,7 +1329,9 @@ const pagesController = {
             listaAgendamentos.push({
                 id_usuario_agendamento: agendamento.id_usuario_agendamento,
                 id_status_agendamento: agendamento.id_status_agendamento,
-                id_curso_publicado: agendamento.id_curso_publicado
+                id_curso_publicado: agendamento.id_curso_publicado,
+                data_hora_agendamento: agendamento.data_hora_agendamento,
+                data_hora_solicitada: agendamento.data_hora_solicitada
             }) 
 
         })
@@ -1122,6 +1339,7 @@ const pagesController = {
         for(let i = 0; i < listaAgendamentos.length; i++){
             for(let j = 0; j < cursos.length; j++){
                 if(listaAgendamentos[i].id_curso_publicado === cursos[j].id){
+                    let data_brasil = moment(listaAgendamentos[i].data_hora_agendamento).format('llll') 
                     listaCursos.push({
                         id:cursos[j].id,
                         curso:cursos[j].curso,
@@ -1131,6 +1349,9 @@ const pagesController = {
                         descricao:cursos[j].descricao,
                         id_usuario:cursos[j].id_usuario,
                         nome_usuario: cursos[j].nome_usuario,
+                        data_hora_agendamento: listaAgendamentos[i].data_hora_agendamento,
+                        data_brasil: data_brasil,
+                        data_hora_solicitada: listaAgendamentos[i].data_hora_solicitada
                     })
                 }
             }
@@ -1186,7 +1407,8 @@ const pagesController = {
             listaAgendamentos.push({
                 id_usuario_agendamento: agendamento.id_usuario_agendamento,
                 id_status_agendamento: agendamento.id_status_agendamento,
-                id_curso_publicado: agendamento.id_curso_publicado
+                id_curso_publicado: agendamento.id_curso_publicado,
+                data_hora_agendamento: agendamento.data_hora_agendamento
             }) 
 
         })
@@ -1194,19 +1416,23 @@ const pagesController = {
         for(let i = 0; i < listaAgendamentos.length; i++){
             for(let j = 0; j < cursos.length; j++){
                 if(listaAgendamentos[i].id_curso_publicado === cursos[j].id){
+                    let data_brasil = moment(listaAgendamentos[i].data_hora_agendamento).format('llll') 
                     listaCursos.push({
                         id:cursos[j].id,
                         curso:cursos[j].curso,
                         carga_horaria:cursos[j].carga_horaria,
                         coin:cursos[j].coin,
                         data_hora:cursos[j].data_hora,
+                        data_hora_agendamento: listaAgendamentos[i].data_hora_agendamento,
+                        data_brasil: data_brasil,
                         descricao:cursos[j].descricao,
                         id_usuario:cursos[j].id_usuario,
                         nome_usuario: cursos[j].nome_usuario,
                     })
                 }
             }
-        }         
+        }
+        console.log(listaCursos);
             if(typeof(listaCursos) == "undefined"){
                 listaCursos = {
                     id:"",
@@ -1225,7 +1451,7 @@ const pagesController = {
         
         let {count: size, rows: agendamentos} = await CursoAgendado.findAndCountAll({
             where: {
-                id_status_agendamento: 2,
+                id_status_agendamento: 3,
                 status_agendamento: true,
                 id_usuario_agendamento: req.session.usuario.id
             },
@@ -1255,7 +1481,8 @@ const pagesController = {
             listaAgendamentos.push({
                 id_usuario_agendamento: agendamento.id_usuario_agendamento,
                 id_status_agendamento: agendamento.id_status_agendamento,
-                id_curso_publicado: agendamento.id_curso_publicado
+                id_curso_publicado: agendamento.id_curso_publicado,
+                data_hora_agendamento: agendamento.data_hora_agendamento
             }) 
 
         })
@@ -1263,12 +1490,14 @@ const pagesController = {
         for(let i = 0; i < listaAgendamentos.length; i++){
             for(let j = 0; j < cursos.length; j++){
                 if(listaAgendamentos[i].id_curso_publicado === cursos[j].id){
+                    let data_brasil = moment(listaAgendamentos[i].data_hora_agendamento).format('llll') 
                     listaCursos.push({
                         id:cursos[j].id,
                         curso:cursos[j].curso,
                         carga_horaria:cursos[j].carga_horaria,
                         coin:cursos[j].coin,
                         data_hora:cursos[j].data_hora,
+                        data_brasil: data_brasil,
                         descricao:cursos[j].descricao,
                         id_usuario:cursos[j].id_usuario,
                         nome_usuario: cursos[j].nome_usuario,
@@ -1319,13 +1548,32 @@ const pagesController = {
             await CursoAgendado.create({
                 id_curso_publicado: agendado.id_curso_publicado,
                 id_usuario_agendamento: agendado.id_usuario_agendamento,
-                id_status_agendamento: 2,
+                id_status_agendamento: 3,
                 data_hora_agendamento: agendado.data_hora_agendamento,
                 data_hora_solicitada: "",
                 data_publicacao: agora,
                 createAt: agora,
                 updateAt: agora,
                 status_agendamento: true
+            })
+
+            /* enviar mensagem de conclusão do curso */
+            await Message.create({
+                id_curso: id_curso,
+                mensagem: mensagens.agendamentoCanceladoPeloAlunoProfessor,
+                de: "",
+                para: curso.id_usuario,
+                lida: false,
+                tipo: "SISTEMA"
+            })
+
+            await Message.create({
+                id_curso: id_curso,
+                mensagem: mensagens.agendamentoCanceladoPeloAlunoAluno,
+                de: "",
+                para: req.session.usuario.id,
+                lida: false,
+                tipo: "SISTEMA"
             })
         res.redirect("/pages/create/learnCourses")
     },
@@ -1335,7 +1583,7 @@ const pagesController = {
         
         let {count: size, rows: agendamentos} = await CursoAgendado.findAndCountAll({
         where: {
-            id_status_agendamento: 5,
+            id_status_agendamento: 2,
             status_agendamento: true,
             id_usuario_agendamento: req.session.usuario.id
         },
@@ -1370,7 +1618,8 @@ const pagesController = {
         listaAgendamentos.push({
             id_usuario_agendamento: agendamento.id_usuario_agendamento,
             id_status_agendamento: agendamento.id_status_agendamento,
-            id_curso_publicado: agendamento.id_curso_publicado
+            id_curso_publicado: agendamento.id_curso_publicado,
+            data_hora_agendamento: agendamento.data_hora_agendamento
         })
 
     })
@@ -1378,12 +1627,14 @@ const pagesController = {
     for(let i = 0; i < listaAgendamentos.length; i++){
         for(let j = 0; j < cursos.length; j++){
             if(listaAgendamentos[i].id_curso_publicado === cursos[j].id){
+                let data_brasil = moment(listaAgendamentos[i].data_hora_agendamento).format('llll') 
                 listaCursos.push({
                     id:cursos[j].id,
                     curso:cursos[j].curso,
                     carga_horaria:cursos[j].carga_horaria,
                     coin:cursos[j].coin,
                     data_hora:cursos[j].data_hora,
+                    data_brasil: data_brasil,
                     descricao:cursos[j].descricao,
                     id_usuario:cursos[j].id_usuario,
                     nome_usuario: cursos[j].nome_usuario,
@@ -1403,15 +1654,14 @@ const pagesController = {
     }
 
     res.render("finishedSchedule",{usuarios: req.session.usuario, page, totalPages, listaCursos})
-    },
+},
     message: async(req, res, next)=>{
         let { page = 1 } = req.query;
         page = parseInt(page)
         
-        let {count: size, rows: curso} = await CursoPublicado.findAndCountAll({
+        let {count: size, rows: message} = await Message.findAndCountAll({
             where: {
-                id_status_curso:
-                    {[Op.ne]:[4]}
+                para: req.session.usuario.id,
             },
             order: ['id'],
             limit: limitMsg,
@@ -1426,75 +1676,30 @@ const pagesController = {
             }
         })
 
-        let message = await Message.findAll({
-            where:{
-                para:req.session.usuario.id
-            }
-        })
-
-        let mensagens = []
-
-        for(let j = 0; j< curso.length; j++){
-            for(let i = 0; i< message.length; i++){
-                for(let k =0; k< agendamento.length; k++){
-                    if(message[i].id_curso == curso[j].id && message[i].id_curso == agendamento[k].id_curso_publicado || message[i].id_curso == 0){
-                        mensagens.push({
-                            id_curso: curso[j].id,
-                            curso: curso[j].curso,
-                            carga_horaria: curso[j].carga_horaria,
-                            coin: curso[j].coin,
-                            data_hora: curso[j].data_hora,
-                            descricao: curso[j].descricao,
-                            professor: curso[j].nome_usuario,
-                            data_hora_solicitada: agendamento[k].data_hora_solicitada,
-                            id_mensagem: message[i].id,
-                            mensagem: message[i].mensagem,
-                            lida: message[i].lida,
-                            id_curso_mensagem: message[i].id_curso
-                        })
-                    }
-                }
-            }
-        }
-        
-        let msg = []
-        mensagens.forEach(msgs =>{
-            msg.push({
-                curso: msgs.mensagem,
-                id_curso: msgs.id_curso_mensagem
-            })
-        })
-        console.log(msg);
-        
-            console.log("mensagens: "+mensagens);
-
-            if(typeof(mensagens) == "undefined"){
-                mensagens = {
-                    curso: "",
-                    carga_horaria: "",
-                    coin: "",
-                    data_hora: "",
-                    descricao: "",
-                    professor: "",
-                    data_hora_solicitada: "",
-                    id_mensagem: "",
+        // let message = await Message.findAll({
+        //     where:{
+        //         para:req.session.usuario.id
+        //     }
+        // })
+            if(typeof(message) == "undefined"){
+                message = {
+                    id: "",
+                    id_curso: "",
                     mensagem: "",
                     lida: false
                 }
-                res.render("messages",{usuarios: req.session.usuario, page, totalPages, mensagens})
+                res.render("messages",{usuarios: req.session.usuario, page, totalPages, message})
             }   
-            res.render("messages",{usuarios: req.session.usuario, page, totalPages, mensagens})
+            res.render("messages",{usuarios: req.session.usuario, page, totalPages, message})
     },
     messageChecked: async(req, res, next)=>{
-        let { id_message } = req.params
+        let { id_message, tipo} = req.params
 
         let mensagem = await Message.findOne({
             where:{
                 id: id_message
             }
         }) 
-
-        console.log(id_message);
         
         if(mensagem.lida == false){
             await mensagem.update({
@@ -1505,8 +1710,9 @@ const pagesController = {
                 lida: false
             })
         }
-        
+
         res.redirect("/pages/create/message")
+        
     },
     sendMessageDados: async(req, res, next)=>{
         let { id_curso } = req.params
@@ -1517,184 +1723,182 @@ const pagesController = {
             }
         })
 
-        res.render("sendMessage", {usuarios: req.session.usuario, curso})
+        let mensagens = await Message.findOne({
+            where:{
+                id_curso: id_curso
+            }
+        })
+
+        res.render("sendMessage", {usuarios: req.session.usuario, curso, mensagens})
     },
     sendMessage: async(req, res, next) =>{
-        let { id_curso, mensagem, usuario_id} = req.body
-        console.log("idCurso: "+id_curso+"Mensagem: "+mensagem+"Usuario ID: "+usuario_id);    
-        await Message.create({
+        let { id_curso } = req.params
+        let { usuario_id, mensagem, id_msg} = req.body
+        console.log("Curso: "+id_curso+ "Usuario: "+usuario_id+" - Mensagem: "+mensagem );
+
+        let msg = await Message.findOne({
+            where:{
+                id: id_msg,
+                id_curso: id_curso
+            }
+        })
+
+        if(msg.para == req.session.usuario.id){
+            await Message.create({
+                    id_curso: id_curso,
+                    mensagem: mensagem,
+                    lida: false,
+                    tipo: "PROFESSOR",
+                    de: req.session.usuario.id,
+                    para: msg.de,
+                 })
+        }else{
+            await Message.create({
                 id_curso: id_curso,
                 mensagem: mensagem,
-                de: req.session.usuario.id,
-                para: usuario_id,
                 lida: false,
-                tipo: "PROFESSOR"
+                tipo: "PROFESSOR",
+                de: req.session.usuario.id,
+                para: msg.para,
              })
-             res.rendirect("/pages/create/message")
+        }
+
+
+
+        res.redirect("/pages/create/message")
         },
-        readMessages: async(req, res, next)=>{
+    readMessages: async(req, res, next)=>{
             let { page = 1 } = req.query;
-            page = parseInt(page)
-            
-            let {count: size, rows: curso} = await CursoPublicado.findAndCountAll({
-                where: {
-                    id_status_curso:
-                        {[Op.ne]:[4]}
-                },
-                order: ['id'],
-                limit: limitMsg,
-                offset: ((page - 1) * limitMsg)
-              });
-    
-            let totalPages = Math.ceil(size / limitMsg);         
-    
-            let agendamento = await CursoAgendado.findAll({
-                where:{
-                    status_agendamento: true
-                }
-            })
-    
-            let message = await Message.findAll({
-                where:{
-                    para:req.session.usuario.id,
-                    lida: true
-                }
-            })
-    
-            let mensagens = []
-    
-            for(let j = 0; j< curso.length; j++){
-                for(let i = 0; i< message.length; i++){
-                    for(let k =0; k< agendamento.length; k++){
-                        if(message[i].id_curso == curso[j].id && message[i].id_curso == agendamento[k].id_curso_publicado || message[i].id_curso == 0){
-                            mensagens.push({
-                                id_curso: curso[j].id,
-                                curso: curso[j].curso,
-                                carga_horaria: curso[j].carga_horaria,
-                                coin: curso[j].coin,
-                                data_hora: curso[j].data_hora,
-                                descricao: curso[j].descricao,
-                                professor: curso[j].nome_usuario,
-                                data_hora_solicitada: agendamento[k].data_hora_solicitada,
-                                id_mensagem: message[i].id,
-                                mensagem: message[i].mensagem,
-                                lida: message[i].lida,
-                                id_curso_mensagem: message[i].id_curso
-                            })
-                        }
-                    }
-                }
+        page = parseInt(page)
+        
+        let {count: size, rows: message} = await Message.findAndCountAll({
+            where: {
+                para: req.session.usuario.id,
+                lida: true
+            },
+            order: ['id'],
+            limit: limitMsg,
+            offset: ((page - 1) * limitMsg)
+          });
+
+        let totalPages = Math.ceil(size / limitMsg);         
+
+        let agendamento = await CursoAgendado.findAll({
+            where:{
+                status_agendamento: true
             }
-            
-            let msg = []
-            mensagens.forEach(msgs =>{
-                msg.push({
-                    curso: msgs.mensagem,
-                    id_curso: msgs.id_curso_mensagem
-                })
-            })
-            console.log(msg);
-            
-                console.log("mensagens: "+mensagens);
-    
-                if(typeof(mensagens) == "undefined"){
-                    mensagens = {
-                        curso: "",
-                        carga_horaria: "",
-                        coin: "",
-                        data_hora: "",
-                        descricao: "",
-                        professor: "",
-                        data_hora_solicitada: "",
-                        id_mensagem: "",
-                        mensagem: "",
-                        lida: false
-                    }
-                    res.render("readMessages",{usuarios: req.session.usuario, page, totalPages, mensagens})
-                }   
-                res.render("readMessages",{usuarios: req.session.usuario, page, totalPages, mensagens})
+        })
+
+            if(typeof(message) == "undefined"){
+                message = {
+                    id: "",
+                    id_curso: "",
+                    mensagem: "",
+                    lida: false
+                }
+                res.render("readMessages",{usuarios: req.session.usuario, page, totalPages, message})
+            }   
+            res.render("readMessages",{usuarios: req.session.usuario, page, totalPages, message})
     },
     unreadMessages: async(req, res, next)=>{
         let { page = 1 } = req.query;
-            page = parseInt(page)
-            
-            let {count: size, rows: curso} = await CursoPublicado.findAndCountAll({
-                where: {
-                    id_status_curso:
-                        {[Op.ne]:[4]}
-                },
-                order: ['id'],
-                limit: limitMsg,
-                offset: ((page - 1) * limitMsg)
-              });
-    
-            let totalPages = Math.ceil(size / limitMsg);         
-    
-            let agendamento = await CursoAgendado.findAll({
-                where:{
-                    status_agendamento: true
-                }
-            })
-    
-            let message = await Message.findAll({
-                where:{
-                    para:req.session.usuario.id,
+        page = parseInt(page)
+        
+        let {count: size, rows: message} = await Message.findAndCountAll({
+            where: {
+                para: req.session.usuario.id,
+                lida: false
+            },
+            order: ['id'],
+            limit: limitMsg,
+            offset: ((page - 1) * limitMsg)
+          });
+
+        let totalPages = Math.ceil(size / limitMsg);         
+
+        let agendamento = await CursoAgendado.findAll({
+            where:{
+                status_agendamento: true
+            }
+        })
+
+            if(typeof(message) == "undefined"){
+                message = {
+                    id: "",
+                    id_curso: "",
+                    mensagem: "",
                     lida: false
                 }
-            })
-    
-            let mensagens = []
-    
-            for(let j = 0; j< curso.length; j++){
-                for(let i = 0; i< message.length; i++){
-                    for(let k =0; k< agendamento.length; k++){
-                        if(message[i].id_curso == curso[j].id && message[i].id_curso == agendamento[k].id_curso_publicado || message[i].id_curso == 0){
-                            mensagens.push({
-                                id_curso: curso[j].id,
-                                curso: curso[j].curso,
-                                carga_horaria: curso[j].carga_horaria,
-                                coin: curso[j].coin,
-                                data_hora: curso[j].data_hora,
-                                descricao: curso[j].descricao,
-                                professor: curso[j].nome_usuario,
-                                data_hora_solicitada: agendamento[k].data_hora_solicitada,
-                                id_mensagem: message[i].id,
-                                mensagem: message[i].mensagem,
-                                lida: message[i].lida,
-                                id_curso_mensagem: message[i].id_curso
-                            })
-                        }
-                    }
+                res.render("unreadMessages",{usuarios: req.session.usuario, page, totalPages, message})
+            }   
+            res.render("unreadMessages",{usuarios: req.session.usuario, page, totalPages, message})
+    },
+    cancelScheduled: async (req, res, next)=>{
+        let { id_curso } = req.params
+
+        let agendamento = await CursoAgendado.update(
+            { id_status_agendamento: 3 },
+            {
+                where:{
+                    id_curso_publicado: id_curso
                 }
-            }
-            
-            let msg = []
-            mensagens.forEach(msgs =>{
-                msg.push({
-                    curso: msgs.mensagem,
-                    id_curso: msgs.id_curso_mensagem
-                })
             })
-            console.log(msg);
+        
+        let devolverCoin = await CursoPublicado.findOne({
+            where:{
+                id: id_curso
+            }
+        })
+
+        
+        let curso = await CursoPublicado.update(
+            { id_status_curso: 4 },
+            {
+                where: {
+                    id: id_curso
+                }
+            })
             
-                console.log("mensagens: "+mensagens);
-    
-                if(typeof(mensagens) == "undefined"){
-                    mensagens = {
-                        curso: "",
-                        carga_horaria: "",
-                        coin: "",
-                        data_hora: "",
-                        descricao: "",
-                        professor: "",
-                        data_hora_solicitada: "",
-                        id_mensagem: "",
-                        mensagem: "",
-                        lida: false
-                    }
-                    res.render("unreadMessages",{usuarios: req.session.usuario, page, totalPages, mensagens})
-                }   
-                res.render("unreadMessages",{usuarios: req.session.usuario, page, totalPages, mensagens})
+            let aluno = await CursoAgendado.findOne({
+                where: {
+                    id_curso_publicado: id_curso
+                }
+            })
+            
+            let credito = await CoinUsuario.create({
+                tipo: "D",
+                coin: devolverCoin.coin,
+                caminho: "Devolução por cancelamento do curso "+devolverCoin.curso,
+                id_usuario: aluno.id_usuario_agendamento 
+            })
+
+            let debito = await CoinUsuario.create({
+                tipo: "D",
+                coin: devolverCoin.coin - devolverCoin.coin - devolverCoin.coin,
+                caminho: "Devolução por cancelamento do curso "+devolverCoin.curso,
+                id_usuario: req.session.usuario.id 
+            })
+
+            /* enviar mensagem de cancelamento de agendamento do curso */
+            await Message.create({
+                id_curso: id_curso,
+                mensagem: mensagens.cancelamentoAgendamentoCursoProfessor,
+                de: "",
+                para: req.session.usuario.id,
+                lida: false,
+                tipo: "SISTEMA"
+            })
+
+            await Message.create({
+                id_curso: id_curso,
+                mensagem: mensagens.cancelamentoAgendamentoCursoAluno,
+                de: "",
+                para: aluno.id_usuario_agendamento,
+                lida: false,
+                tipo: "SISTEMA"
+            })
+        
+        res.redirect("/pages/create/publicated/cancel")
     }
 }
 

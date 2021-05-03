@@ -8,4 +8,7 @@ router.get('/', mainController.index)
 /* GET main page */
 router.get('/main', mainController.main)
 
+/* GET know+ page */
+router.get('/knowMore', mainController.knowMore)
+
 module.exports = router;

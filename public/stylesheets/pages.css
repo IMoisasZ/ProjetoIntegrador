@@ -41,7 +41,7 @@
 #msg-public-curso{
     width: 37%;
     text-align: justify;
-    margin: -7% 0% 0% -1%;
+    margin: -6% 0% 0% -1%;
 }
 
 .focus{
@@ -490,10 +490,21 @@ textarea {
     margin: -90px 0px 0px -210px;
 }
 
-.move{
-    position: fixed;
-    top: 88.2%;
-    left: 62%;
+.move-msg{
+    position: absolute;
+    top: 91%;
+    left: 40%;
+    text-align: center;
+}
+
+.move-publicated{
+    display: fle;
+    margin: 110% 0% 0% 315%;
+}
+
+.move-move-scheduled{
+    display: flex;
+    margin: 110% 0% 0% 315%;
 }
 
 .page-item{
@@ -538,4 +549,10 @@ textarea {
 
 #modal-body-msg{
     font-weight: 500;
+}
+
+#pagination{
+    position: absolute;
+    left: 38%;
+    top: 88%;
 }

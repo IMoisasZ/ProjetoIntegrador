@@ -33,7 +33,9 @@
                   <th scope="col">#</th>
                   <th scope="col">Curso</th>
                   <th scope="col">Coin</th>
+                  <th scope="col">Carga horária</th>
                   <th scope="col">Data/Hora</th>
+                  <th scope="col">Aluno</th>
                 </tr>
               </thead>
               <tbody>
@@ -42,7 +44,9 @@
                     <th scope="row"><%= element.id %></th>
                     <td><%= element.curso %></td>
                     <td><%= element.coin %></td>
-                    <td><%= element.data_hora%></td>
+                    <td><%= element.carga_horaria %></td>
+                    <td><%= element.data_brasil%></td>
+                    <td><%= element.nome_usuario_agendado%></td>
                   </tr>
                   <% }) %>
               </tbody>
@@ -54,7 +58,7 @@
                     <% 
                       let hrefPrevious = ''
                       if(page > 1){
-                          hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
+                          hrefPrevious = '/pages/create/publicated/finished?page=' + (page - 1)
                         }
                     %> 
                     <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
@@ -66,7 +70,7 @@
                     <% 
                       let hrefNext = ''
                       if(totalPages > page){
-                          hrefNext = '/pages/create/publicated?page=' + (page + 1)
+                          hrefNext = '/pages/create/publicated/finished?page=' + (page + 1)
                         }
                     %> 
                     <a class="page-link" href="<%= hrefNext %>" aria-label="Next">

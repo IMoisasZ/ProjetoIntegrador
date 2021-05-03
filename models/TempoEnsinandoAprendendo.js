@@ -3,7 +3,8 @@ module.exports = (sequelize, DataType) => {
         id_curso:DataType.INTEGER,
         id_usuario: DataType.INTEGER,
         tipo: DataType.STRING,
-        coin:DataType.INTEGER,
+        carga_horaria:DataType.INTEGER,
+        e_a: DataType.STRING,
     },{
         tableName: 'tempo_ensinado_aprendendo',
         timestamps: true

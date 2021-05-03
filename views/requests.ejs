@@ -43,27 +43,28 @@
           <div class="main-content">
             <div class="main-box ">
               <section class="requests-todo">
-                <h1 class="main-title" id="requestsTitle"><%= listaAgendamentos.curso %></h1>
+                <h1 class="main-title" id="requestsTitle" data-bs-toggle="tooltip" data-bs-placement="top" title="Curso"><%= listaAgendamentos.curso %></h1>
                 <form action="/pages/requests/acept" method="POST">
                 <div class="requests-box">
-            <i class="bx bx-user config-icon"></i>
-            <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" value="<%= listaAgendamentos.nome_usuario_curso %>"/>
-            <input type="text" id="id_agendamento" class="request-input" name="id_agendamento" hidden value="<%= listaAgendamentos.id_agendamento %>"/>
-            <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
-            <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
-            <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
+              <i class="bx bx-user config-icon"></i>
+              <input type="text" id="nome_usuario_curso" class="request-input" name="nome_usuario_curso" value="<%= listaAgendamentos.nome_usuario_curso %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Solicitante"/>
+              <input type="text" id="id_agendamento" class="request-input" name="id_agendamento" hidden value="<%= listaAgendamentos.id_agendamento %>"/>
+              <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
+              <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_publicado" hidden value="<%= listaAgendamentos.id_curso_publicado %>"/>
+              <input type="text" id="id_usuario_curso" class="request-input" name="id_usuario_curso" hidden value="<%= listaAgendamentos.id_usuario_curso %>"/>
+              <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
           </div>
           <div class="requests-box">
-            <i class="bx bx-time config-icon"></i>
-            <textarea type="text" id="data_hora_agendada" class="request-input" name="data_hora_agendada"><%= listaAgendamentos.data_hora %></textarea>
+            <i class='bx bx-calendar-check config-icon'></i>
+            <textarea type="text" id="data_hora_agendada" class="request-input" name="data_hora_agendada" data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora agendamento"><%= listaAgendamentos.data_hora_agendado_brasil %></textarea>
           </div>
           <div class="requests-box">
-            <i class="bx bx-time config-icon"></i>
-            <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada"><%= listaAgendamentos.data_hora_solicitada %></textarea>
+            <i class='bx bx-calendar config-icon'></i>
+            <textarea type="text" id="data_hora_solicitada" class="request-input" name="data_hora_solicitada" data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora solicitada"><%= listaAgendamentos.data_hora_solicitada_brasil %></textarea>
           </div>
           <div class="requests-box">
             <i class="bx bx-coin config-icon"></i>
-            <input type="text" id="coin" class="request-input" name="coin" value="<%= listaAgendamentos.coin %>"/>
+            <input type="text" id="coin" class="request-input" name="coin" value="<%= listaAgendamentos.coin %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Coin(s)"/>
           </div>
             <div class="btn-req-confirm">
               <button type="button" class="btn btn-primary requestsbtn confirm" data-bs-toggle="modal" data-bs-target="#solicitation">aceitar solicitação</button>
@@ -77,8 +78,8 @@
                     </div>
                       <div class="modal-body">
                         <h6>Solicitação de alteração:</h6>
-                          <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora %></p>
-                          <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada %></p>
+                          <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora_agendado_brasil %></p>
+                          <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada_brasil %></p>
                           <p>Confirma a alteração da data/hora de agendamento para a data solicitada?</p>  
                       </div>
                       <div class="modal-footer">
@@ -124,9 +125,9 @@
                             <input type="text" id="id_curso_agendamento" class="request-input" name="id_curso_agendamento" hidden value="<%= listaAgendamentos.id_curso_agendamento %>"/>
                             <input type="text" id="coin" class="request-input" name="coin" hidden value="<%= listaAgendamentos.coin %>"/>
                             <input type="text" id="curso" class="request-input" name="curso" hidden value="<%= listaAgendamentos.curso %>"/>
-                            <h4>Solicitação de alteração:</h4>
-                            <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora %></p>
-                            <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada %></p>
+                            <h6>Solicitação de alteração:</h6>
+                            <p>Data/Hora agendamento: <%= listaAgendamentos.data_hora_agendado_brasil %></p>
+                            <p>Data/Hora solicitada: <%= listaAgendamentos.data_hora_solicitada_brasil %></p>
                             <hr>
                             <p>O cancelamento da solicitação fará com que o(s) coin(s) pagos pelo curso sejam estornados para o aluno.</p>
                             <p>Confirma o cancelamento da solicitação?</p>  

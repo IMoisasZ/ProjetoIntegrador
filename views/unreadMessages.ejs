@@ -26,49 +26,36 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Lida</th>
                   <th scope="col">Mensagem</th>
-                  <th colspan="2">Ações</th>
                 </tr>
               </thead>
               <tbody>
-                <% mensagens.forEach(element => { %>
-                  <form action="/pages/create/message/<%= element.id_mensagem %>" method="POST">
+                <% message.forEach(element => { %>
+                  <form action="/pages/create/message/<%= element.id %>" method="POST">
                   <tr>
-                    <th scope="row"><%= element.id_mensagem %></th>
-                    
-                    <% if(element.lida === true) { %>
-                      <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>" checked></td>  
-                      <% } else { %>
-                        <td><input type="checkbox" name="lida" id="" value="<%= element.lida %>"></td>
-                        <% }%>
+                    <th scope="row"><%= element.id %></th>
                         
-                        <% if(element.id_curso_mensagem === 0) { %>
+                        <% if(element.id_curso === 0) { %>
                           <td data-bs-toggle="tooltip" data-bs-placement="top" title="Mensagem do sistema!"><%= element.mensagem %></td>   
-                          <% } else { %>  
-                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="Curso: <%= element.curso %> - Coin: <%= element.coin %> - Data/Hora: <%= element.data_hora %>"> <%= element.mensagem %> - Curso: <%= element.id_curso_mensagem %></td>   
-                            <% } %>
-                            
-                        <% if(element.lida == true) { %>
-                          <td><button type="submit" class="btn-action" data-bs-toggle="modal" data-bs-target="#unReadMsg" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como não lida" id="btn-check"><i class='bx bx-checkbox config-icon'></i></button></td>
-                        <% } else { %>
-                          <td><button type="submit" class="btn-action" data-bs-toggle="modal" data-bs-target="#readMsg" data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar mensagem como lida" id=" btn-check"> <i class='bx bxs-checkbox-checked config-icon'></i></button></td>
+                        <% } else { %>  
+                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="ID Curso: <%= element.id_curso %>"><%= element.mensagem %></td>
                         <% } %>
-
                         </form>
+                                
+                      </tr>
                           <% }) %>
                         </tbody>
                       </table>
                       
                  <!-- paginacao  -->
                   <div class="d-flex justify-content-center mt-3" id="pagination">
-                    <nav aria-label="Page navigation example" class="move">
+                    <nav aria-label="Page navigation example" class="move-msg">
                       <ul class="pagination">
                         <li class="page-item">
                           <% 
                             let hrefPrevious = ''
                             if(page > 1){
-                                hrefPrevious = '/pages/create/publicated?page=' + (page - 1)
+                                hrefPrevious = '/pages/create/message/unreadMessages?page=' + (page - 1)
                               }
                           %> 
                           <a class="page-link" href="<%= hrefPrevious %>" aria-label="Previous">
@@ -80,7 +67,7 @@
                           <% 
                             let hrefNext = ''
                             if(totalPages > page){
-                                hrefNext = '/pages/create/publicated?page=' + (page + 1)
+                                hrefNext = '/pages/create/message/unreadMessages?page=' + (page + 1)
                               }
                           %> 
                           <a class="page-link" href="<%= hrefNext %>" aria-label="Next">
@@ -106,4 +93,3 @@
 
   </body>
 </html>
-

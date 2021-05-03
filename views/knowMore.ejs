@@ -1,0 +1,54 @@
+<%- include('./partials/head') %>
+
+<body class="slides">
+  <a href="/">
+    <img class="homeSlides" src="/images/home.svg">
+  </a>
+<main>
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img class="bubble" src="/images/slides/animation.svg" alt="">
+        <img src="/images/slides/first.png" class="d-block" id="know" alt="...">
+        <img class="animates" src="/images/slides/files.png" alt="">
+        <div class="knowmoretext">
+          <h2>CODE, SHARE & LEARN</h2>
+          <h4>programe, compartilhe e aprenda em uma plataforma onde você pode assistir ou lecionar cursos sobre programação com a nossa moeda.</h4>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="10000">
+        <img src="/images/slides/coin.png" class="coin" alt="...">
+        <h2 class="cointitle">COINS</h2>
+        <h4 class="cointext">a nossa moeda são as coins. você as usa para comprar cursos, e as recebe ao lecionar cursos ou comprando mesmo!</h4>
+        
+        </div>
+      <div class="carousel-item" data-bs-interval="10000">
+        <h2 class="col-md-4 service-box" id="lastslideinv">gostou? <br> junte-se a nós!</h2>
+        <img class="sliderheader" src="/images/slides/header.jpeg" alt="">
+        <img class="sliderfooter" src="/images/slides/footer.jpeg" alt="">
+        <img class="baloon" src="/images/slides/baloon.jpeg" alt="">
+<img class="lastone" src="/images/slides/lastone.png" alt="">
+        <img class="monitor" src="/images/slides/monitor.png" alt=""> 
+        <a href="/users/signUp"><button class="btn btn-primary mt-3 area-btn row" id="slidesignin">cadastrar</button></a> 
+        </div>
+      </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</main>
+
+
+  </body>
+
+  </html>

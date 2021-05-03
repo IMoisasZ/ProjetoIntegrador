@@ -38,39 +38,38 @@
     <div class="main-box ">
       <section class="requests-todo">
         <form action="/pages/new" method="POST">
-          <input class="main-title" id="requestsTitle" name="nome_curso" readonly value="<%= listaCursos.curso %>" />
+          <input class="main-title" id="requestsTitle" name="nome_curso" readonly value="<%= listaCursos.curso %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Curso" />
           <input type="text" name="id_curso" value="<%= listaCursos.id%>" hidden>
           
           <div class="requests-box">
             <i class="bx bx-user config-icon"></i>
             <input type="text" id="user" class="request-input" name="usuario" placeholder="publicador"
-            value="Ministrante: <%= listaCursos.nome_usuario %>" />
-            <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden
-            value="<%= listaCursos.id_usuario %>" />
+            value="<%= listaCursos.nome_usuario %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Professor" />
+            <input type="text" id="user" class="request-input" name="id_usuario" placeholder="publicador" hidden value="<%= listaCursos.id_usuario %>" />
           </div>
           
           <div class="requests-box">
             <i class="bx bx-time config-icon"></i>
             <input type="text" id="time" class="request-input" name="hora" placeholder="hora"
-              value="Carga Horária: <%= listaCursos.carga_horaria %>" />
+              value="<%= listaCursos.carga_horaria %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Carga horária"/>
             </div>
             <div class="requests-box">
               <i class="bx bx-coin-stack config-icon"></i>
               <input type="text" id="coin" class="request-input" name="coin" placeholder="coin" readonly
-              value="<%= listaCursos.coin %>" />
+              value="<%= listaCursos.coin %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Coin(s)" />
             </div>
             
             <div class="requests-box">
               <i class="bx bx-calendar config-icon"></i>
               <textarea type="text" id="data" class="request-input" name="data" placeholder="data" cols="25" rows="2"
-              readonly><%= listaCursos.data_hora %></textarea>
+              readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora do curso"><%= listaCursos.data_hora_brasil %></textarea>
               <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>" />
             </div>
             
             <div class="requests-box" id="newdescription">
               <i class="bx bx-book config-icon"></i>
             <textarea name="mensagem" id="mensagem" class="request-input" cols="23" rows="3" placeholder="mensagem"
-            reaonly><%= listaCursos.descricao %></textarea>
+            reaonly data-bs-toggle="tooltip" data-bs-placement="top" title="Descrição do curso"><%= listaCursos.descricao %></textarea>
           </div>
         </div>
       <div>
@@ -92,7 +91,7 @@
             <h5 class="modal-title" id="confirm-schedule">Agendamento confirmado</h5>
           </div>
           <div class="modal-body">
-            <p>Agendamento realizado com sucesso!</p>
+            <p>O agendamento do curso <strong><%= listaCursos.curso %></strong> foi realizado com sucesso!</p>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">sair</button>
@@ -116,7 +115,8 @@
             <div class="modal-body">
               <label for="data_hora_atual" class="label">Data/Hora atual</label>
               <textarea type="text" name="data_hora_atual" class="request-input" id="data_hora_atual"
-              readonly><%= listaCursos.data_hora %></textarea>
+              readonly><%= listaCursos.data_hora_brasil %></textarea>
+              <input type="text" name="data_atual" hidden value="<%= listaCursos.data_hora %>" />
               <label for="data_hora_nova" class="label">Data/hora solicitada</label>
               <input type="datetime-local" class="request-input" name="data_hora_nova" id="data_hora_nova">
             </div>
@@ -138,8 +138,8 @@
               <div class="modal-body">
                 <p>Solicitação para alteração de data/hora enviada com sucesso!<p>
                 <p>Assim que o professor aceitar ou negar sua solicitação, você receberá uma mensagem no chat.<p>
-                <p>Você pode tambem verificar o status do curso em <strong>"aprender => verificar agendamentos."</p>
-                  <p>Caso você tenha alguma duvida, entre em contato via chat com o professo!</p>  
+                <p>Você tambem pode verificar o status do curso em <strong>"aprender => minhas solicitações."</p>
+                  <p>Caso você tenha alguma dúvida, entre em contato via chat com o professor!</p>  
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">sair</button>
@@ -163,7 +163,7 @@
               <h5 class="modal-title" id="confirm-schedule-nok">Saldo insulficiente</h5>
             </div>
             <div class="modal-body">
-              <p>Você não tem saldo disponivel para adquirir esse curso!</p>
+              <p>Você não tem saldo disponível para adquirir esse curso!</p>
               <p>Publique e um curso para ganhar mais coin(s)! <a href="/pages/create">Publicar curso?</a></p>
             </div>
             <div class="modal-footer">

@@ -214,6 +214,231 @@ body {
   .main-button:hover {
     background-color: var(--first-color-dark);
   }
+
+/* KNOWMORE */
+/*img*/
+.homeSlides {
+  position: absolute;
+    width: 30px;
+    left: 20px;
+    z-index: 100;
+}
+
+.slides {
+  overflow-y:hidden;
+  overflow-x: hidden;
+}
+
+#know {
+  width: 65rem;
+    margin-top: -314px;
+}
+
+.coin {
+  width: 1401px;
+    margin-top: -612px;
+    margin-left: 127px;
+}
+
+.cointitle {
+  position: absolute;
+  top: 95px;
+  font-family: 'Luckiest Guy';
+  font-weight: 900;
+  font-size: 91px;
+  left: 75px;
+}
+
+.cointext {
+  position: absolute;
+    top: 218px;
+    font-size: 47px;
+    width: 771px;
+    font-weight: 800;
+    left: 36px;
+    font-family: 'Poppins';
+    text-indent: 30px;
+}
+
+#lastslide {
+  margin-top: -53px;
+  margin-left: -67px;
+  width: 861px;
+  overflow-y:hidden;
+  overflow-x: hidden;
+}
+
+.lasttext {
+  font-size: 62px;
+  font-family: 'Poppins';
+  position: absolute;
+  top: 50px;
+  right: 17px;
+}
+
+.monitor {
+  margin-top: -122px;
+  margin-left: 17px;
+}
+
+.pana {
+  position: absolute;
+top: -122px;
+}
+
+#slidesignin {
+  position: absolute;
+    top: 243px;
+    right: 597px;
+    font-family: 'Poppins';
+    width: 266px;
+    height: 61px;
+    font-size: 33px;
+    border-radius: 46px;
+    font-weight: 700;
+    background-color: var(--first-color);
+    border-color: var(--first-color);
+}
+
+.sliderheader {
+  position: absolute;
+    top: 75px;
+    width: 631px;
+    left: 365px;
+    border-radius: 60px;
+}
+
+.baloon {
+  position: absolute;
+    top: 111px;
+    left: 449px;
+    border-radius: 44px;
+    height: 296px;
+    width: 434px;
+    border-top-left-radius: inherit;
+    border-style: ridge;
+}
+
+.lastone {
+  position: absolute;
+    top: -412px;
+}
+
+#lastslideinv {
+  position: absolute;
+    top: 130px;
+    left: 486px;
+    z-index: 1;
+    font-weight: 800;
+    font-size: 43px;
+    text-align: initial;
+}
+
+.carousel-inner{
+  cursor: default;
+}
+
+.sliderfooter {
+  position: absolute;
+  top: 432px;
+  width: 631px;
+  left: 365px;
+}
+
+.bubble {
+  left: 5px;
+    width: 566px;
+    position: absolute;
+    top: -39px;
+}
+
+.animates {
+  position: absolute;
+    top: -56px;
+    width: 696px;
+    right: -76px;
+}
+
+
+.lastdetails{
+  position: absolute;
+}
+
+.knowmoretext {
+  position: absolute;
+  top: 1rem;
+  right: 7px;
+  text-align: initial;
+}
+
+.knowmoretext, h2, h4{
+color: var(--first-color-darkest);
+}
+
+.knowmoretext h2 {
+  font-size: 75px;
+    font-family: 'Luckiest Guy';
+    margin-right: 56px;
+}
+
+.knowmoretext h4 {
+  width: 34rem;
+    font-size: 34px;
+    font-family: var(--body-font);
+    font-weight: 800;
+    position: absolute;
+    right: -6px;
+    top: 185px;
+    text-align: center;
+}
+
+.carousel-dark .carousel-indicators [data-bs-target] {
+  background-color: var(--first-color-dark);
+}
+.carousel-indicators {
+  bottom: 79px;
+}
+
+.carousel-control-next-icon {
+  right: 0;
+  position: absolute;
+  top: auto;
+  bottom: auto;
+}
+
+.carousel-control-prev-icon {
+  left: 0;
+  position: absolute;
+  top: auto;
+  bottom: auto;
+}
+
+.carousel-dark .carousel-control-next-icon, .carousel-dark .carousel-control-prev-icon {
+  filter: contrast(0.5);
+}
+  
+    .main-box {
+      width: 348px;
+      justify-self: center;
+    }
+    .main-content {
+      grid-template-columns: repeat(2, max-content);
+      justify-content: center;
+      align-items: center;
+      margin-left: 5rem;
+    }
+  
+    .main-img {
+      display: flex;
+      width: 600px;
+      height: 588px;
+      background-color: var(--first-color-lighter);
+      border-radius: 1rem;
+      justify-content: center;
+    }
+
+
+
   
   
   

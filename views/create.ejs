@@ -11,7 +11,7 @@
           <img src="/images/create.svg" alt="create" />
           <% if(typeof(sucesso) !== "undefined") { %>
             <div class="alert alert-success" id="msg-public-curso" role="alert">
-                  <li>Curso publicado com sucesso!<a href="/main">Ir para o menu?</a></li>
+                  <li>Curso publicado com sucesso!<a href="/main"> Ir para o menu?</a></li>
             </div>
           <% } %>
         </div>
@@ -41,7 +41,7 @@
   </div> -->
 
   <div class="create-box">
-    <input type="datetime-local" placeholder="data e hora" class="login-input" name="data_hora" required/>
+    <input type="datetime-local" placeholder="data e hora" class="login-input" name="data_hora" required data-bs-toggle="tooltip" data-bs-placement="top" title="Data/Hora do curso"/>
   </div>
 
   <div class="create-box">

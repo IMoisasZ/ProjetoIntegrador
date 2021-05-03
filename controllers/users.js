@@ -1,9 +1,11 @@
-const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado, Message } = require('../models')
+const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado, Message, TempoEnsinandoAprendendo} = require('../models')
 const { check, validationResult, body } = require('express-validator')
 const {Op} = require('sequelize')
 const bcrypt = require('bcrypt');
 const usersController = {
     signIn:async(req, res, next) => {
+        
+        
         res.render('signIn');
     },
     login: async (req, res, next) =>{
@@ -85,32 +87,23 @@ const usersController = {
         }
     },
     config: async (req, res, nex) =>{
-        let coinTotal = await CoinUsuario.findAll({
+        
+        let totalCoins = await TempoEnsinandoAprendendo.findAll({
             where:{
                 id_usuario: req.session.usuario.id,
-                tipo:
-                {[Op.ne]:['I']}
             }
         })
 
-        console.log(coinTotal);
-        
         let configEnsinando = 0
         let configAprendendo = 0
         
-        coinTotal.forEach(element =>{
-            if(element.coin < 0){
-                configAprendendo += element.coin
-                configEnsinando += 0
-            }
-            if(element.coin > 0){
-                configAprendendo += 0
-                configEnsinando += element.coin 
+        totalCoins.forEach(tempo =>{
+            if(tempo.e_a == "E"){
+                configEnsinando += tempo.carga_horaria
+            }else{
+                configAprendendo += tempo.carga_horaria
             }
         })
-
-        configEnsinando = Math.abs(configEnsinando)
-        configAprendendo =  Math.abs(configAprendendo)
 
         res.render('config',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
     },

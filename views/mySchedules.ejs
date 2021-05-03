@@ -36,7 +36,9 @@
                   <th scope="col">#</th>
                   <th scope="col">Curso</th>
                   <th scope="col">Coin</th>
+                  <th scope="col">Carga horária</th>
                   <th scope="col">Data/Hora</th>
+                  <th scope="col">Professor</th>
                   <th colspan="4">Ações</th>
                 </tr>
               </thead>
@@ -46,9 +48,11 @@
                     <th scope="row"><%= element.id %></th>
                     <td><%= element.curso %></td>
                     <td><%= element.coin %></td>
-                    <td><%= element.data_hora%></td>
+                    <td><%= element.carga_horaria %></td>
+                    <td><%= element.data_brasil %></td>
+                    <td><%= element.nome_usuario %></td>
                     <form action="/pages/create/learnCourses/<%= element.id %>" method="post">
-                      <td><button type="button" class="btn-action" data-bs-toggle="modal" data-bs-target="#cancel-course" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar curso"><i class='bx bxs-error config-icon'id="cancelar"></i></button></td>
+                      <td><button type="button" class="btn-action" data-bs-toggle="modal" data-bs-target="#cancel-course" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar curso <%= element.curso %>"><i class='bx bxs-error config-icon'id="cancelar"></i></button></td>
                     </tr>
                     <% }) %>
                 </tbody>

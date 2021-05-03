@@ -17,8 +17,11 @@ module.exports = {
       tipo: {
         type: Sequelize.STRING,
       },
-      coin:{
+      carga_horaria:{
         type: Sequelize.INTEGER,
+      },
+      e_a:{
+        type: Sequelize.STRING,
       },
       // Timestamps
       createdAt: Sequelize.DATE,

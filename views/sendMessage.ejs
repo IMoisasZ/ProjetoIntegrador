@@ -13,57 +13,57 @@
 
   <div class="form-create">
           
-<form action="/pages/create/message/sendMessage" method="POST">
-
+<form action="/pages/create/message/sendMessage/<%= curso.id %>" method="POST">
   <div class="create-box">
-    <i class="bx bx-book-add login-icon"></i>
-    <input type="text" placeholder="" class="login-input" name="id_curso" value="<%= curso.id %> " readonly/>
-    <input type="text" placeholder="" class="login-input" name="usuario_id" value="<%= curso.usuario_id %> " hidden/>
+    <i class='bx bx-id-card config-icon'></i>
+    <input type="text" placeholder="" class="login-input" name="id_curso" value="<%= curso.id %> " readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Id (numero) do curso"/>
+    <input type="text" placeholder="" class="login-input" name="usuario_id" value="<%= curso.id_usuario %> " hidden/>
+    <input type="text" placeholder="" class="login-input" name="id_msg" value="<%= mensagens.id %> " hidden/>
   </div>
 
   <div class="create-box">
-    <i class="bx bx-timer login-icon"></i>
-    <input type="text" placeholder="" class="login-input" name="curso" value="<%= curso.curso %>" readonly/>
+    <i class='bx bx-book-add config-icon' ></i>
+    <input type="text" placeholder="" class="login-input" name="curso" value="<%= curso.curso %>" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Nome do curso"/>
   </div>
 
   <div class="create-box">
-    <i class="bx bx-coin-stack login-icon"></i>
-    <textarea class="login-input" name="coin" name="data_hora" readonly><%= curso.data_hora %> </textarea>
+    <i class='bx bx-calendar config-icon'></i>
+    <textarea class="login-input" name="coin" name="data_hora" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Data e hora de agendamento"><%= curso.data_hora %> </textarea>
   </div>
   
   <div class="create-box">
-    <i class="bx bx-coin-stack login-icon"></i>
-    <textarea class="login-input" name="coin" name="descricao" readonly><%= curso.descricao %></textarea>
+    <!-- <i class="bx bx-coin-stack login-icon"></i> -->
+    <textarea class="login-input" name="coin" name="descricao" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Descrição do curso"><%= curso.descricao %></textarea>
   </div>
 
   <div class="create-box">
-    <i class="bx bx-coin-stack login-icon"></i>
-    <textarea class="login-input" name="coin" name="mensagem" cols="30" rows="5" placeholder="Digite sua mensagem aqui!"></textarea>
+    <i class='bx bx-message-square-add config-icon'></i>
+    <textarea class="login-input" name="mensagem" cols="30" rows="5" placeholder="Digite sua mensagem aqui!" required></textarea>
   </div>
-
+  
   <div class="btn">
     <button type="button" class="btn mt-3 login-button" data-bs-toggle="modal" data-bs-target="#sendMsg">enviar</button>
   </div>
   
   <div class="modal fade" id="sendMsg" tabindex="-1" aria-labelledby="sendMsg" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="sendMsg">Enviar mensagem</h5>
-          </div>
-            <div class="modal-body">
-              <p>Mensagem enviada com sucesso!</p>  
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">sair</button>
-            </div>
-          </div>
-        </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sendMsg">Enviar mensagem</h5>
+        </div>
+        <div class="modal-body">
+          <p>Mensagem enviada com sucesso!</p>  
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">sair</button>
+        </div>
       </div>
     </div>
-
-</div>
-</div>
+  </div>
+</form>
+      
+    </div>
+  </div>
 </div>
 
 </main>

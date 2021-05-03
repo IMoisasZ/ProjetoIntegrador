@@ -11,7 +11,7 @@
             <section class="requests-todo">
               <form action="/pages/create/publicated/start/<%= list.id_curso %>" method="POST">
                 <input name="id_curso"hidden value="<%= list.id_curso %>"/>
-                <input class="main-title name-course" id="requestsTitle" name="nome_curso" readonly value="<%= list.curso %>"/>
+                <input class="main-title name-course" id="requestsTitle" name="nome_curso" readonly data-bs-toggle="tooltip" data-bs-placement="top" title="Curso" value="<%= list.curso %>"/>
                 
                 <div class="requests-box">
                   <i class="bx bx-time config-icon"></i>
@@ -20,11 +20,12 @@
 
                 <div class="requests-box">
                   <i class="bx bx-calendar config-icon"></i>
-                  <textarea id="data" class="request-input" ata-bs-placement="right" title="Data e hora do curso agendado" name="data_hora_agendado" placeholder="data" readonly><%= list.data_hora %></textarea>
+                  <textarea id="data" class="request-input" ata-bs-placement="right" title="Data e hora do curso agendado" name="data_hora_agendado" placeholder="data" readonly><%= list.data_brasil %></textarea>
+                  <textarea id="data" class="request-input" ata-bs-placement="right" title="Data e hora do curso agendado" name="data_hora_agendado" placeholder="data" readonly hidden><%= list.data_hora %></textarea>
                 </div>
 
                 <div class="requests-box">
-                  <i class="bx bx-calendar config-icon"></i>
+                  <i class='bx bx-user config-icon'></i>
                   <input type="text" id="aluno" class="request-input" ata-bs-placement="right" title="Aluno agendado" ment="right" placeholder="Aluno" value="<%= list.aluno %>"/>
                 </div>
               </section>
@@ -32,7 +33,7 @@
             
                 <div class="btn-request-edit">
                   <div class="btn-req-edit">
-                    <button type="button" class="btn mt-3 requestsbtn alterar" data-bs-toggle="modal" data-bs-target="#start-course">Iniciar curso</button>
+                    <button type="button" class="btn mt-3 requestsbtn alterar" data-bs-toggle="modal" data-bs-target="#start-course">iniciar curso</button>
                   </div>
                 </div>
 
@@ -44,7 +45,7 @@
                       <h5 class="modal-title" id="start-course">Iniciar curso</h5>
                     </div>
                     <div class="modal-body">
-                      <p>Confirma a inicialização do curso?</p>
+                      <p>Confirma a inicialização do curso <strong><%= list.curso %></strong>?</p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">não</button>
@@ -58,13 +59,13 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="confirm-start">Editar curso</h5>
+                      <h5 class="modal-title" id="confirm-start">Iniciar curso</h5>
                     </div>
                     <div class="modal-body">
-                      <p>Curso iniciado com sucesso!</p>
+                      <p>O curso <strong><%= list.curso %></strong> foi iniciado com sucesso!</p>
                     </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Sair</button>
+                      <button type="submit" class="btn btn-primary">sair</button>
                     </div>
                   </form>  
                   </div>

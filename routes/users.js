@@ -41,5 +41,6 @@ router.get('/config', usersController.config)
 /* delete account */
 router.get('/delete', usersController.excluirConta)
 
+
 module.exports = router;
  
