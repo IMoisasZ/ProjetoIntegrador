@@ -1,147 +1,158 @@
-const { Usuario, CoinUsuario, CursoPublicado, CursoAgendado, Message, TempoEnsinandoAprendendo} = require('../models')
+const {
+	Usuario,
+	CoinUsuario,
+	CursoPublicado,
+	CursoAgendado,
+	Message,
+	TempoEnsinandoAprendendo,
+} = require('../models')
 const { check, validationResult, body } = require('express-validator')
-const {Op} = require('sequelize')
-const bcrypt = require('bcrypt');
+const { Op } = require('sequelize')
+const bcrypt = require('bcrypt')
 const usersController = {
-    signIn:async(req, res, next) => {
-        
-        
-        res.render('signIn');
-    },
-    login: async (req, res, next) =>{
-        let { user, senha } = req.body;
-        let usuario = await Usuario.findOne({
-            where:{
-                email: user
-            },
-        });
+	signIn: async (req, res, next) => {
+		res.render('signIn')
+	},
+	login: async (req, res, next) => {
+		let { user, senha } = req.body
+		let usuario = await Usuario.findOne({
+			where: {
+				email: user,
+			},
+		})
 
-        if(!usuario){
-            return res.render('signIn', {notFound: true})
-        }
+		if (!usuario) {
+			return res.render('signIn', { notFound: true })
+		}
 
+		if (!bcrypt.compareSync(senha, usuario.senha)) {
+			return res.render('signIn', { notFound: true })
+		}
 
-        if(!bcrypt.compareSync(senha, usuario.senha)){
-            return res.render('signIn', { notFound: true });
-        }
+		let usuarioJson = await usuario.toJSON()
 
-        let usuarioJson = await usuario.toJSON()
+		usuarioJson.senha = undefined
 
-        usuarioJson.senha = undefined
-        
-        req.session.usuario = usuarioJson;
+		req.session.usuario = usuarioJson
 
-        res.redirect('/main')
-    },
-    logout:async (req, res, next) =>{
-        req.session.destroy();
-        res.redirect('/')
-    },
-    signUp: async (req, res, next) => {
-        res.render('signUp')
-    },
-    createUser: async(req,res, next) =>{
-        // verificando os erros para validação na criação do usuário
-        
-        let { nome_usuario, email, senha } = req.body
+		res.redirect('/main')
+	},
+	logout: async (req, res, next) => {
+		req.session.destroy()
+		res.redirect('/')
+	},
+	signUp: async (req, res, next) => {
+		res.render('signUp')
+	},
+	createUser: async (req, res, next) => {
+		// verificando os erros para validação na criação do usuário
 
-        let listaErros = (validationResult(req));
-        if(listaErros.isEmpty()){
-            
-            // criptografar da senha para incluir no banco
-            let senhaCrypt = bcrypt.hashSync(senha, 10) /* senha criptografada */
-            
-            // incluindo usuário no banco
-            await Usuario.create({
-                nome_usuario: nome_usuario,
-                email: email,
-                senha: senhaCrypt,
-                status: 1, /* 1 = usuario ativo - 0 = usuario bloqueado */
-                tipo_usuario: 0 /* 0 = usuario Administrador; 1 = usuario padrão */
-            })
+		let { nome_usuario, email, senha } = req.body
+		console.log(nome_usuario)
 
-            //pegando o id do usuario cadastrado
-            let idUser = await Usuario.findOne({where:{email}})
+		let listaErros = validationResult(req)
+		if (listaErros.isEmpty()) {
+			// criptografar da senha para incluir no banco
+			let senhaCrypt = bcrypt.hashSync(senha, 10) /* senha criptografada */
 
-            //incluidon os pontos (8coins) iniciais pelo cadastro no sistema
-            await CoinUsuario.create({
-                tipo: 'I', /* I = IN (se cadastrou no sistema)*/
-                coin: 8,
-                caminho: 'Cadastro inicial',
-                id_usuario: idUser.id
-            })
+			// incluindo usuário no banco
+			await Usuario.create({
+				nome_usuario: nome_usuario,
+				email: email,
+				senha: senhaCrypt,
+				status: 1 /* 1 = usuario ativo - 0 = usuario bloqueado */,
+				tipo_usuario: 0 /* 0 = usuario Administrador; 1 = usuario padrão */,
+			})
 
-            /*mensages*/
-            await Message.create({
-                id_curso: "",
-                mensagem: "Seja bem vindo ao CONNEKT. Você ganhou 8 Coins para iniciar na nossa plataforma! Bora aprender e ensinar!",
-                de: "",
-                para: idUser.id,
-                lida: false,
-                tipo: "SISTEMA"
-            })
+			//pegando o id do usuario cadastrado
+			let idUser = await Usuario.findOne({ where: { email } })
 
-            return res.render('signUp', {sucesso: true})
-        }else{
-            return res.render('signUp', {errors: listaErros.errors})
-        }
-    },
-    config: async (req, res, nex) =>{
-        
-        let totalCoins = await TempoEnsinandoAprendendo.findAll({
-            where:{
-                id_usuario: req.session.usuario.id,
-            }
-        })
+			//incluidon os pontos (8coins) iniciais pelo cadastro no sistema
+			await CoinUsuario.create({
+				tipo: 'I' /* I = IN (se cadastrou no sistema)*/,
+				coin: 8,
+				caminho: 'Cadastro inicial',
+				id_usuario: idUser.id,
+			})
 
-        let configEnsinando = 0
-        let configAprendendo = 0
-        
-        totalCoins.forEach(tempo =>{
-            if(tempo.e_a == "E"){
-                configEnsinando += tempo.carga_horaria
-            }else{
-                configAprendendo += tempo.carga_horaria
-            }
-        })
+			/*mensages*/
+			await Message.create({
+				id_curso: '',
+				mensagem:
+					'Seja bem vindo ao CONNEKT. Você ganhou 8 Coins para iniciar na nossa plataforma! Bora aprender e ensinar!',
+				de: '',
+				para: idUser.id,
+				lida: false,
+				tipo: 'SISTEMA',
+			})
 
-        res.render('config',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
-    },
-    excluirConta: async (req,res,next) =>{
-        let ensinando = await CursoPublicado.findAll({
-            where:{
-                id_usuario: req.session.usuario.id,
-                id_status_curso: 6
-            }
-        })
+			return res.render('signUp', { sucesso: true })
+		} else {
+			return res.render('signUp', { errors: listaErros.errors })
+		}
+	},
+	config: async (req, res, nex) => {
+		let totalCoins = await TempoEnsinandoAprendendo.findAll({
+			where: {
+				id_usuario: req.session.usuario.id,
+			},
+		})
 
-        let configEnsinando = 0
-        if(typeof(ensinando) !== "undefined"){
-            ensinando.forEach(element =>{
-                configEnsinando += element.carga_horaria
-            })
-        }     
+		let configEnsinando = 0
+		let configAprendendo = 0
 
-        let aprendendo = await CursoAgendado.findAll({
-            where:{
-                id_usuario_agendamento: req.session.usuario.id,
-            }
-        })
+		totalCoins.forEach((tempo) => {
+			if (tempo.e_a == 'E') {
+				configEnsinando += tempo.carga_horaria
+			} else {
+				configAprendendo += tempo.carga_horaria
+			}
+		})
 
-        let configAprendendo = 0
-        if(typeof(aprendendo) !== "undefined"){
-            for(let i = 0; i < ensinando.length; i++){
-                for(let j = 0; j < aprendendo.length; j++){
-                    if(ensinando.id === aprendendo.id_usuario_agendamento){
-                        configAprendendo += ensinando.carga_horaria 
-                    }
-                }
-            }
-        }
+		res.render('config', {
+			usuarios: req.session.usuario,
+			ensinando: configEnsinando,
+			aprendendo: configAprendendo,
+		})
+	},
+	excluirConta: async (req, res, next) => {
+		let ensinando = await CursoPublicado.findAll({
+			where: {
+				id_usuario: req.session.usuario.id,
+				id_status_curso: 6,
+			},
+		})
 
-        res.render('excluirConta',{usuarios: req.session.usuario, ensinando: configEnsinando, aprendendo: configAprendendo})
-    }
-    
+		let configEnsinando = 0
+		if (typeof ensinando !== 'undefined') {
+			ensinando.forEach((element) => {
+				configEnsinando += element.carga_horaria
+			})
+		}
+
+		let aprendendo = await CursoAgendado.findAll({
+			where: {
+				id_usuario_agendamento: req.session.usuario.id,
+			},
+		})
+
+		let configAprendendo = 0
+		if (typeof aprendendo !== 'undefined') {
+			for (let i = 0; i < ensinando.length; i++) {
+				for (let j = 0; j < aprendendo.length; j++) {
+					if (ensinando.id === aprendendo.id_usuario_agendamento) {
+						configAprendendo += ensinando.carga_horaria
+					}
+				}
+			}
+		}
+
+		res.render('excluirConta', {
+			usuarios: req.session.usuario,
+			ensinando: configEnsinando,
+			aprendendo: configAprendendo,
+		})
+	},
 }
 
-module.exports = usersController;
+module.exports = usersController
